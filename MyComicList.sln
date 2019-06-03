@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyComicList.Domain", "MyComicList.Domain\MyComicList.Domain.csproj", "{5ED70BCC-BCA7-4152-8C37-C3670E8867FA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyComicList.DataAccess", "MyComicList.DataAccess\MyComicList.DataAccess.csproj", "{234CEF61-DD17-4050-A928-4586BD6238F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyComicList.Application", "MyComicList.Application\MyComicList.Application.csproj", "{78DC2A5D-BA1A-40CA-8908-7951FF7E258C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyComicList.EFCommands", "MyComicList.EFCommands\MyComicList.EFCommands.csproj", "{43745521-5298-4383-A338-7EBB2939BF12}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{4B42BB7E-4D51-417F-BCEE-6BF5597E4155}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyComicList.API", "MyComicList.API\MyComicList.API.csproj", "{60624559-4B0A-4E3D-ADE8-E488F0B17420}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5ED70BCC-BCA7-4152-8C37-C3670E8867FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ED70BCC-BCA7-4152-8C37-C3670E8867FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ED70BCC-BCA7-4152-8C37-C3670E8867FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ED70BCC-BCA7-4152-8C37-C3670E8867FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{234CEF61-DD17-4050-A928-4586BD6238F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{234CEF61-DD17-4050-A928-4586BD6238F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{234CEF61-DD17-4050-A928-4586BD6238F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{234CEF61-DD17-4050-A928-4586BD6238F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78DC2A5D-BA1A-40CA-8908-7951FF7E258C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78DC2A5D-BA1A-40CA-8908-7951FF7E258C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78DC2A5D-BA1A-40CA-8908-7951FF7E258C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78DC2A5D-BA1A-40CA-8908-7951FF7E258C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43745521-5298-4383-A338-7EBB2939BF12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43745521-5298-4383-A338-7EBB2939BF12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43745521-5298-4383-A338-7EBB2939BF12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43745521-5298-4383-A338-7EBB2939BF12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60624559-4B0A-4E3D-ADE8-E488F0B17420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60624559-4B0A-4E3D-ADE8-E488F0B17420}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60624559-4B0A-4E3D-ADE8-E488F0B17420}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60624559-4B0A-4E3D-ADE8-E488F0B17420}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{60624559-4B0A-4E3D-ADE8-E488F0B17420} = {4B42BB7E-4D51-417F-BCEE-6BF5597E4155}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75706315-4F78-420B-A559-540B81EE36E6}
+	EndGlobalSection
+EndGlobal
