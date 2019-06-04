@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyComicList.DataAccess.Migrations
 {
     [DbContext(typeof(MyComicListContext))]
-    [Migration("20190603221518_Nullable DeletedAt")]
-    partial class NullableDeletedAt
+    [Migration("20190604185208_Initialize")]
+    partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,9 +26,11 @@ namespace MyComicList.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime?>("DeletedAt");
+                    b.Property<DateTime>("DeletedAt");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -42,7 +44,9 @@ namespace MyComicList.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(30);
 
-                    b.Property<DateTime>("UpdatedAt");
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
 
                     b.HasKey("Id");
 
@@ -58,7 +62,7 @@ namespace MyComicList.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime?>("DeletedAt");
+                    b.Property<DateTime>("DeletedAt");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -94,11 +98,15 @@ namespace MyComicList.DataAccess.Migrations
 
                     b.Property<int>("ComicId");
 
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime?>("DeletedAt");
+                    b.Property<DateTime>("DeletedAt");
 
-                    b.Property<DateTime>("UpdatedAt");
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
 
                     b.HasKey("AuthorId", "ComicId");
 
@@ -117,7 +125,7 @@ namespace MyComicList.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime?>("DeletedAt");
+                    b.Property<DateTime>("DeletedAt");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -139,7 +147,7 @@ namespace MyComicList.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime?>("DeletedAt");
+                    b.Property<DateTime>("DeletedAt");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -167,7 +175,7 @@ namespace MyComicList.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime?>("DeletedAt");
+                    b.Property<DateTime>("DeletedAt");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -185,13 +193,19 @@ namespace MyComicList.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime?>("DeletedAt");
+                    b.Property<DateTime>("DeletedAt");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<DateTime>("UpdatedAt");
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
 
                     b.HasKey("Id");
 
@@ -208,7 +222,7 @@ namespace MyComicList.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime?>("DeletedAt");
+                    b.Property<DateTime>("DeletedAt");
 
                     b.Property<int>("Id");
 
@@ -240,7 +254,7 @@ namespace MyComicList.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime?>("DeletedAt");
+                    b.Property<DateTime>("DeletedAt");
 
                     b.Property<string>("Email");
 

@@ -8,12 +8,11 @@ namespace MyComicList.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Review> builder)
         {
+            builder.ToTable("Reviews");
+
             builder.Property(r => r.Title).HasMaxLength(50);
             builder.Property(r => r.Text).HasMaxLength(500);
             builder.Property(r => r.Rating).IsRequired();
-
-            builder.HasKey(r => new { r.UserId, r.ComicId });
-
         }
     }
 }

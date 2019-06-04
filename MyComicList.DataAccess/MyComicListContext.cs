@@ -23,25 +23,25 @@ namespace MyComicList.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ComicConfiguration());
-            modelBuilder.ApplyConfiguration(new GenreConfiguration());
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new ComicGenreConfiguration());
-            modelBuilder.ApplyConfiguration(new MyListConfiguration());
-            modelBuilder.ApplyConfiguration(new ReviewConfiguration());
-            modelBuilder.ApplyConfiguration(new AuthorConfiguration());
-            modelBuilder.ApplyConfiguration(new ComicAuthorConfiguration());
-            modelBuilder.ApplyConfiguration(new PublisherConfiguration());
-
             DefaultDateValue<Comic>(modelBuilder);
             DefaultDateValue<Genre>(modelBuilder);
             DefaultDateValue<User>(modelBuilder);
-            DefaultDateValue<MyList>(modelBuilder);
-            DefaultDateValue<ComicGenres>(modelBuilder);
-            DefaultDateValue<Review>(modelBuilder);
-            DefaultDateValue<Author>(modelBuilder);
-            DefaultDateValue<ComicAuthors>(modelBuilder);
             DefaultDateValue<Publisher>(modelBuilder);
+            DefaultDateValue<Author>(modelBuilder);
+            DefaultDateValue<MyList>(modelBuilder);
+            DefaultDateValue<Review>(modelBuilder);
+            DefaultDateValue<ComicGenres>(modelBuilder);
+            DefaultDateValue<ComicAuthors>(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new ComicConfiguration());
+            modelBuilder.ApplyConfiguration(new GenreConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new PublisherConfiguration());
+            modelBuilder.ApplyConfiguration(new AuthorConfiguration());
+            modelBuilder.ApplyConfiguration(new MyListConfiguration());
+            modelBuilder.ApplyConfiguration(new ReviewConfiguration());
+            modelBuilder.ApplyConfiguration(new ComicGenreConfiguration());
+            modelBuilder.ApplyConfiguration(new ComicAuthorConfiguration());
         }
 
         private void DefaultDateValue<T>(ModelBuilder modelBuilder)

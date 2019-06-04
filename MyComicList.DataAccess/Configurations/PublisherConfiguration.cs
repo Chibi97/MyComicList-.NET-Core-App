@@ -12,6 +12,7 @@ namespace MyComicList.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<Publisher> builder)
         {
             builder.Property(c => c.Name).HasMaxLength(50).IsRequired();
+            builder.HasIndex(c => c.Name).IsUnique();
         }
     }
 }

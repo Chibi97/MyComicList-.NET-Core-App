@@ -13,11 +13,12 @@ namespace MyComicList.DataAccess.Configurations
         {
             builder.Property(u => u.FirstName).HasMaxLength(30).IsRequired();
             builder.Property(u => u.LastName).HasMaxLength(30).IsRequired();
-
-            builder.Property(u => u.Username)
-                   .HasComputedColumnSql("[FirstName.ToLower()] + '_' + [LastName.ToLower()]");
+            builder.Property(u => u.Email).HasMaxLength(50).IsRequired();
+            builder.Property(u => u.Password).HasMaxLength(100).IsRequired();
+            builder.Property(u => u.Username).HasMaxLength(20).IsRequired();
 
             builder.HasIndex(u => u.Email).IsUnique();
+            builder.HasIndex(u => u.Username).IsUnique();
 
             //builder.HasOne(u => u.Role).WithMany(r => r.Users); one-to-many
 

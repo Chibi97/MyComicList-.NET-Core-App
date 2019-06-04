@@ -19,7 +19,7 @@ namespace MyComicList.DataAccess.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("MyComicList.Domain.Category", b =>
+            modelBuilder.Entity("MyComicList.Domain.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -28,11 +28,21 @@ namespace MyComicList.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime>("DeletedAt");
+                    b.Property<DateTime?>("DeletedAt");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50);
+                        .HasMaxLength(30);
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasComputedColumnSql("[FirstName] + ' ' + [LastName]")
+                        .HasMaxLength(70);
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -40,10 +50,7 @@ namespace MyComicList.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Categories");
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("MyComicList.Domain.Comic", b =>
@@ -55,13 +62,94 @@ namespace MyComicList.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime>("DeletedAt");
+                    b.Property<DateTime?>("DeletedAt");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200);
 
                     b.Property<int>("Issues");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("PublishedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<int?>("PublisherId");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("PublisherId");
+
+                    b.ToTable("Comics");
+                });
+
+            modelBuilder.Entity("MyComicList.Domain.ComicAuthors", b =>
+                {
+                    b.Property<int>("AuthorId");
+
+                    b.Property<int>("ComicId");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<DateTime?>("DeletedAt");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
+
+                    b.HasKey("AuthorId", "ComicId");
+
+                    b.HasIndex("ComicId");
+
+                    b.ToTable("ComicAuthors");
+                });
+
+            modelBuilder.Entity("MyComicList.Domain.ComicGenres", b =>
+                {
+                    b.Property<int>("GenreId");
+
+                    b.Property<int>("ComicId");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<DateTime?>("DeletedAt");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
+
+                    b.HasKey("GenreId", "ComicId");
+
+                    b.HasIndex("ComicId");
+
+                    b.ToTable("ComicGenres");
+                });
+
+            modelBuilder.Entity("MyComicList.Domain.Genre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<DateTime?>("DeletedAt");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -76,33 +164,10 @@ namespace MyComicList.DataAccess.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Comics");
+                    b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("MyComicList.Domain.ComicCategories", b =>
-                {
-                    b.Property<int>("CategoryId");
-
-                    b.Property<int>("ComicId");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("NOW()");
-
-                    b.Property<DateTime>("DeletedAt");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("NOW()");
-
-                    b.HasKey("CategoryId", "ComicId");
-
-                    b.HasIndex("ComicId");
-
-                    b.ToTable("ComicCategories");
-                });
-
-            modelBuilder.Entity("MyComicList.Domain.ComicUsers", b =>
+            modelBuilder.Entity("MyComicList.Domain.MyList", b =>
                 {
                     b.Property<int>("UserId");
 
@@ -112,7 +177,7 @@ namespace MyComicList.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime>("DeletedAt");
+                    b.Property<DateTime?>("DeletedAt");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -122,7 +187,34 @@ namespace MyComicList.DataAccess.Migrations
 
                     b.HasIndex("ComicId");
 
-                    b.ToTable("ComicUsers");
+                    b.ToTable("MyList");
+                });
+
+            modelBuilder.Entity("MyComicList.Domain.Publisher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<DateTime?>("DeletedAt");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("NOW()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Publishers");
                 });
 
             modelBuilder.Entity("MyComicList.Domain.Review", b =>
@@ -136,7 +228,7 @@ namespace MyComicList.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime>("DeletedAt");
+                    b.Property<DateTime?>("DeletedAt");
 
                     b.Property<int>("Rating");
 
@@ -144,7 +236,7 @@ namespace MyComicList.DataAccess.Migrations
                         .HasMaxLength(500);
 
                     b.Property<string>("Title")
-                        .HasMaxLength(30);
+                        .HasMaxLength(50);
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -158,7 +250,7 @@ namespace MyComicList.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Review");
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("MyComicList.Domain.User", b =>
@@ -170,9 +262,11 @@ namespace MyComicList.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime>("DeletedAt");
+                    b.Property<DateTime?>("DeletedAt");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -182,46 +276,71 @@ namespace MyComicList.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(30);
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100);
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("Username")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasComputedColumnSql("[FirstName.ToLower()] + '_' + [LastName.ToLower()]");
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
+                    b.HasIndex("Username")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MyComicList.Domain.ComicCategories", b =>
+            modelBuilder.Entity("MyComicList.Domain.Comic", b =>
                 {
-                    b.HasOne("MyComicList.Domain.Category", "Category")
-                        .WithMany("ComicCategories")
-                        .HasForeignKey("CategoryId")
+                    b.HasOne("MyComicList.Domain.Publisher", "Publisher")
+                        .WithMany("Comics")
+                        .HasForeignKey("PublisherId");
+                });
+
+            modelBuilder.Entity("MyComicList.Domain.ComicAuthors", b =>
+                {
+                    b.HasOne("MyComicList.Domain.Author", "Author")
+                        .WithMany("ComicAuthors")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("MyComicList.Domain.Comic", "Comic")
-                        .WithMany("ComicCategories")
+                        .WithMany("ComicAuthors")
                         .HasForeignKey("ComicId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("MyComicList.Domain.ComicUsers", b =>
+            modelBuilder.Entity("MyComicList.Domain.ComicGenres", b =>
                 {
                     b.HasOne("MyComicList.Domain.Comic", "Comic")
-                        .WithMany("ComicUsers")
+                        .WithMany("ComicGenres")
+                        .HasForeignKey("ComicId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MyComicList.Domain.Genre", "Genre")
+                        .WithMany("ComicGenres")
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MyComicList.Domain.MyList", b =>
+                {
+                    b.HasOne("MyComicList.Domain.Comic", "Comic")
+                        .WithMany("MyUsers")
                         .HasForeignKey("ComicId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("MyComicList.Domain.User", "User")
-                        .WithMany("ComicUsers")
+                        .WithMany("MyComics")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

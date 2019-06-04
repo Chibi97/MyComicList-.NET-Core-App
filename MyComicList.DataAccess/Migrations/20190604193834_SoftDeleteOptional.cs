@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyComicList.DataAccess.Migrations
 {
-    public partial class NullableDeletedAt : Migration
+    public partial class SoftDeleteOptional : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,7 @@ namespace MyComicList.DataAccess.Migrations
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletedAt",
-                table: "Review",
+                table: "Reviews",
                 nullable: true,
                 oldClrType: typeof(DateTime));
 
@@ -73,7 +73,7 @@ namespace MyComicList.DataAccess.Migrations
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletedAt",
-                table: "Review",
+                table: "Reviews",
                 nullable: false,
                 oldClrType: typeof(DateTime),
                 oldNullable: true);

@@ -12,6 +12,9 @@ namespace MyComicList.DataAccess.Configurations
             builder.HasIndex(c => c.Name).IsUnique();
             builder.Property(c => c.Description).HasMaxLength(200).IsRequired();
 
+            builder.Property(c => c.PublishedAt).HasDefaultValueSql("NOW()");
+
+
             builder.HasMany(c => c.MyUsers)
                 .WithOne(cu => cu.Comic)
                 .HasForeignKey(cu => cu.ComicId);

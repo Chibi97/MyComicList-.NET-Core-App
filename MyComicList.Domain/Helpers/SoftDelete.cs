@@ -6,6 +6,6 @@ namespace MyComicList.Domain
 {
     public class SoftDelete
     {
-        public DateTime DeletedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
     }
 }
