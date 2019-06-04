@@ -8,7 +8,7 @@ using System.Text;
 
 namespace MyComicList.Application.Commands.Comics
 {
-    public interface IGetComics : ICommand<ComicRequest, PagedResponse<ComicDTO>>
+    public interface IGetComics : ICommand<ComicRequest, IEnumerable<ComicDTO>>
     {
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyComicList.DataAccess;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -9,9 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyComicList.DataAccess.Migrations
 {
     [DbContext(typeof(MyComicListContext))]
-    partial class MyComicListContextModelSnapshot : ModelSnapshot
+    [Migration("20190604205907_DescriptionMaxValueChanged")]
+    partial class DescriptionMaxValueChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,7 +68,7 @@ namespace MyComicList.DataAccess.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(500);
+                        .HasMaxLength(700);
 
                     b.Property<int>("Issues");
 

@@ -9,7 +9,6 @@ namespace MyComicList.Application.Requests
 {
     public class ComicRequest
     {
-        [Required]
-        public string Test { get; set; }
+        
     }
 }

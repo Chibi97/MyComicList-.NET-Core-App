@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyComicList.Application", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyComicList.EFCommands", "MyComicList.EFCommands\MyComicList.EFCommands.csproj", "{43745521-5298-4383-A338-7EBB2939BF12}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyComicList.API", "MyComicList.API\MyComicList.API.csproj", "{36D68CDC-2516-48DE-A249-76BFA52997AA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{43745521-5298-4383-A338-7EBB2939BF12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43745521-5298-4383-A338-7EBB2939BF12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43745521-5298-4383-A338-7EBB2939BF12}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36D68CDC-2516-48DE-A249-76BFA52997AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36D68CDC-2516-48DE-A249-76BFA52997AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36D68CDC-2516-48DE-A249-76BFA52997AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36D68CDC-2516-48DE-A249-76BFA52997AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

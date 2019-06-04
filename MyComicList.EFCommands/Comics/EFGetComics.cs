@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using MyComicList.Application.Commands.Comics;
 using MyComicList.Application.DataTransfer;
 using MyComicList.Application.Requests;
@@ -15,15 +16,24 @@ namespace MyComicList.EFCommands.Comics
     {
         public EFGetComics(MyComicListContext context) : base(context) { }
 
-        public PagedResponse<ComicDTO> Execute(ComicRequest request)
+        public IEnumerable<ComicDTO> Execute(ComicRequest request)
         {
+            // PagedResponse<ComicDTO> ispraviti
 
-            return new PagedResponse<ComicDTO>(); // TODO: izmeniti
-        }
-
-        PagedResponse<ComicDTO> ICommand<ComicRequest, PagedResponse<ComicDTO>>.Execute(ComicRequest request)
-        {
-            throw new NotImplementedException();
+            var comics = Context.Comics.AsQueryable();
+            return comics
+                .Include(c => c.ComicGenres)
+                .ThenInclude(cg => cg.Genre)
+                .Select(c => new ComicDTO
+                {
+                    Name = c.Name,
+                    Description = c.Description,
+                    Issues = c.Issues,
+                    PublishedAt = c.PublishedAt,
+                    Publisher = c.Publisher.Name,
+                    Genres = c.ComicGenres.Select(cg => cg.Genre.Name),
+                    Authors = c.ComicAuthors.Select(ca => ca.Author.FullName)
+                });
         }
     }
 }
