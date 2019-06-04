@@ -1,7 +1,6 @@
 ﻿using MyComicList.Domain.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MyComicList.Domain
 {
@@ -10,9 +9,12 @@ namespace MyComicList.Domain
         public string Name { get; set; }
         public string Description { get; set; }
         public int Issues { get; set; }
-        public ICollection<ComicUsers> ComicUsers { get; set; }
-        public ICollection<ComicCategories> ComicCategories { get; set; }
+        public DateTime PublishedAt { get; set; }
+        public Publisher Publisher { get; set; }
+        public ICollection<MyList> MyUsers { get; set; }
+        public ICollection<ComicGenres> ComicGenres { get; set; }
         public ICollection<Review> Reviews { get; set; }
+        public ICollection<ComicAuthors> ComicAuthors { get; set; }
 
     }
 }

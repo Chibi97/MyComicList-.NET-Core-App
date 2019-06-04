@@ -1,7 +1,5 @@
 ﻿using MyComicList.Domain.Helpers;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MyComicList.Domain
 {
@@ -12,7 +10,7 @@ namespace MyComicList.Domain
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public ICollection<ComicUsers> ComicUsers { get; set; }
+        public ICollection<MyList> MyComics { get; set; }
         public ICollection<Review> Reviews { get; set; }
 
     }

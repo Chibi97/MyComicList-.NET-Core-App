@@ -14,10 +14,10 @@ namespace MyComicList.EFCommands.Comics
     public class EFGetComics : EFBaseCommand, IGetComics
     {
         public EFGetComics(MyComicListContext context) : base(context) { }
-        
+
         public PagedResponse<ComicDTO> Execute(ComicRequest request)
         {
-            
+
             return new PagedResponse<ComicDTO>(); // TODO: izmeniti
         }
 

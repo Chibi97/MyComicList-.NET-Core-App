@@ -1,13 +1,11 @@
 ﻿using MyComicList.Domain.Helpers;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MyComicList.Domain
 {
-    public class Category : PrimaryKey
+    public class Genre : PrimaryKey
     {
         public string Name { get; set; }
-        public ICollection<ComicCategories> ComicCategories { get; set; }
+        public ICollection<ComicGenres> ComicGenres { get; set; }
     }
 }

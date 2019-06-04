@@ -12,7 +12,9 @@ namespace MyComicList.DataAccess
     {
         public DbSet<Comic> Comics { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -22,18 +24,24 @@ namespace MyComicList.DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ComicConfiguration());
-            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new GenreConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new ComicCategoryConfiguration());
-            modelBuilder.ApplyConfiguration(new ComicUserConfiguration());
+            modelBuilder.ApplyConfiguration(new ComicGenreConfiguration());
+            modelBuilder.ApplyConfiguration(new MyListConfiguration());
             modelBuilder.ApplyConfiguration(new ReviewConfiguration());
+            modelBuilder.ApplyConfiguration(new AuthorConfiguration());
+            modelBuilder.ApplyConfiguration(new ComicAuthorConfiguration());
+            modelBuilder.ApplyConfiguration(new PublisherConfiguration());
 
             DefaultDateValue<Comic>(modelBuilder);
-            DefaultDateValue<Category>(modelBuilder);
+            DefaultDateValue<Genre>(modelBuilder);
             DefaultDateValue<User>(modelBuilder);
-            DefaultDateValue<ComicUsers>(modelBuilder);
-            DefaultDateValue<ComicCategories>(modelBuilder);
+            DefaultDateValue<MyList>(modelBuilder);
+            DefaultDateValue<ComicGenres>(modelBuilder);
             DefaultDateValue<Review>(modelBuilder);
+            DefaultDateValue<Author>(modelBuilder);
+            DefaultDateValue<ComicAuthors>(modelBuilder);
+            DefaultDateValue<Publisher>(modelBuilder);
         }
 
         private void DefaultDateValue<T>(ModelBuilder modelBuilder)

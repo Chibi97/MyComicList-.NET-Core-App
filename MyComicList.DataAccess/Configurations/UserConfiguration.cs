@@ -21,9 +21,13 @@ namespace MyComicList.DataAccess.Configurations
 
             //builder.HasOne(u => u.Role).WithMany(r => r.Users); one-to-many
 
-            builder.HasMany(u => u.ComicUsers)
+            builder.HasMany(u => u.MyComics)
                     .WithOne(cu => cu.User)
                     .HasForeignKey(cu => cu.UserId);
+
+            builder.HasMany(u => u.Reviews)
+                .WithOne(r => r.User)
+                .HasForeignKey(r => r.UserId);
 
         }
     }
