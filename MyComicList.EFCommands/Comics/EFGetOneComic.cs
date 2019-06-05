@@ -15,7 +15,6 @@ namespace MyComicList.EFCommands.Comics
 
         public ComicDTO Execute(int id)
         {
-            // var comic = Context.Comics.Find(id);
             var comic = Context.Comics
                         .Include(c => c.Publisher)
                         .Include(c => c.ComicGenres).ThenInclude(cg => cg.Genre)

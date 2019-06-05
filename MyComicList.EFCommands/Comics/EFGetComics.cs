@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyComicList.Application.Commands.Comics;
 using MyComicList.Application.DataTransfer;
+using MyComicList.Application.Exceptions;
 using MyComicList.Application.Requests;
 using MyComicList.Application.Responses;
 using MyComicList.DataAccess;

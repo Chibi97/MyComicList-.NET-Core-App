@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyComicList.Application.Commands.Comics;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Requests;
+using MyComicList.Application.Responses;
 
 namespace MyComicList.API.Controllers
 {
@@ -24,7 +25,7 @@ namespace MyComicList.API.Controllers
         }
         
         [HttpGet] // GET: api/Comics
-        public IActionResult Get([FromQuery]ComicRequest request)
+        public IActionResult Get([FromQuery] ComicRequest request)
         {
             var result = getCommand.Execute(request);
             return Ok(result);
@@ -41,7 +42,7 @@ namespace MyComicList.API.Controllers
             }
             catch (EntityNotFoundException e)
             {
-                return NotFound(e.Message);
+                return NotFound(new ErrorMessage { Message = e.Message});
             }
         }
 

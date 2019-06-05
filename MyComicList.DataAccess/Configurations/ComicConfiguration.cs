@@ -10,10 +10,9 @@ namespace MyComicList.DataAccess.Configurations
         {
             builder.Property(c => c.Name).HasMaxLength(50).IsRequired();
             builder.HasIndex(c => c.Name).IsUnique();
-            builder.Property(c => c.Description).HasMaxLength(500).IsRequired();
+            builder.Property(c => c.Description).HasMaxLength(700).IsRequired();
 
             builder.Property(c => c.PublishedAt).HasDefaultValueSql("NOW()");
-
 
             builder.HasMany(c => c.MyUsers)
                 .WithOne(cu => cu.Comic)
