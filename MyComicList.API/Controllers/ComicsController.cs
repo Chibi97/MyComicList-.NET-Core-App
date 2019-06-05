@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyComicList.Application.Commands.Comics;
+using MyComicList.Application.Exceptions;
 using MyComicList.Application.Requests;
 
 namespace MyComicList.API.Controllers
@@ -13,43 +14,53 @@ namespace MyComicList.API.Controllers
     [ApiController]
     public class ComicsController : ControllerBase
     {
-        private readonly IGetComics getComics;
+        private readonly IGetComics getCommand;
+        private readonly IGetOneComic getOneCommand;
 
-        public ComicsController(IGetComics getComics)
+        public ComicsController(IGetComics getCommand, IGetOneComic getOneCommand)
         {
-            this.getComics = getComics;
+            this.getCommand = getCommand;
+            this.getOneCommand = getOneCommand;
         }
-        // GET: api/Comics
-        [HttpGet]
-        public IActionResult Get(ComicRequest request)
+        
+        [HttpGet] // GET: api/Comics
+        public IActionResult Get([FromQuery]ComicRequest request)
         {
-            var result = getComics.Execute(request);
+            var result = getCommand.Execute(request);
             return Ok(result);
         }
 
-        // GET: api/Comics/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+   
+        [HttpGet("{id}")] // GET: api/Comics/5
+        public IActionResult Get(int id)
         {
-            return "value";
+            try
+            {
+                var comic = getOneCommand.Execute(id);
+                return Ok(comic);
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
         }
 
-        // POST: api/Comics
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+        //// POST: api/Comics
+        //[HttpPost]
+        //public void Post([FromBody] string value)
+        //{
+        //}
 
-        // PUT: api/Comics/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //// PUT: api/Comics/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE: api/ApiWithActions/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }
