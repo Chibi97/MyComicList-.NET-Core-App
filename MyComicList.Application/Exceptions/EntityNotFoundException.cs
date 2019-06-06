@@ -12,5 +12,10 @@ namespace MyComicList.Application.Exceptions
         {
 
         }
+
+        public EntityNotFoundException(string property) : base($"{property} - not valid. Check if exist, or insert before this action")
+        {
+
+        }
     }
 }

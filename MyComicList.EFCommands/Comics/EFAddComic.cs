@@ -23,15 +23,19 @@ namespace MyComicList.EFCommands.Comics
                 throw new EntityAlreadyExistsException(request.Name);
             };
 
-            var publisher = Context.Publishers.FirstOrDefault(c => c.Name.ToLower().Contains(request.Publisher.ToLower()));
+            var publisher = Context.Publishers.FirstOrDefault(c => c.Name.ToLower().Equals(request.Publisher.ToLower()));
+            if (publisher == null) throw new EntityNotFoundException("Publisher");
+            var now = DateTime.Now;
 
             Comic newComic = new Comic
             {
-                Name = request.Name + new Random().NextDouble(),
+                Name = request.Name,
                 Description = request.Description,
                 Issues = request.Issues,
                 PublishedAt = request.PublishedAt,
-                Publisher = publisher
+                Publisher = publisher,
+                CreatedAt = now,
+                UpdatedAt = now
             };
             Context.Comics.Add(newComic);
 
@@ -40,27 +44,34 @@ namespace MyComicList.EFCommands.Comics
 
             foreach (var genre in request.Genres)
             {
-                var foundGenre = Context.Genres.FirstOrDefault(g => g.Name.ToLower().Contains(genre.ToLower()));
+                var foundGenre = Context.Genres.FirstOrDefault(g => g.Name.ToLower().Equals(genre.ToLower()));
+                if (foundGenre == null) throw new EntityNotFoundException("Genres");
+                
                 var cg = new ComicGenres()
                 {
                     Comic = newComic,
-                    Genre = foundGenre
+                    Genre = foundGenre,
+                    CreatedAt = now,
+                    UpdatedAt = now
                 };
                 genres.Add(cg);
             }
-            
+            newComic.ComicGenres = genres;
+
             foreach (var author in request.Authors)
             {
-                var foundAuthor = Context.Authors.FirstOrDefault(g => g.FullName.ToLower().Contains(author.ToLower()));
+                var foundAuthor = Context.Authors.FirstOrDefault(g => g.FullName.ToLower().Equals(author.ToLower()));
+                if (foundAuthor == null) throw new EntityNotFoundException("Authors");
+
                 var ca = new ComicAuthors()
                 {
                     Comic = newComic,
-                    Author = foundAuthor
+                    Author = foundAuthor,
+                    CreatedAt = now,
+                UpdatedAt = now
                 };
                 authors.Add(ca);
             }
-
-            newComic.ComicGenres = genres;
             newComic.ComicAuthors = authors;
 
             try

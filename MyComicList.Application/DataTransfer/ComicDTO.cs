@@ -28,7 +28,7 @@ namespace MyComicList.Application.DataTransfer
         public string Publisher { get; set; }
         [Required]
         public IEnumerable<string> Genres { get; set; }
-        // [Required]
+        [Required]
         public IEnumerable<string> Authors { get; set; }
         // TODO: obezbediti da kolekcije uvek budu prosledene kao niz
     }

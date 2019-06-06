@@ -54,8 +54,23 @@ namespace MyComicList.API.Controllers
         [HttpPost] // POST: api/Comics
         public IActionResult Post([FromBody] ComicDTO comic)
         {
-            addComic.Execute(comic);
-            return Ok();
+            try
+            {
+                addComic.Execute(comic);
+                return Ok();
+            }
+            catch(EntityAlreadyExistsException e)
+            {
+                return NotFound(new ErrorMessage { Message = e.Message });
+            }
+            catch(EntityNotFoundException e)
+            {
+                return BadRequest(new ErrorMessage { Message = e.Message });
+            }
+            catch(Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         //// PUT: api/Comics/5
