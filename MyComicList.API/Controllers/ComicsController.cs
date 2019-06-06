@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyComicList.Application.Commands.Comics;
+using MyComicList.Application.DataTransfer;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Requests;
 using MyComicList.Application.Responses;
+using MyComicList.Domain;
 
 namespace MyComicList.API.Controllers
 {
@@ -17,11 +19,13 @@ namespace MyComicList.API.Controllers
     {
         private readonly IGetComics getCommand;
         private readonly IGetOneComic getOneCommand;
+        private readonly IAddComic addComic;
 
-        public ComicsController(IGetComics getCommand, IGetOneComic getOneCommand)
+        public ComicsController(IGetComics getCommand, IGetOneComic getOneCommand, IAddComic addComic)
         {
             this.getCommand = getCommand;
             this.getOneCommand = getOneCommand;
+            this.addComic = addComic;
         }
         
         [HttpGet] // GET: api/Comics
@@ -46,11 +50,13 @@ namespace MyComicList.API.Controllers
             }
         }
 
-        //// POST: api/Comics
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+        
+        [HttpPost] // POST: api/Comics
+        public IActionResult Post([FromBody] ComicDTO comic)
+        {
+            addComic.Execute(comic);
+            return Ok();
+        }
 
         //// PUT: api/Comics/5
         //[HttpPut("{id}")]

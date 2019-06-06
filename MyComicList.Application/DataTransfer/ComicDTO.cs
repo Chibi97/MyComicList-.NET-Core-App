@@ -17,7 +17,7 @@ namespace MyComicList.Application.DataTransfer
         public string Description { get; set; }
         
         [Required]
-        [Range(1, Int16.MaxValue)]
+        [Range(1, Int16.MaxValue, ErrorMessage = "Maximum number is 32767, and minimum is 1.")]
         public int Issues { get; set; }
 
         [Required, DataType(DataType.Date)]
@@ -28,7 +28,7 @@ namespace MyComicList.Application.DataTransfer
         public string Publisher { get; set; }
         [Required]
         public IEnumerable<string> Genres { get; set; }
-        [Required]
+        // [Required]
         public IEnumerable<string> Authors { get; set; }
         // TODO: obezbediti da kolekcije uvek budu prosledene kao niz
     }
