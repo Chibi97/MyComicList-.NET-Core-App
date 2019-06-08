@@ -18,13 +18,13 @@ namespace MyComicList.API.Controllers
     {
         private readonly IGetComics getCommand;
         private readonly IGetOneComic getOneCommand;
-        private readonly IAddComic addComic;
+        private readonly IAddComic addCommand;
 
-        public ComicsController(IGetComics getCommand, IGetOneComic getOneCommand, IAddComic addComic)
+        public ComicsController(IGetComics getCommand, IGetOneComic getOneCommand, IAddComic addCommand)
         {
             this.getCommand = getCommand;
             this.getOneCommand = getOneCommand;
-            this.addComic = addComic;
+            this.addCommand = addCommand;
         }
         
         [HttpGet] // GET: api/Comics
@@ -55,16 +55,16 @@ namespace MyComicList.API.Controllers
         {
             try
             {
-                addComic.Execute(comic);
+                addCommand.Execute(comic);
                 return Ok();
             }
             catch(EntityAlreadyExistsException e)
             {
-                return NotFound(new ErrorMessage { Message = e.Message });
+                return Conflict(new ErrorMessage { Message = e.Message });
             }
             catch(EntityNotFoundException e)
             {
-                return BadRequest(new ErrorMessage { Message = e.Message});
+                return NotFound(new ErrorMessage { Message = e.Message});
             }
             catch(Exception)
             {

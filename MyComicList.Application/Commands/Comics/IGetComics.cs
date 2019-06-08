@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MyComicList.Application.Commands.Comics
 {
-    public interface IGetComics : ICommand<ComicRequest, IEnumerable<ComicGetDTO>>
+    public interface IGetComics : ICommand<ComicRequest, PagedResponse<ComicGetDTO>>
     {
     }
 }

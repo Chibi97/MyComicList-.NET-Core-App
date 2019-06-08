@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyComicList.Application.Requests
 {
-    public class ComicRequest
+    public class ComicRequest : PagedRequest
     {
         
     }
