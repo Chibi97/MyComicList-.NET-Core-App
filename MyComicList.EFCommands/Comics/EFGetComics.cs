@@ -18,6 +18,17 @@ namespace MyComicList.EFCommands.Comics
         public PagedResponse<ComicGetDTO> Execute(ComicRequest request)
         {
             var comics = Context.Comics.AsQueryable();
+
+            if(request.GenreId.HasValue)
+            {
+                comics = comics.Where(c => c.ComicGenres.Any(cg => cg.GenreId == request.GenreId ));
+            }
+
+            if (request.AuthorId.HasValue)
+            {
+                comics = comics.Where(c => c.ComicAuthors.Any(cg => cg.AuthorId == request.AuthorId));
+            }
+
             return comics
                 .Include(c => c.ComicGenres)
                 .ThenInclude(cg => cg.Genre)

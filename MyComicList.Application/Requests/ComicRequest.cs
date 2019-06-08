@@ -9,6 +9,7 @@ namespace MyComicList.Application.Requests
 {
     public class ComicRequest : PagedRequest
     {
-        
+        public int? GenreId { get; set; }
+        public int? AuthorId { get; set; }
     }
 }
