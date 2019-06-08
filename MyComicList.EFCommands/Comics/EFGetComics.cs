@@ -25,6 +25,7 @@ namespace MyComicList.EFCommands.Comics
             return comics
                 .Include(c => c.ComicGenres)
                 .ThenInclude(cg => cg.Genre)
+                .Where(c => c.DeletedAt == null)
                 .Select(c => new ComicGetDTO
                 {
                     Id = c.Id,

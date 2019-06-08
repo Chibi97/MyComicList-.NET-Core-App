@@ -8,7 +8,10 @@ namespace MyComicList.Application.Exceptions
 {
     public class EntityAlreadyExistsException : Exception
     {
-        public EntityAlreadyExistsException(object Property) : base($"Entity named: { Property } already exists.")
+        public EntityAlreadyExistsException(string value) : base($"Instance named: { value } already exists.")
+        { }
+
+        public EntityAlreadyExistsException(string property, string value) : base($"{ property } with value: { value } already exists.")
         { }
     }
 }

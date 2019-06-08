@@ -19,9 +19,10 @@ namespace MyComicList.EFCommands.Comics
                         .Include(c => c.Publisher)
                         .Include(c => c.ComicGenres).ThenInclude(cg => cg.Genre)
                         .Include(c => c.ComicAuthors).ThenInclude(ca => ca.Author)
-                        .SingleOrDefault(x => x.Id == id);
+                        .Where(c => c.DeletedAt == null && c.Id == id)
+                        .SingleOrDefault();
 
-            if (comic == null) throw new EntityNotFoundException("Comic");
+            if (comic == null) throw new EntityNotFoundException("Comic", id.ToString());
             return new ComicGetDTO()
             {
                 Id = comic.Id,

@@ -45,7 +45,7 @@ namespace MyComicList.API.Controllers
             }
             catch (EntityNotFoundException e)
             {
-                return NotFound(new ErrorMessage { Message = e.Message});
+                return NotFound(new ErrorMessage { Message = e.Message });
             }
         }
 
@@ -64,7 +64,7 @@ namespace MyComicList.API.Controllers
             }
             catch(EntityNotFoundException e)
             {
-                return BadRequest(new ErrorMessage { Message = e.Message });
+                return BadRequest(new ErrorMessage { Message = e.Message});
             }
             catch(Exception)
             {

@@ -31,7 +31,7 @@ namespace MyComicList.Application.DataTransfer.Comics
         public IEnumerable<int> Genres { get; set; }
 
         [Required, ListNotEmpty(ErrorMessage = "Collection of authors must contain at least one element.")]
-        [UniqueIntegers(ErrorMessage = "Values for genres must be unique.")]
+        [UniqueIntegers(ErrorMessage = "Values for authors must be unique.")]
         public IEnumerable<int> Authors { get; set; }
     }
 }

@@ -24,11 +24,11 @@ namespace MyComicList.EFCommands.Comics
         {
             if (Context.Comics.Any(c => c.Name == request.Name))
             {
-                throw new EntityAlreadyExistsException(request.Name);
+                throw new EntityAlreadyExistsException("Name", request.Name);
             };
 
             var publisher = Context.Publishers.FirstOrDefault(p => p.Id == request.Publisher);
-            if (publisher == null) throw new EntityNotFoundException("Publisher");
+            if (publisher == null) throw new EntityNotFoundException("Publisher", request.Publisher.ToString());
 
             Comic newComic = new Comic
             {
