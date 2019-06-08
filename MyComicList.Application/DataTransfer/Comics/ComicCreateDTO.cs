@@ -1,12 +1,11 @@
-﻿using MyComicList.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using static MyComicList.Application.CustomValidators.ListValidator;
 
-namespace MyComicList.Application.DataTransfer
+namespace MyComicList.Application.DataTransfer.Comics
 {
-    public class ComicDTO
+    public class ComicCreateDTO
     {
         [Required, MinLength(3, ErrorMessage = "Minimum number of characters is 3.")]
         [MaxLength(50, ErrorMessage = "Maximum number of characters is 50.")]
@@ -25,11 +24,14 @@ namespace MyComicList.Application.DataTransfer
         public DateTime PublishedAt { get; set; }
 
         [Required]
-        public string Publisher { get; set; }
-        [Required]
-        public IEnumerable<string> Genres { get; set; }
-        [Required]
-        public IEnumerable<string> Authors { get; set; }
-        // TODO: obezbediti da kolekcije uvek budu prosledene kao niz
+        public int Publisher { get; set; }
+
+        [Required, ListNotEmpty(ErrorMessage = "Collection of genres must contain at least one element.")]
+        [UniqueIntegers(ErrorMessage = "Values for genres must be unique.")]
+        public IEnumerable<int> Genres { get; set; }
+
+        [Required, ListNotEmpty(ErrorMessage = "Collection of authors must contain at least one element.")]
+        [UniqueIntegers(ErrorMessage = "Values for genres must be unique.")]
+        public IEnumerable<int> Authors { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyComicList.Application.Commands.Comics;
-using MyComicList.Application.DataTransfer;
+using MyComicList.Application.DataTransfer.Comics;
 using MyComicList.Application.Exceptions;
 using MyComicList.DataAccess;
 using System;
@@ -13,7 +13,7 @@ namespace MyComicList.EFCommands.Comics
     {
         public EFGetOneComic(MyComicListContext context) : base(context) { }
 
-        public ComicDTO Execute(int id)
+        public ComicGetDTO Execute(int id)
         {
             var comic = Context.Comics
                         .Include(c => c.Publisher)
@@ -21,9 +21,10 @@ namespace MyComicList.EFCommands.Comics
                         .Include(c => c.ComicAuthors).ThenInclude(ca => ca.Author)
                         .SingleOrDefault(x => x.Id == id);
 
-            if (comic == null) throw new EntityNotFoundException();
-            return new ComicDTO()
+            if (comic == null) throw new EntityNotFoundException("Comic");
+            return new ComicGetDTO()
             {
+                Id = comic.Id,
                 Name = comic.Name,
                 Description = comic.Description,
                 Issues = comic.Issues,

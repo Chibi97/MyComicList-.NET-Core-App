@@ -1,8 +1,8 @@
-﻿using MyComicList.Application.DataTransfer;
+﻿using MyComicList.Application.DataTransfer.Comics;
 
 namespace MyComicList.Application.Commands.Comics
 {
-    public interface IGetOneComic : ICommand<int, ComicDTO>
+    public interface IGetOneComic : ICommand<int, ComicGetDTO>
     {
         
     }

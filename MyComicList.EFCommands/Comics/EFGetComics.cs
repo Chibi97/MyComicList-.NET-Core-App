@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyComicList.Application.Commands.Comics;
-using MyComicList.Application.DataTransfer;
+using MyComicList.Application.DataTransfer.Comics;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Requests;
 using MyComicList.Application.Responses;
@@ -17,7 +17,7 @@ namespace MyComicList.EFCommands.Comics
     {
         public EFGetComics(MyComicListContext context) : base(context) { }
 
-        public IEnumerable<ComicDTO> Execute(ComicRequest request)
+        public IEnumerable<ComicGetDTO> Execute(ComicRequest request)
         {
             // PagedResponse<ComicDTO> ispraviti
 
@@ -25,8 +25,9 @@ namespace MyComicList.EFCommands.Comics
             return comics
                 .Include(c => c.ComicGenres)
                 .ThenInclude(cg => cg.Genre)
-                .Select(c => new ComicDTO
+                .Select(c => new ComicGetDTO
                 {
+                    Id = c.Id,
                     Name = c.Name,
                     Description = c.Description,
                     Issues = c.Issues,

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MyComicList.Application.Commands.Comics;
-using MyComicList.Application.DataTransfer;
+using MyComicList.Application.DataTransfer.Comics;
 using MyComicList.Application.Exceptions;
 using MyComicList.DataAccess;
 using MyComicList.Domain;
@@ -12,20 +12,23 @@ namespace MyComicList.EFCommands.Comics
 {
     public class EFAddComic : EFBaseCommand, IAddComic
     {
+        private readonly List<ComicGenres> genres;
+        private readonly List<ComicAuthors> authors;
         public EFAddComic(MyComicListContext context) : base(context)
         {
+            genres = new List<ComicGenres>();
+            authors = new List<ComicAuthors>();
         }
 
-        public void Execute(ComicDTO request)
+        public void Execute(ComicCreateDTO request)
         {
             if (Context.Comics.Any(c => c.Name == request.Name))
             {
                 throw new EntityAlreadyExistsException(request.Name);
             };
 
-            var publisher = Context.Publishers.FirstOrDefault(c => c.Name.ToLower().Equals(request.Publisher.ToLower()));
+            var publisher = Context.Publishers.FirstOrDefault(p => p.Id == request.Publisher);
             if (publisher == null) throw new EntityNotFoundException("Publisher");
-            var now = DateTime.Now;
 
             Comic newComic = new Comic
             {
@@ -33,26 +36,19 @@ namespace MyComicList.EFCommands.Comics
                 Description = request.Description,
                 Issues = request.Issues,
                 PublishedAt = request.PublishedAt,
-                Publisher = publisher,
-                CreatedAt = now,
-                UpdatedAt = now
+                Publisher = publisher
             };
             Context.Comics.Add(newComic);
 
-            var genres = new List<ComicGenres>();
-            var authors = new List<ComicAuthors>();
-
             foreach (var genre in request.Genres)
             {
-                var foundGenre = Context.Genres.FirstOrDefault(g => g.Name.ToLower().Equals(genre.ToLower()));
+                var foundGenre = Context.Genres.FirstOrDefault(g => g.Id == genre);
                 if (foundGenre == null) throw new EntityNotFoundException("Genres");
                 
                 var cg = new ComicGenres()
                 {
                     Comic = newComic,
-                    Genre = foundGenre,
-                    CreatedAt = now,
-                    UpdatedAt = now
+                    Genre = foundGenre
                 };
                 genres.Add(cg);
             }
@@ -60,15 +56,13 @@ namespace MyComicList.EFCommands.Comics
 
             foreach (var author in request.Authors)
             {
-                var foundAuthor = Context.Authors.FirstOrDefault(g => g.FullName.ToLower().Equals(author.ToLower()));
+                var foundAuthor = Context.Authors.FirstOrDefault(a => a.Id == author);
                 if (foundAuthor == null) throw new EntityNotFoundException("Authors");
 
                 var ca = new ComicAuthors()
                 {
                     Comic = newComic,
-                    Author = foundAuthor,
-                    CreatedAt = now,
-                UpdatedAt = now
+                    Author = foundAuthor
                 };
                 authors.Add(ca);
             }

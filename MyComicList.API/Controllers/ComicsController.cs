@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyComicList.Application.Commands.Comics;
-using MyComicList.Application.DataTransfer;
+using MyComicList.Application.DataTransfer.Comics;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Requests;
 using MyComicList.Application.Responses;
-using MyComicList.Domain;
 
 namespace MyComicList.API.Controllers
 {
@@ -52,7 +51,7 @@ namespace MyComicList.API.Controllers
 
         
         [HttpPost] // POST: api/Comics
-        public IActionResult Post([FromBody] ComicDTO comic)
+        public IActionResult Post([FromBody] ComicCreateDTO comic)
         {
             try
             {
