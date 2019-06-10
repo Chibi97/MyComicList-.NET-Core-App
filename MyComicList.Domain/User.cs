@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MyComicList.Domain
 {
-    public class User : PrimaryKey
+    public class User : SoftDelete
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

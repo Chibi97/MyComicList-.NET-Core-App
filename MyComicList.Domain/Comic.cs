@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MyComicList.Domain
 {
-    public class Comic : PrimaryKey
+    public class Comic : SoftDelete
     {
         public string Name { get; set; }
         public string Description { get; set; }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using System;
 
-namespace MyComicList.Domain
+namespace MyComicList.Domain.Helpers
 {
-    public class SoftDelete
+    public class SoftDelete : PrimaryKey
     {
         public DateTime? DeletedAt { get; set; }
     }
