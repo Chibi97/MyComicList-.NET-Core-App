@@ -20,7 +20,7 @@ namespace MyComicList.EFCommands.Comics
                 .Include(c => c.Publisher)
                 .Include(c => c.ComicGenres)
                 .Include(c => c.ComicAuthors)
-                .Where(c => c.Id == request.ComicId)
+                .Where(c => c.Id == request.ComicId && c.DeletedAt == null)
                 .FirstOrDefault();
 
             if (comic == null) throw new EntityNotFoundException("Comic", request.ComicId);

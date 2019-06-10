@@ -18,10 +18,11 @@ namespace MyComicList.EFCommands.Comics
                .Include(c => c.ComicAuthors)
                .Include(c => c.Users)
                .Include(c => c.Reviews)
-               .Where(c => c.Id == id)
+               .Where(c => c.Id == id && c.DeletedAt == null)
                .FirstOrDefault();
 
             if (comic == null) throw new EntityNotFoundException("Comic", id);
+
             comic.DeletedAt = DateTime.Now;
 
             comic.ComicGenres.Clear();
