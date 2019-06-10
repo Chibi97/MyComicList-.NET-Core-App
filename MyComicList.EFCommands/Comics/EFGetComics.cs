@@ -19,19 +19,25 @@ namespace MyComicList.EFCommands.Comics
         {
             var comics = Context.Comics.AsQueryable();
 
-            if(request.GenreId.HasValue)
+            if (request.Genres != null)
             {
-                comics = comics.Where(c => c.ComicGenres.Any(cg => cg.GenreId == request.GenreId ));
+                comics = comics.Where(c => c.ComicGenres.Any(cg => request.Genres.Contains(cg.GenreId)));
             }
 
-            if (request.AuthorId.HasValue)
+            if (request.Authors != null)
             {
-                comics = comics.Where(c => c.ComicAuthors.Any(cg => cg.AuthorId == request.AuthorId));
+                comics = comics.Where(c => c.ComicAuthors.Any(ca => request.Authors.Contains(ca.AuthorId)));
+            }
+
+            if (request.Name != null)
+            {
+                comics = comics.Where(c => c.Name.ToLower().Contains(request.Name.Trim().ToLower()));
             }
 
             return comics
                 .Include(c => c.ComicGenres)
                 .ThenInclude(cg => cg.Genre)
+                .OrderBy(c => c.Id)
                 .Where(c => c.DeletedAt == null)
                 .Select(c => new ComicGetDTO
                 {

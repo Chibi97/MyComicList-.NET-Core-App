@@ -28,8 +28,12 @@ namespace MyComicList.API.Controllers
         }
         
         [HttpGet] // GET: api/Comics
-        public IActionResult Get([FromQuery] ComicRequest request)
+        public IActionResult Get([FromBody]ComicRequest body, [FromQuery]PagedRequest queryParams)
         {
+            var request = body;
+            request.PerPage = queryParams.PerPage;
+            request.Page = queryParams.Page;
+
             var result = getCommand.Execute(request);
             return Ok(result);
         }
@@ -82,9 +86,8 @@ namespace MyComicList.API.Controllers
                 return NotFound(new ErrorMessage { Message = e.Message });
             }
         }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
+        
+        [HttpDelete("{id}")] // DELETE: api/Comics/5
         public IActionResult Delete(int id)
         {
             try

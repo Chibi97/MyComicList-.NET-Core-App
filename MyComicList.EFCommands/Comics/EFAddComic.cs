@@ -26,8 +26,8 @@ namespace MyComicList.EFCommands.Comics
 
             Comic newComic = new Comic
             {
-                Name = request.Name,
-                Description = request.Description,
+                Name = request.Name.Trim(),
+                Description = request.Description.Trim(),
                 Issues = request.Issues,
                 PublishedAt = request.PublishedAt,
                 Publisher = publisher
