@@ -68,14 +68,7 @@ namespace MyComicList.EFCommands.Comics
             }
             newComic.ComicAuthors = authors;
 
-            try
-            {
-                Context.SaveChanges();
-
-            } catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            Context.SaveChanges();
         }
     }
     

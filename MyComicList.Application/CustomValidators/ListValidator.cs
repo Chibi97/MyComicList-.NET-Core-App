@@ -17,7 +17,7 @@ namespace MyComicList.Application.CustomValidators
                 {
                     return collection.GetEnumerator().MoveNext();
                 }
-                return false;
+                return true;
             }
         }
 
@@ -26,12 +26,12 @@ namespace MyComicList.Application.CustomValidators
             public override bool IsValid(object value)
             {
                 var collection = value as IEnumerable<int>;
-                if(collection.Distinct().Count() == collection.Count())
+                if(collection != null)
                 {
-                    return true;
+                    return collection.Distinct().Count() == collection.Count();
                 }
                 
-                return false;
+                return true;
             }
         }
     }

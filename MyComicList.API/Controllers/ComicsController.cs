@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyComicList.Application.Commands.Comics;
 using MyComicList.Application.DataTransfer.Comics;
@@ -19,12 +15,14 @@ namespace MyComicList.API.Controllers
         private readonly IGetComics getCommand;
         private readonly IGetOneComic getOneCommand;
         private readonly IAddComic addCommand;
+        private readonly IUpdateComic updateCommand;
 
-        public ComicsController(IGetComics getCommand, IGetOneComic getOneCommand, IAddComic addCommand)
+        public ComicsController(IGetComics getCommand, IGetOneComic getOneCommand, IAddComic addCommand, IUpdateComic updateCommand)
         {
             this.getCommand = getCommand;
             this.getOneCommand = getOneCommand;
             this.addCommand = addCommand;
+            this.updateCommand = updateCommand;
         }
         
         [HttpGet] // GET: api/Comics
@@ -58,29 +56,34 @@ namespace MyComicList.API.Controllers
                 addCommand.Execute(comic);
                 return Ok();
             }
-            catch(EntityAlreadyExistsException e)
+            catch (EntityAlreadyExistsException e)
             {
                 return Conflict(new ErrorMessage { Message = e.Message });
             }
-            catch(EntityNotFoundException e)
+            catch (EntityNotFoundException e)
             {
-                return NotFound(new ErrorMessage { Message = e.Message});
-            }
-            catch(Exception)
-            {
-                return StatusCode(500);
+                return NotFound(new ErrorMessage { Message = e.Message });
             }
         }
 
-        //// PUT: api/Comics/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+        [HttpPut("{id}")] // PUT: api/Comics/5
+        public IActionResult Put(int id, [FromBody] ComicUpdateDTO comic)
+        {
+            try
+            {
+                comic.ComicId = id;
+                updateCommand.Execute(comic);
+                return NoContent();
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new ErrorMessage { Message = e.Message });
+            }
+        }
 
         //// DELETE: api/ApiWithActions/5
         //[HttpDelete("{id}")]
-        //public void Delete(int id)
+        //public IActionResult Delete(int id)
         //{
         //}
     }
