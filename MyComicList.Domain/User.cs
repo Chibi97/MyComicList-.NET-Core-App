@@ -10,7 +10,7 @@ namespace MyComicList.Domain
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public ICollection<MyList> MyComics { get; set; }
+        public ICollection<MyList> Comics { get; set; }
         public ICollection<Review> Reviews { get; set; }
 
     }

@@ -39,6 +39,7 @@ namespace MyComicList.API
             services.AddTransient<IGetOneComic, EFGetOneComic>();
             services.AddTransient<IAddComic, EFAddComic>();
             services.AddTransient<IUpdateComic, EFUpdateComic>();
+            services.AddTransient<IDeleteComic, EFDeleteComic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

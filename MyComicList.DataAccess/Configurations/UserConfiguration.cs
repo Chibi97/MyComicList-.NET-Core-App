@@ -22,7 +22,7 @@ namespace MyComicList.DataAccess.Configurations
 
             //builder.HasOne(u => u.Role).WithMany(r => r.Users); one-to-many
 
-            builder.HasMany(u => u.MyComics)
+            builder.HasMany(u => u.Comics)
                     .WithOne(cu => cu.User)
                     .HasForeignKey(cu => cu.UserId);
 

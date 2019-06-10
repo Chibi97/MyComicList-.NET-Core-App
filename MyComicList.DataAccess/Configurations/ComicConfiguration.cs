@@ -14,7 +14,7 @@ namespace MyComicList.DataAccess.Configurations
 
             builder.Property(c => c.PublishedAt).HasDefaultValueSql("NOW()");
 
-            builder.HasMany(c => c.MyUsers)
+            builder.HasMany(c => c.Users)
                 .WithOne(cu => cu.Comic)
                 .HasForeignKey(cu => cu.ComicId);
 

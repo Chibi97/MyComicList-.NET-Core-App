@@ -8,7 +8,7 @@ namespace MyComicList.Application.Exceptions
 {
     public class EntityNotFoundException : Exception
     {
-        public EntityNotFoundException(string property) : base($"{property} - not valid. Given value is not found.")
+        public EntityNotFoundException(string property, int value) : base($"{property} - not valid. Given value: {value.ToString()} is not found.")
         {
 
         }

@@ -22,7 +22,7 @@ namespace MyComicList.EFCommands.Comics
                         .Where(c => c.DeletedAt == null && c.Id == id)
                         .SingleOrDefault();
 
-            if (comic == null) throw new EntityNotFoundException("Comic", id.ToString());
+            if (comic == null) throw new EntityNotFoundException("Comic", id);
             return new ComicGetDTO()
             {
                 Id = comic.Id,

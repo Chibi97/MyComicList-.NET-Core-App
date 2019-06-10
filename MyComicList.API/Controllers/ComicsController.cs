@@ -16,13 +16,15 @@ namespace MyComicList.API.Controllers
         private readonly IGetOneComic getOneCommand;
         private readonly IAddComic addCommand;
         private readonly IUpdateComic updateCommand;
+        private readonly IDeleteComic deleteCommand;
 
-        public ComicsController(IGetComics getCommand, IGetOneComic getOneCommand, IAddComic addCommand, IUpdateComic updateCommand)
+        public ComicsController(IGetComics getCommand, IGetOneComic getOneCommand, IAddComic addCommand, IUpdateComic updateCommand, IDeleteComic deleteCommand)
         {
             this.getCommand = getCommand;
             this.getOneCommand = getOneCommand;
             this.addCommand = addCommand;
             this.updateCommand = updateCommand;
+            this.deleteCommand = deleteCommand;
         }
         
         [HttpGet] // GET: api/Comics
@@ -81,10 +83,20 @@ namespace MyComicList.API.Controllers
             }
         }
 
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(int id)
-        //{
-        //}
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                deleteCommand.Execute(id);
+                return NoContent();
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new ErrorMessage { Message = e.Message });
+            }
+
+        }
     }
 }
