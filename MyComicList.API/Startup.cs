@@ -13,10 +13,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MyComicList.Application.Commands.Comics;
+using MyComicList.Application.Commands.Users;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Responses;
 using MyComicList.DataAccess;
 using MyComicList.EFCommands.Comics;
+using MyComicList.EFCommands.Users;
 using Newtonsoft.Json;
 
 namespace MyComicList.API
@@ -40,6 +42,11 @@ namespace MyComicList.API
             services.AddTransient<IAddComic, EFAddComic>();
             services.AddTransient<IUpdateComic, EFUpdateComic>();
             services.AddTransient<IDeleteComic, EFDeleteComic>();
+
+            services.AddTransient<IGetUsers, EFGetUsers>();
+            services.AddTransient<IGetOneUser, EFGetOneUser>();
+            services.AddTransient<IAddUser, EFAddUser>();
+            services.AddTransient<IUpdateUser, EFUpdateUser>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

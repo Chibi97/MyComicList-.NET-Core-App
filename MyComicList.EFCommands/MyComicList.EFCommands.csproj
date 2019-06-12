@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MyComicList.Application\MyComicList.Application.csproj" />
     <ProjectReference Include="..\MyComicList.DataAccess\MyComicList.DataAccess.csproj" />
   </ItemGroup>
