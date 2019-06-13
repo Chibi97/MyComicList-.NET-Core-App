@@ -15,7 +15,6 @@ namespace MyComicList.Application.DataTransfer.Users
         public string LastName { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
-        [Skip]
         public IEnumerable<string> Comics { get; set; }
     }
 }

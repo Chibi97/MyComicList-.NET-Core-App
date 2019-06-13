@@ -47,6 +47,7 @@ namespace MyComicList.API
             services.AddTransient<IGetOneUser, EFGetOneUser>();
             services.AddTransient<IAddUser, EFAddUser>();
             services.AddTransient<IUpdateUser, EFUpdateUser>();
+            services.AddTransient<IDeleteUser, EFDeleteUser>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

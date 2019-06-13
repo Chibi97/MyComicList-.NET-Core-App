@@ -23,14 +23,15 @@ namespace MyComicList.EFCommands.Users
                 .SingleOrDefault();
 
             if (user == null) throw new EntityNotFoundException("User", id);
-            var userDTO = new UserGetDTO()
+
+            return new UserGetDTO()
             {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Username = user.Username,
                 Comics = user.Comics.Select(cu => cu.Comic.Name)
             };
-
-            Mapper.Automap(user, userDTO);
-
-            return userDTO;
         }
     }
 }

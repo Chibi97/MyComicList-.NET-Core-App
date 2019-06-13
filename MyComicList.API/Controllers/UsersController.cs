@@ -20,13 +20,16 @@ namespace MyComicList.API.Controllers
         private readonly IGetOneUser getOneCommand;
         private readonly IAddUser addCommand;
         private readonly IUpdateUser updateCommand;
+        private readonly IDeleteUser deleteCommand;
 
-        public UsersController(IGetUsers getCommand, IGetOneUser getOneCommand, IAddUser addCommand, IUpdateUser updateCommand)
+        public UsersController(IGetUsers getCommand, IGetOneUser getOneCommand, IAddUser addCommand,
+            IUpdateUser updateCommand, IDeleteUser deleteCommand)
         {
             this.getCommand = getCommand;
             this.getOneCommand = getOneCommand;
             this.addCommand = addCommand;
             this.updateCommand = updateCommand;
+            this.deleteCommand = deleteCommand;
         }
 
         // GET: api/Users
@@ -82,16 +85,30 @@ namespace MyComicList.API.Controllers
                 return NoContent();
 
             }
+            catch (EntityAlreadyExistsException e)
+            {
+                return Conflict(new ErrorMessage { Message = e.Message });
+            }
             catch (EntityNotFoundException e)
             {
                 return NotFound(new ErrorMessage { Message = e.Message });
             }
         }
 
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                deleteCommand.Execute(id);
+                return NoContent();
+
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new ErrorMessage { Message = e.Message });
+            }
+        }
     }
 }
