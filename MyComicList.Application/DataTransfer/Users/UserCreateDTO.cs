@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using static MyComicList.Application.Helpers.Mapper;
 
 namespace MyComicList.Application.DataTransfer.Users
 {
@@ -32,6 +31,7 @@ namespace MyComicList.Application.DataTransfer.Users
         [MinLength(8, ErrorMessage = "Minimum number of characters is 8.")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", 
             ErrorMessage = "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one of these: @ $ ! % * ? & special characters.")]
+        [Skip]
         public string Password { get; set; }
 
         [Required, DataType(DataType.EmailAddress)]

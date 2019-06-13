@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer.Users;
 using MyComicList.Application.Exceptions;
+using MyComicList.Application.Helpers;
 using MyComicList.Application.Requests;
 using MyComicList.DataAccess;
 
@@ -22,15 +23,14 @@ namespace MyComicList.EFCommands.Users
                 .SingleOrDefault();
 
             if (user == null) throw new EntityNotFoundException("User", id);
-
-            return new UserGetDTO()
+            var userDTO = new UserGetDTO()
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Username = user.Username,
                 Comics = user.Comics.Select(cu => cu.Comic.Name)
             };
+
+            Mapper.Automap(user, userDTO);
+
+            return userDTO;
         }
     }
 }

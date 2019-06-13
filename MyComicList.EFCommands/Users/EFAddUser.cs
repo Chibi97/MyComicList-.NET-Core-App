@@ -2,6 +2,7 @@
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer.Users;
 using MyComicList.Application.Exceptions;
+using MyComicList.Application.Helpers;
 using MyComicList.DataAccess;
 using MyComicList.Domain;
 using System;
@@ -32,12 +33,10 @@ namespace MyComicList.EFCommands.Users
             string hashedPassword = MakeHashPassword(request.Password);
             User user = new User
             {
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Email = request.Email,
-                Password = hashedPassword,
-                Username = request.Username,
+                Password = hashedPassword
             };
+
+            Mapper.Automap(request, user);
 
             Context.Users.Add(user);
             Context.SaveChanges();
