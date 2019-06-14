@@ -30,19 +30,20 @@ namespace MyComicList.API.Filters
             var service = context.HttpContext.RequestServices.GetService<ILoginService>();
             var user = service.PossibleUser();
 
-            //if(user != null)
-            //{
-            //    context.Result = new UnauthorizedResult();
-            //} else
-            //{
-            //    if(role != null)
-            //    {
-            //        if (user.Role != role)
-            //        {
-            //            context.Result = new UnauthorizedResult();
-            //        } 
-            //    }
-            //}
+            if (user == null)
+            {
+                context.Result = new UnauthorizedResult();
+            }
+            else
+            {
+                //if (role != null)
+                //{
+                //    if (user.Role != role)
+                //    {
+                //        context.Result = new UnauthorizedResult();
+                //    }
+                //}
+            }
         }
     }
 }

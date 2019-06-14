@@ -29,7 +29,7 @@ namespace MyComicList.EFCommands.Comics
 
             if (request.Publisher != null)
             {
-                var foundPublisher = Context.Publishers.FirstOrDefault(p => p.Id == request.Publisher);
+                var foundPublisher = Context.Publishers.FirstOrDefault(p => p.Id == request.Publisher && p.DeletedAt == null);
                 comic.Publisher = foundPublisher ?? throw new EntityNotFoundException("Publisher", (int)request.Publisher);
             }
 
@@ -53,7 +53,7 @@ namespace MyComicList.EFCommands.Comics
             comic.ComicGenres.Clear();
             foreach (var genre in request.Genres)
             {
-                var foundGenre = Context.Genres.FirstOrDefault(g => g.Id == genre);
+                var foundGenre = Context.Genres.FirstOrDefault(g => g.Id == genre && g.DeletedAt == null);
                 if (foundGenre == null) throw new EntityNotFoundException("Genres", genre);
 
                 comic.ComicGenres.Add(new ComicGenres
@@ -70,7 +70,7 @@ namespace MyComicList.EFCommands.Comics
             comic.ComicAuthors.Clear();
             foreach (var author in request.Authors)
             {
-                var foundAuthor = Context.Authors.FirstOrDefault(a => a.Id == author);
+                var foundAuthor = Context.Authors.FirstOrDefault(a => a.Id == author && a.DeletedAt == null);
                 if (foundAuthor == null) throw new EntityNotFoundException("Authors", author);
 
                 comic.ComicAuthors.Add(new ComicAuthors

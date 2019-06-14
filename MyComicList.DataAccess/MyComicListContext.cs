@@ -16,6 +16,7 @@ namespace MyComicList.DataAccess
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         IConfiguration config { get; set; }
         public MyComicListContext(IConfiguration config)
@@ -25,7 +26,7 @@ namespace MyComicList.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(config.GetSection("Database")["ConnectionString"]);
+            optionsBuilder.UseNpgsql("Host=127.0.0.1;Database=my_comic_list;Username=postgres;Password=postgres");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

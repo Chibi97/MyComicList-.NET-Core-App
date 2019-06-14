@@ -12,6 +12,7 @@ namespace MyComicList.Domain
         public string Email { get; set; }
         public ICollection<MyList> Comics { get; set; }
         public ICollection<Review> Reviews { get; set; }
+        public Role Role { get; set; }
 
     }
 }

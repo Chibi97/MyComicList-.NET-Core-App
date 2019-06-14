@@ -20,7 +20,7 @@ namespace MyComicList.DataAccess.Configurations
             builder.HasIndex(u => u.Email).IsUnique();
             builder.HasIndex(u => u.Username).IsUnique();
 
-            //builder.HasOne(u => u.Role).WithMany(r => r.Users); one-to-many
+            builder.HasOne(u => u.Role).WithMany(r => r.Users);
 
             builder.HasMany(u => u.Comics)
                     .WithOne(cu => cu.User)

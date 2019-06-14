@@ -12,7 +12,13 @@ namespace MyComicList.EFCommands.Comics
 {
     public class EFAddComic : EFBaseCommand, IAddComic
     {
-        public EFAddComic(MyComicListContext context) : base(context) { }
+        private List<ComicGenres> genres;
+        private List<ComicAuthors> authors;
+        public EFAddComic(MyComicListContext context) : base(context)
+        {
+            genres = new List<ComicGenres>();
+            authors = new List<ComicAuthors>();
+        }
 
         public void Execute(ComicCreateDTO request)
         {
@@ -21,7 +27,7 @@ namespace MyComicList.EFCommands.Comics
                 throw new EntityAlreadyExistsException("Name", request.Name);
             };
 
-            var publisher = Context.Publishers.FirstOrDefault(p => p.Id == request.Publisher);
+            var publisher = Context.Publishers.FirstOrDefault(p => p.Id == request.Publisher && p.DeletedAt == null);
             if (publisher == null) throw new EntityNotFoundException("Publisher", request.Publisher);
 
             Comic newComic = new Comic
@@ -34,44 +40,38 @@ namespace MyComicList.EFCommands.Comics
             };
             Context.Comics.Add(newComic);
 
-            MakeGenres(request, newComic);
-            
-            MakeAuthors(request, newComic);
+            foreach (var genre in request.Genres)
+            {
+                var foundGenre = Context.Genres.FirstOrDefault(g => g.Id == genre && g.DeletedAt == null);
+                if (foundGenre == null) throw new EntityNotFoundException("Genres", genre);
+
+                var cg = new ComicGenres()
+                {
+                    Comic = newComic,
+                    Genre = foundGenre
+                };
+                genres.Add(cg);
+
+            }
+
+            foreach (var author in request.Authors)
+            {
+                var foundAuthor = Context.Authors.FirstOrDefault(a => a.Id == author && a.DeletedAt == null);
+                if (foundAuthor == null) throw new EntityNotFoundException("Authors", author);
+
+                var ca = new ComicAuthors()
+                {
+                    Comic = newComic,
+                    Author = foundAuthor
+                };
+                authors.Add(ca);
+            }
+
+            newComic.ComicGenres = genres;
+            newComic.ComicAuthors = authors;
 
             Context.SaveChanges();
         }
 
-        #region Private Methods
-        private void MakeGenres(ComicCreateDTO request, Comic newComic)
-        {
-            foreach (var genre in request.Genres)
-            {
-                var foundGenre = Context.Genres.FirstOrDefault(g => g.Id == genre);
-                if (foundGenre == null) throw new EntityNotFoundException("Genres", genre);
-
-                newComic.ComicGenres.Add(new ComicGenres()
-                {
-                    Comic = newComic,
-                    Genre = foundGenre
-                });
-            }
-        }
-
-        private void MakeAuthors(ComicCreateDTO request, Comic newComic)
-        {
-            foreach (var author in request.Authors)
-            {
-                var foundAuthor = Context.Authors.FirstOrDefault(a => a.Id == author);
-                if (foundAuthor == null) throw new EntityNotFoundException("Authors", author);
-
-                newComic.ComicAuthors.Add(new ComicAuthors()
-                {
-                    Comic = newComic,
-                    Author = foundAuthor
-                });
-            }
-        }
-
-        #endregion
     }
 }
