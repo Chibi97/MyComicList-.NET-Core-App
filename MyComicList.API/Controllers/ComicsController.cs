@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using MyComicList.API.Filters;
 using MyComicList.Application.Commands.Comics;
 using MyComicList.Application.DataTransfer.Comics;
 using MyComicList.Application.Exceptions;
@@ -28,6 +29,7 @@ namespace MyComicList.API.Controllers
         }
         
         [HttpGet] // GET: api/Comics
+        [LoggedIn]
         public IActionResult Get([FromBody]ComicRequest body, [FromQuery]PagedRequest queryParams)
         {
             var request = body;
@@ -40,6 +42,7 @@ namespace MyComicList.API.Controllers
 
    
         [HttpGet("{id}")] // GET: api/Comics/5
+        [LoggedIn]
         public IActionResult Get(int id)
         {
             try
@@ -53,8 +56,8 @@ namespace MyComicList.API.Controllers
             }
         }
 
-        
         [HttpPost] // POST: api/Comics
+        [LoggedIn("Admin")]
         public IActionResult Post([FromBody] ComicCreateDTO comic)
         {
             try
@@ -73,6 +76,7 @@ namespace MyComicList.API.Controllers
         }
 
         [HttpPut("{id}")] // PUT: api/Comics/5
+        [LoggedIn("Admin")]
         public IActionResult Put(int id, [FromBody] ComicUpdateDTO comic)
         {
             try
@@ -86,8 +90,9 @@ namespace MyComicList.API.Controllers
                 return NotFound(new ErrorMessage { Message = e.Message });
             }
         }
-        
+
         [HttpDelete("{id}")] // DELETE: api/Comics/5
+        [LoggedIn("Admin")]
         public IActionResult Delete(int id)
         {
             try

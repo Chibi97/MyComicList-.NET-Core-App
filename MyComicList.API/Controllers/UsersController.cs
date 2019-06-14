@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyComicList.API.Filters;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer.Users;
 using MyComicList.Application.Exceptions;
@@ -34,6 +35,7 @@ namespace MyComicList.API.Controllers
 
         // GET: api/Users
         [HttpGet]
+        [LoggedIn]
         public IActionResult Get([FromQuery] UserRequest request)
         {
             var result = getCommand.Execute(request);
@@ -42,6 +44,7 @@ namespace MyComicList.API.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
+        [LoggedIn]
         public IActionResult Get(int id)
         {
             try
@@ -55,7 +58,7 @@ namespace MyComicList.API.Controllers
             
         }
         //POST: api/Users
-       [HttpPost]
+        [HttpPost]
         public IActionResult Post([FromBody] UserCreateDTO user)
         {
             try
@@ -76,6 +79,7 @@ namespace MyComicList.API.Controllers
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
+        [LoggedIn("Admin")]
         public IActionResult Put(int id, [FromBody] UserUpdateDTO user)
         {
             try
@@ -97,6 +101,7 @@ namespace MyComicList.API.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
+        [LoggedIn("Admin")]
         public IActionResult Delete(int id)
         {
             try

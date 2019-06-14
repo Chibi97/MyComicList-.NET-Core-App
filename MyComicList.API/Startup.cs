@@ -12,8 +12,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MyComicList.API.Middlewares;
+using MyComicList.API.Services;
 using MyComicList.Application.Commands.Comics;
 using MyComicList.Application.Commands.Users;
+using MyComicList.Application.DataTransfer;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Responses;
 using MyComicList.DataAccess;
@@ -48,6 +51,9 @@ namespace MyComicList.API
             services.AddTransient<IAddUser, EFAddUser>();
             services.AddTransient<IUpdateUser, EFUpdateUser>();
             services.AddTransient<IDeleteUser, EFDeleteUser>();
+
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,39 +69,7 @@ namespace MyComicList.API
                 app.UseHsts();
             }
 
-
-            //app.UseExceptionHandler(builder =>
-            //{
-            //    builder.Run(async context =>
-            //    {
-            //        var feature = context.Features.Get<IExceptionHandlerFeature>();
-            //        Exception exception = feature.Error;
-            //        bool handled = false;
-
-            //        if (exception is EntityAlreadyExistsException)
-            //        {
-            //            handled = true;
-            //            context.Response.StatusCode = 409;
-            //            context.Response.ContentType = "application/json";
-            //            var error = new ErrorMessage() { Message = exception.Message };
-            //            await context.Response.WriteAsync(JsonConvert.SerializeObject(error));
-            //        }
-
-            //        if (exception is EntityNotFoundException)
-            //        {
-            //            handled = true;
-            //            context.Response.StatusCode = 404;
-            //            context.Response.ContentType = "application/json";
-            //            var error = new ErrorMessage() { Message = exception.Message };
-            //            await context.Response.WriteAsync(JsonConvert.SerializeObject(error));
-            //        }
-
-            //        if (!handled)
-            //        {
-            //            await context.Response.WriteAsync("Please contact administrator for this error");
-            //        }
-            //    });
-            //});
+            app.UseMiddleware<LoginMiddleware>();
 
             app.UseHttpsRedirection();
             app.UseMvc();
