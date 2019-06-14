@@ -26,6 +26,7 @@ namespace MyComicList.EFCommands.Users
 
             return new UserGetDTO()
             {
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,

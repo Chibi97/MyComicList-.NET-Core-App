@@ -16,9 +16,12 @@ namespace MyComicList.API.Filters
         public LoggedIn(string role)
         {
             this.role = role;
-        }
+         }
 
-        public LoggedIn() { }
+        public LoggedIn()
+        {
+            this.role = "User";
+        }
 
         public void OnResourceExecuted(ResourceExecutedContext context)
         {
@@ -36,13 +39,13 @@ namespace MyComicList.API.Filters
             }
             else
             {
-                //if (role != null)
-                //{
-                //    if (user.Role != role)
-                //    {
-                //        context.Result = new UnauthorizedResult();
-                //    }
-                //}
+                if (role != null)
+                {
+                    if (!user.Role.Name.Equals(role))
+                    {
+                        context.Result = new UnauthorizedResult();
+                    }
+                }
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using MyComicList.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using MyComicList.DataAccess;
 using MyComicList.Domain;
 using System;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace MyComicList.API.Services
 
         public void Login(int id)
         {
-            var foundUser = context.Users.SingleOrDefault(u => u.Id == id);
+            var foundUser = context.Users.Include(u => u.Role).SingleOrDefault(u => u.Id == id && u.DeletedAt == null);
             if(foundUser != null)
             {
                 user = foundUser;
