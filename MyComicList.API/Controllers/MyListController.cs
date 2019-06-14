@@ -4,6 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyComicList.API.Filters;
+using MyComicList.API.Services;
+using MyComicList.Application.Commands.MyList;
+using MyComicList.Application.DataTransfer.MyList;
+using MyComicList.Application.Exceptions;
+using MyComicList.Application.Requests;
+using MyComicList.Application.Responses;
 
 namespace MyComicList.API.Controllers
 {
@@ -11,31 +18,53 @@ namespace MyComicList.API.Controllers
     [ApiController]
     public class MyListController : ControllerBase
     {
-        // GET: api/MyList
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly ILoginService loginService;
+        private readonly IAddToMyList addCommand;
+
+        public MyListController(ILoginService loginService, IAddToMyList addCommand)
         {
-            return new string[] { "value1", "value2" };
+            this.loginService = loginService;
+            this.addCommand = addCommand;
         }
 
-        // GET: api/MyList/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //// GET: api/MyList
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
+        //    return Ok();
+        //}
+
+        //// GET: api/MyList/5
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
+
 
         // POST: api/MyList
         [HttpPost]
-        public void Post([FromBody] string value)
+        //[LoggedIn]
+        public IActionResult Post([FromBody] MyListRequest request)
         {
+            try
+            {
+                var dto = new MyListAddDTO();
+                dto.User = loginService.PossibleUser();
+                dto.Comics = request.Comics;
+                 addCommand.Execute(dto);
+                return Ok();
+            }
+            catch (EntityAlreadyExistsException e)
+            {
+                return Conflict(new ErrorMessage { Message = e.Message });
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new ErrorMessage { Message = e.Message });
+            }
         }
 
-        // PUT: api/MyList/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]

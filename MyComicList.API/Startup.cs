@@ -15,12 +15,14 @@ using Microsoft.Extensions.Options;
 using MyComicList.API.Middlewares;
 using MyComicList.API.Services;
 using MyComicList.Application.Commands.Comics;
+using MyComicList.Application.Commands.MyList;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Responses;
 using MyComicList.DataAccess;
-using MyComicList.EFCommands.Comics;
+using MyComicList.EFCommands.MyListOfComics;
+using MyComicList.EFCommands.MyListOfComics;
 using MyComicList.EFCommands.Users;
 using Newtonsoft.Json;
 
@@ -51,6 +53,8 @@ namespace MyComicList.API
             services.AddTransient<IAddUser, EFAddUser>();
             services.AddTransient<IUpdateUser, EFUpdateUser>();
             services.AddTransient<IDeleteUser, EFDeleteUser>();
+
+            services.AddTransient<IAddToMyList, EFAddToMyList>();
 
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();

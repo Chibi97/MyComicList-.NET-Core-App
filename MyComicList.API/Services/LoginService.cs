@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyComicList.Application.DataTransfer;
 using MyComicList.DataAccess;
 using MyComicList.Domain;
 using System;
@@ -24,10 +25,12 @@ namespace MyComicList.API.Services
         public void Login(int id)
         {
             var foundUser = context.Users.Include(u => u.Role).SingleOrDefault(u => u.Id == id && u.DeletedAt == null);
+
             if(foundUser != null)
             {
                 user = foundUser;
             }
+            
         }
     }
 }

@@ -8,7 +8,7 @@ using MyComicList.Application.Exceptions;
 using MyComicList.DataAccess;
 using MyComicList.Domain;
 
-namespace MyComicList.EFCommands.Comics
+namespace MyComicList.EFCommands.MyListOfComics
 {
     public class EFAddComic : EFBaseCommand, IAddComic
     {

@@ -8,7 +8,7 @@ using MyComicList.Domain;
 using System;
 using System.Linq;
 
-namespace MyComicList.EFCommands.Comics
+namespace MyComicList.EFCommands.MyListOfComics
 {
     public class EFUpdateComic : EFBaseCommand, IUpdateComic
     {

@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyComicList.EFCommands.Comics
+namespace MyComicList.EFCommands.MyListOfComics
 {
     public class EFGetOneComic : EFBaseCommand, IGetOneComic
     {

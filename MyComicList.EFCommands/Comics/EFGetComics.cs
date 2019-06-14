@@ -9,7 +9,7 @@ using MyComicList.Application.Requests;
 using MyComicList.Application.Responses;
 using MyComicList.DataAccess;
 
-namespace MyComicList.EFCommands.Comics
+namespace MyComicList.EFCommands.MyListOfComics
 {
     public class EFGetComics : EFBaseCommand, IGetComics
     {

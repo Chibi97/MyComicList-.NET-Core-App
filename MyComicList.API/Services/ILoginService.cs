@@ -1,4 +1,5 @@
-﻿using MyComicList.Domain;
+﻿using MyComicList.Application.DataTransfer;
+using MyComicList.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

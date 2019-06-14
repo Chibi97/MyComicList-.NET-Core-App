@@ -5,7 +5,7 @@ using MyComicList.DataAccess;
 using System;
 using System.Linq;
 
-namespace MyComicList.EFCommands.Comics
+namespace MyComicList.EFCommands.MyListOfComics
 {
     public class EFDeleteComic : EFBaseCommand, IDeleteComic
     {
