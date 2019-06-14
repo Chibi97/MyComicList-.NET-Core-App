@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MyComicList.DataAccess.Configurations;
 using MyComicList.Domain;
 using MyComicList.Domain.Helpers;
@@ -16,9 +17,15 @@ namespace MyComicList.DataAccess
         public DbSet<Author> Authors { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
 
+        IConfiguration config { get; set; }
+        public MyComicListContext(IConfiguration config)
+        {
+            this.config = config;
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=127.0.0.1;Database=my_comic_list;Username=postgres;Password=postgres");
+            optionsBuilder.UseNpgsql(config.GetSection("Database")["ConnectionString"]);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
