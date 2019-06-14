@@ -26,7 +26,7 @@ namespace MyComicList.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=127.0.0.1;Database=my_comic_list;Username=postgres;Password=postgres");
+            optionsBuilder.UseNpgsql(config.GetSection("Database")["ConnectionString"]);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -34,6 +34,7 @@ namespace MyComicList.DataAccess
             DefaultDateValue<Comic>(modelBuilder);
             DefaultDateValue<Genre>(modelBuilder);
             DefaultDateValue<User>(modelBuilder);
+            DefaultDateValue<Role>(modelBuilder);
             DefaultDateValue<Publisher>(modelBuilder);
             DefaultDateValue<Author>(modelBuilder);
             DefaultDateValue<MyList>(modelBuilder);
@@ -44,6 +45,7 @@ namespace MyComicList.DataAccess
             modelBuilder.ApplyConfiguration(new ComicConfiguration());
             modelBuilder.ApplyConfiguration(new GenreConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new PublisherConfiguration());
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             modelBuilder.ApplyConfiguration(new MyListConfiguration());
