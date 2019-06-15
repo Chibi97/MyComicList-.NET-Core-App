@@ -20,32 +20,53 @@ namespace MyComicList.API.Controllers
     {
         private readonly ILoginService loginService;
         private readonly IAddToMyList addCommand;
+        private readonly IDeleteFromMyList deleteCommand;
+        private readonly IGetMyList getCommand;
+        private readonly IGetOneFromMyList getOneCommand;
 
-        public MyListController(ILoginService loginService, IAddToMyList addCommand)
+        public MyListController(ILoginService loginService, IAddToMyList addCommand, IDeleteFromMyList deleteCommand, IGetMyList getCommand, IGetOneFromMyList getOneCommand)
         {
             this.loginService = loginService;
             this.addCommand = addCommand;
+            this.deleteCommand = deleteCommand;
+            this.getCommand = getCommand;
+            this.getOneCommand = getOneCommand;
         }
 
-        //// GET: api/MyList
-        //[HttpGet]
-        //public IActionResult Get()
-        //{
-        //    return Ok();
-        //}
+        // GET: api/MyList
+        [HttpGet]
+        [LoggedIn]
+        public IActionResult Get([FromQuery]MyListGetRequest request)
+        {
+            request.User = loginService.PossibleUser();
+            var result = getCommand.Execute(request);
+            return Ok(result);
+        }
 
-        //// GET: api/MyList/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        // GET: api/MyList/5
+        [HttpGet("{id}")]
+        [LoggedIn]
+        public IActionResult Get(int id)
+        {
+            try
+            {
+                var dto = new MyListDTO();
+                dto.User = loginService.PossibleUser();
+                dto.ComicId = id;
+                var comic = getOneCommand.Execute(dto);
+                return Ok(comic);
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new ErrorMessage { Message = e.Message });
+            }
+        }
 
 
         // POST: api/MyList
         [HttpPost]
-        //[LoggedIn]
-        public IActionResult Post([FromBody] MyListRequest request)
+        [LoggedIn]
+        public IActionResult Post([FromBody] MyListAddRequest request)
         {
             try
             {
@@ -66,10 +87,23 @@ namespace MyComicList.API.Controllers
         }
 
 
-        // DELETE: api/ApiWithActions/5
+        // DELETE: api/myList/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [LoggedIn]
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                var dto = new MyListDTO();
+                dto.User = loginService.PossibleUser();
+                dto.ComicId = id;
+                deleteCommand.Execute(dto);
+                return NoContent();
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new ErrorMessage { Message = e.Message });
+            }
         }
     }
 }

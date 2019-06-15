@@ -22,7 +22,6 @@ using MyComicList.Application.Exceptions;
 using MyComicList.Application.Responses;
 using MyComicList.DataAccess;
 using MyComicList.EFCommands.MyListOfComics;
-using MyComicList.EFCommands.MyListOfComics;
 using MyComicList.EFCommands.Users;
 using Newtonsoft.Json;
 
@@ -55,6 +54,9 @@ namespace MyComicList.API
             services.AddTransient<IDeleteUser, EFDeleteUser>();
 
             services.AddTransient<IAddToMyList, EFAddToMyList>();
+            services.AddTransient<IDeleteFromMyList, EFDeleteFromMyList>();
+            services.AddTransient<IGetMyList, EFGetMyList>();
+            services.AddTransient<IGetOneFromMyList, EFGetOneFromMyList>();
 
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();

@@ -13,11 +13,7 @@ namespace MyComicList.EFCommands.MyListOfComics
 {
     public class EFAddToMyList : EFBaseCommand, IAddToMyList
     {
-        private List<MyList> myList;
-        public EFAddToMyList(MyComicListContext context) : base(context)
-        {
-            myList = new List<MyList>();
-        }
+        public EFAddToMyList(MyComicListContext context) : base(context) { }
 
         public void Execute(MyListAddDTO request)
         {
@@ -34,7 +30,7 @@ namespace MyComicList.EFCommands.MyListOfComics
                 var user = Context.Users.Include(u => u.Comics).Where(u => u.Id == request.User.Id).ToList();
 
                 var alreadyExists = user.Any(u => u.Comics.Any(uc => uc.ComicId == comicId));
-                if (alreadyExists) throw new EntityAlreadyExistsException("Comic for this user", comicId);
+                if (alreadyExists) throw new EntityAlreadyExistsException("Comic for your user", comicId);
 
                 var oneSet = new MyList()
                 {
@@ -47,5 +43,6 @@ namespace MyComicList.EFCommands.MyListOfComics
 
             Context.SaveChanges();
         }
+
     }
 }
