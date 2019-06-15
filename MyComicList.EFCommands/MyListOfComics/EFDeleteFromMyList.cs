@@ -17,7 +17,6 @@ namespace MyComicList.EFCommands.MyListOfComics
         public EFDeleteFromMyList(MyComicListContext context) : base(context)
         {
         }
-
         public void Execute(MyListDTO request)
         {
             if (request.User.DeletedAt != null)
@@ -34,6 +33,7 @@ namespace MyComicList.EFCommands.MyListOfComics
                 User = request.User
             };
             var user = Context.Users.Include(u => u.Comics).Where(u => u.Id == request.User.Id).ToList();
+            
             // TODO: obrisati zapravo
 
             Context.SaveChanges();
