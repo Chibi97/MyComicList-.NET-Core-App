@@ -29,7 +29,6 @@ namespace MyComicList.EFCommands.Genres
             {
                 genre.DeletedAt = DateTime.Now;
                 genre.Name += "_Deleted_" + CurrentTimeStamp;
-                genre.ComicGenres.Clear();
                 Context.SaveChanges();
             }
             else throw new NotEmptyCollectionException("Genre", "comics");

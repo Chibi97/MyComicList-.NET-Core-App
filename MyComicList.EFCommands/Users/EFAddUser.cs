@@ -18,7 +18,7 @@ namespace MyComicList.EFCommands.Users
     {
         public EFAddUser(MyComicListContext context) : base(context) { }
 
-        public void Execute(UserCreateDTO request)
+        public void Execute(UserAddDTO request)
         {
             if (Context.Users.Any(u => u.Username == request.Username))
             {

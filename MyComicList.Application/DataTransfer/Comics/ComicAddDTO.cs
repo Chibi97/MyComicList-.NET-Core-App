@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 using static MyComicList.Application.CustomValidators.ListValidator;
 
 namespace MyComicList.Application.DataTransfer.Comics
 {
-    public class ComicCreateDTO
+    public class ComicAddDTO
     {
         [Required, MinLength(3, ErrorMessage = "Minimum number of characters is 3.")]
         [MaxLength(50, ErrorMessage = "Maximum number of characters is 50.")]
@@ -15,7 +14,7 @@ namespace MyComicList.Application.DataTransfer.Comics
         [Required, MinLength(10, ErrorMessage = "Minimum number of characters is 10.")]
         [MaxLength(700, ErrorMessage = "Maximum number of characters is 50.")]
         public string Description { get; set; }
-        
+
         [Required]
         [Range(1, Int16.MaxValue, ErrorMessage = "Maximum number is 32767, and minimum is 1.")]
         public int Issues { get; set; }

@@ -58,7 +58,7 @@ namespace MyComicList.API.Controllers
 
         [HttpPost] // POST: api/Comics
         [LoggedIn("Admin")]
-        public IActionResult Post([FromBody] ComicCreateDTO comic)
+        public IActionResult Post([FromBody] ComicAddDTO comic)
         {
             try
             {

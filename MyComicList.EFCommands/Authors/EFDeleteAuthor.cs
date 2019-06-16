@@ -27,7 +27,6 @@ namespace MyComicList.EFCommands.Authors
             if (!author.ComicAuthors.Any())
             {
                 author.DeletedAt = DateTime.Now;
-                author.ComicAuthors.Clear();
                 Context.SaveChanges();
             }
             else throw new NotEmptyCollectionException("Author", "comics");
