@@ -9,7 +9,7 @@ namespace MyComicList.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<Comic> builder)
         {
             builder.Property(c => c.Name).HasMaxLength(50).IsRequired();
-            //builder.HasIndex(c => c.Name).IsUnique();
+            builder.HasIndex(c => c.Name).IsUnique();
             builder.Property(c => c.Description).HasMaxLength(700).IsRequired();
 
             builder.Property(c => c.PublishedAt).HasDefaultValueSql("NOW()");

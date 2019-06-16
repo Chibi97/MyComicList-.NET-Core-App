@@ -10,7 +10,7 @@ namespace MyComicList.DataAccess.Configurations
         {
             builder.Property(c => c.Name).HasMaxLength(50).IsRequired();
             builder.Property(c => c.Origin).HasMaxLength(50).IsRequired();
-            //builder.HasIndex(c => c.Name).IsUnique();
+            builder.HasIndex(c => c.Name).IsUnique();
         }
     }
 }
