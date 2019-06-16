@@ -16,11 +16,11 @@ namespace MyComicList.API.Filters
         public LoggedIn(string role)
         {
             this.role = role;
-         }
+        }
 
         public LoggedIn()
         {
-            this.role = "User";
+            this.role = "All";
         }
 
         public void OnResourceExecuted(ResourceExecutedContext context)
@@ -41,7 +41,9 @@ namespace MyComicList.API.Filters
             {
                 if (role != null)
                 {
-                    if (!user.Role.Name.Equals(role))
+                    if (role == "All") return;
+
+                    if (!user.Role.Name.Equals(role) )
                     {
                         context.Result = new UnauthorizedResult();
                     }

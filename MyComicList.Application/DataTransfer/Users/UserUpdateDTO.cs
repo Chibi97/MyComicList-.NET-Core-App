@@ -13,7 +13,6 @@ namespace MyComicList.Application.DataTransfer.Users
     public class UserUpdateDTO
     {
         [Skip]
-        [Range(1, Int32.MaxValue)]
         public int UserId { get; set; }
 
         [MinLength(2, ErrorMessage = "Minimum number of characters is 2.")]

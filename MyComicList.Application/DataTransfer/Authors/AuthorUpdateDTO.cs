@@ -9,7 +9,6 @@ namespace MyComicList.Application.DataTransfer.Authors
 {
     public class AuthorUpdateDTO
     {
-        [Range(1, Int32.MaxValue)]
         public int Id { get; set; }
         [MinLength(2, ErrorMessage = "Minimum number of characters is 2.")]
         [MaxLength(50, ErrorMessage = "Maximum number of characters is 30.")]

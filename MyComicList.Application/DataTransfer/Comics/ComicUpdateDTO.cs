@@ -9,7 +9,6 @@ namespace MyComicList.Application.DataTransfer.Comics
     public class ComicUpdateDTO
     {
         [Skip]
-        [Range(1, Int32.MaxValue)]
         public int ComicId { get; set; }
 
         [Skip]

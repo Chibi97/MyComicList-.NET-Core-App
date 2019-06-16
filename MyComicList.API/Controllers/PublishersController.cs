@@ -5,6 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyComicList.API.Filters;
+using MyComicList.Application.Commands.Publishers;
+using MyComicList.Application.DataTransfer.Publishers;
+using MyComicList.Application.Exceptions;
+using MyComicList.Application.Requests;
+using MyComicList.Application.Responses;
+using MyComicList.DataAccess;
 
 namespace MyComicList.API.Controllers
 {
@@ -12,78 +18,106 @@ namespace MyComicList.API.Controllers
     [ApiController]
     public class PublishersController : ControllerBase
     {
+        private readonly IGetPublishers getCommand;
+        private readonly IAddPublisher addCommand;
+        private readonly IUpdatePublisher updateCommand;
+        private readonly IDeletePublisher deleteCommand;
+
+        public MyComicListContext Context { get; }
+
+        public PublishersController(MyComicListContext context,IGetPublishers getCommand, IAddPublisher addCommand, IUpdatePublisher updateCommand, IDeletePublisher deleteCommand)
+        {
+            Context = context;
+            this.getCommand = getCommand;
+            this.addCommand = addCommand;
+            this.updateCommand = updateCommand;
+            this.deleteCommand = deleteCommand;
+        }
+
         // GET: api/Publishers
         [HttpGet]
         [LoggedIn]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery]PublisherRequest request)
         {
-            return Ok();
+            var result = getCommand.Execute(request);
+            return Ok(result);
         }
 
-        //// GET: api/Authors/5
-        //[HttpGet("{id}")]
-        //[LoggedIn]
-        //public IActionResult Get(int id)
-        //{
-        //    try
-        //    {
-        //        var author = Context.Authors
-        //            .Where(a => a.DeletedAt == null && a.Id == id)
-        //            .Select(a => new AuthorGetDTO
-        //            {
-        //                Id = a.Id,
-        //                FullName = a.FirstName + ' ' + a.LastName
-        //            });
+        // GET: api/Authors/5
+        [HttpGet("{id}")]
+        [LoggedIn]
+        public IActionResult Get(int id)
+        {
+            try
+            {
+                var publisher = Context.Publishers
+                    .Where(p => p.DeletedAt == null && p.Id == id)
+                    .Select(p => new PublisherDTO
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Origin = p.Origin
+                    });
 
-        //        return Ok(author);
+                return Ok(publisher);
 
-        //    }
-        //    catch (EntityNotFoundException e)
-        //    {
-        //        return NotFound(new ErrorMessage { Message = e.Message });
-        //    }
-        //}
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new ErrorMessage { Message = e.Message });
+            }
+        }
 
-        //// POST: api/Authors
-        //[HttpPost]
-        //[LoggedIn("Admin")]
-        //public IActionResult Post([FromBody] AuthorAddDTO author)
-        //{
-        //    addCommand.Execute(author);
-        //    return Ok();
-        //}
+        // POST: api/Authors
+        [HttpPost]
+        [LoggedIn("Admin")]
+        public IActionResult Post([FromBody] PublisherAddDTO author)
+        {
+            try
+            {
+                addCommand.Execute(author);
+                return Ok();
+            } catch(EntityAlreadyExistsException e)
+            {
+                return NotFound(new ErrorMessage { Message = e.Message });
+            }
+        }
 
-        //// PUT: api/Authors/5
-        //[HttpPut("{id}")]
-        //[LoggedIn("Admin")]
-        //public IActionResult Put(int id, [FromBody] AuthorUpdateDTO author)
-        //{
-        //    try
-        //    {
-        //        author.Id = id;
-        //        updateCommand.Execute(author);
-        //        return NoContent();
-        //    }
-        //    catch (EntityNotFoundException e)
-        //    {
-        //        return NotFound(new ErrorMessage { Message = e.Message });
-        //    }
-        //}
+        // PUT: api/Authors/5
+        [HttpPut("{id}")]
+        [LoggedIn("Admin")]
+        public IActionResult Put(int id, [FromBody] PublisherDTO publisher)
+        {
+            try
+            {
+                publisher.Id = id;
+                updateCommand.Execute(publisher);
+                return NoContent();
+            }
+            catch (EntityAlreadyExistsException e)
+            {
+                return Conflict(new ErrorMessage { Message = e.Message });
+            }
+        }
 
-        //// DELETE: api/Authors/5
-        //[HttpDelete("{id}")]
-        //[LoggedIn("Admin")]
-        //public IActionResult Delete(int id)
-        //{
-        //    try
-        //    {
-        //        deleteCommand.Execute(id);
-        //        return NoContent();
-        //    }
-        //    catch (EntityNotFoundException e)
-        //    {
-        //        return NotFound(new ErrorMessage { Message = e.Message });
-        //    }
-        //}
+        // DELETE: api/Authors/5
+        [HttpDelete("{id}")]
+        [LoggedIn("Admin")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                deleteCommand.Execute(id);
+                return NoContent();
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new ErrorMessage { Message = e.Message });
+            }
+            catch(NotEmptyCollectionException e)
+            {
+                return UnprocessableEntity(new ErrorMessage { Message = e.Message });
+            }
+        }
     }
 }
