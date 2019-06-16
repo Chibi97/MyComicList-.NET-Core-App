@@ -25,6 +25,7 @@ namespace MyComicList.Application.DataTransfer.Comics
         public DateTime PublishedAt { get; set; }
 
         [Required]
+        [Range(1, Int16.MaxValue)]
         public int Publisher { get; set; }
 
         [Required, ListNotEmpty(ErrorMessage = "Collection of genres must contain at least one element.")]

@@ -13,4 +13,8 @@
     <ProjectReference Include="..\MyComicList.DataAccess\MyComicList.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Publishers\" />
+  </ItemGroup>
+
 </Project>

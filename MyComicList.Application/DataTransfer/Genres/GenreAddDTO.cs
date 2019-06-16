@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static MyComicList.Application.CustomValidators.ListValidator;
 
 namespace MyComicList.Application.DataTransfer.Genres
 {
     public class GenreAddDTO
     {
-        [Required]
+        [Required, MinLength(2, ErrorMessage = "Minimum number of characters is 2.")]
+        [MaxLength(50, ErrorMessage = "Maximum number of characters is 50.")]
         public string Name { get; set; }
 
     }

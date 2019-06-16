@@ -9,12 +9,12 @@ namespace MyComicList.Application.DataTransfer.Comics
     public class ComicUpdateDTO
     {
         [Skip]
+        [Range(1, Int32.MaxValue)]
         public int ComicId { get; set; }
 
+        [Skip]
         [MinLength(3, ErrorMessage = "Minimum number of characters is 3.")]
         [MaxLength(50, ErrorMessage = "Maximum number of characters is 50.")]
-
-        [Skip]
         public string Name { get; set; }
 
         [MinLength(10, ErrorMessage = "Minimum number of characters is 10.")]
@@ -29,6 +29,7 @@ namespace MyComicList.Application.DataTransfer.Comics
         public DateTime? PublishedAt { get; set; }
 
         [Skip]
+        [Range(1, Int16.MaxValue)]
         public int? Publisher { get; set; }
 
         [ListNotEmpty(ErrorMessage = "Collection of genres must contain at least one element.")]
