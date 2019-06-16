@@ -9,7 +9,7 @@ namespace MyComicList.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder.Property(c => c.Name).HasMaxLength(20).IsRequired();
-            builder.HasIndex(c => c.Name).IsUnique();
+            //builder.HasIndex(c => c.Name).IsUnique();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -90,6 +91,10 @@ namespace MyComicList.API.Controllers
         {
             try
             {
+                //var path = Directory.GetParent(Directory.GetCurrentDirectory()).ToString();
+                //var testPath = Path.Combine(path, "imeprojekta.api", "wwws");
+                //Console.WriteLine("test");
+
                 publisher.Id = id;
                 updateCommand.Execute(publisher);
                 return NoContent();
@@ -97,6 +102,10 @@ namespace MyComicList.API.Controllers
             catch (EntityAlreadyExistsException e)
             {
                 return Conflict(new ErrorMessage { Message = e.Message });
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new ErrorMessage { Message = e.Message });
             }
         }
 

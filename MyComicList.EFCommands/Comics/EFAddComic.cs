@@ -22,7 +22,7 @@ namespace MyComicList.EFCommands.MyListOfComics
 
         public void Execute(ComicCreateDTO request)
         {
-            if (Context.Comics.Any(c => c.Name == request.Name))
+            if (Context.Comics.Where(c => c.DeletedAt == null).Any(c => c.Name == request.Name))
             {
                 throw new EntityAlreadyExistsException("Name", request.Name);
             };

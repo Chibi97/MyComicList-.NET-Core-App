@@ -16,12 +16,12 @@ namespace MyComicList.EFCommands.Users
         public void Execute(UserUpdateDTO request)
         {
 
-            if (Context.Users.Any(u => u.Username == request.Username))
+            if (Context.Users.Where(u => u.DeletedAt == null).Any(u => u.Username == request.Username))
             {
                 throw new EntityAlreadyExistsException("Username", request.Username);
             };
 
-            if (Context.Users.Any(u => u.Email == request.Email))
+            if (Context.Users.Where(u => u.DeletedAt == null).Any(u => u.Email == request.Email))
             {
                 throw new EntityAlreadyExistsException("Email", request.Email);
             };

@@ -27,7 +27,7 @@ namespace MyComicList.EFCommands.MyListOfComics
 
             if(comic.Name != request.Name)
             {
-                if (Context.Comics.Any(c => c.Name == request.Name))
+                if (Context.Comics.Where(c => c.DeletedAt == null).Any(c => c.Name == request.Name))
                 {
                     throw new EntityAlreadyExistsException("Comic", request.Name);
                 }
