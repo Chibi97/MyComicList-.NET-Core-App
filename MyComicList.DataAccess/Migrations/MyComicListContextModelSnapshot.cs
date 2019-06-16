@@ -80,6 +80,9 @@ namespace MyComicList.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.HasIndex("PublisherId");
 
                     b.ToTable("Comics");
@@ -148,6 +151,9 @@ namespace MyComicList.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Genres");
                 });
 
@@ -197,6 +203,9 @@ namespace MyComicList.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Publishers");
                 });
 
@@ -220,6 +229,9 @@ namespace MyComicList.DataAccess.Migrations
                         .HasDefaultValueSql("NOW()");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Roles");
                 });
@@ -263,7 +275,13 @@ namespace MyComicList.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });

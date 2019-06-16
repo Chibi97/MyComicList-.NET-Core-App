@@ -10,8 +10,8 @@ namespace MyComicList.DataAccess.Migrations
                 name: "Origin",
                 table: "Publishers",
                 maxLength: 50,
-                nullable: false,
-                defaultValue: "");
+                nullable: false
+                );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
