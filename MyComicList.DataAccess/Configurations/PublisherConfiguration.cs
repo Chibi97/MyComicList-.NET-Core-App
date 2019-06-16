@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyComicList.Domain;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MyComicList.DataAccess.Configurations
 {
@@ -13,6 +10,7 @@ namespace MyComicList.DataAccess.Configurations
         {
             builder.Property(c => c.Name).HasMaxLength(50).IsRequired();
             builder.HasIndex(c => c.Name).IsUnique();
+            builder.Property(c => c.Origin).HasMaxLength(50).IsRequired();
         }
     }
 }
