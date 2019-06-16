@@ -63,7 +63,7 @@ namespace MyComicList.API.Controllers
             try
             {
                 addCommand.Execute(comic);
-                return Ok();
+                return StatusCode(201);
             }
             catch (EntityAlreadyExistsException e)
             {
@@ -88,6 +88,10 @@ namespace MyComicList.API.Controllers
             catch (EntityNotFoundException e)
             {
                 return NotFound(new ErrorMessage { Message = e.Message });
+            }
+            catch (EntityAlreadyExistsException e)
+            {
+                return Conflict(new ErrorMessage { Message = e.Message });
             }
         }
 

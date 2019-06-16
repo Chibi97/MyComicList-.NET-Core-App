@@ -39,6 +39,7 @@ namespace MyComicList.API.Controllers
         {
             var genres = Context.Genres
                 .Where(g => g.DeletedAt == null)
+                .OrderBy(g => g.Id)
                 .Select(g => new GenreDTO
                 {
                     Id = g.Id,
@@ -53,22 +54,16 @@ namespace MyComicList.API.Controllers
         [LoggedIn]
         public IActionResult Get(int id)
         {
-            try
-            {
-                var genre = Context.Genres
-                    .Where(g => g.DeletedAt == null && g.Id == id)
-                    .Select(g => new GenreDTO
-                    {
-                        Id = g.Id,
-                        Name = g.Name
-                    });
+            var genre = Context.Genres
+                .Where(g => g.DeletedAt == null && g.Id == id)
+                .Select(g => new GenreDTO
+                {
+                    Id = g.Id,
+                    Name = g.Name
+                }).SingleOrDefault();
+            if (genre == null) return NotFound(new ErrorMessage { Message = $"Genre - not valid, Given value: { id } is not found" });
 
-                return Ok(genre);
-
-            } catch(EntityNotFoundException e)
-            {
-                return NotFound(new ErrorMessage { Message = e.Message });
-            }
+            return Ok(genre);
         }
 
         // POST: api/Genres
@@ -79,8 +74,8 @@ namespace MyComicList.API.Controllers
             try
             {
                 addCommand.Execute(genre);
-                return Ok();
-                
+                return StatusCode(201);
+
             } catch(EntityAlreadyExistsException e)
             {
                 return Conflict(new ErrorMessage { Message = e.Message });
@@ -103,6 +98,10 @@ namespace MyComicList.API.Controllers
             {
                 return NotFound(new ErrorMessage { Message = e.Message });
             }
+            catch (EntityAlreadyExistsException e)
+            {
+                return Conflict(new ErrorMessage { Message = e.Message });
+            }
         }
 
         // DELETE: api/genres/5
@@ -118,6 +117,10 @@ namespace MyComicList.API.Controllers
             catch (EntityNotFoundException e)
             {
                 return NotFound(new ErrorMessage { Message = e.Message });
+            }
+            catch (NotEmptyCollectionException e)
+            {
+                return UnprocessableEntity(new ErrorMessage { Message = e.Message });
             }
         }
     }

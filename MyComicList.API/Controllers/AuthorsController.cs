@@ -36,6 +36,7 @@ namespace MyComicList.API.Controllers
         {
             var authors = Context.Authors
                 .Where(a => a.DeletedAt == null)
+                .OrderBy(a => a.Id)
                 .Select(a => new AuthorGetDTO
                 {
                    Id = a.Id,
@@ -49,23 +50,16 @@ namespace MyComicList.API.Controllers
         [LoggedIn]
         public IActionResult Get(int id)
         {
-            try
-            {
-                var author = Context.Authors
-                    .Where(a => a.DeletedAt == null && a.Id == id)
-                    .Select(a => new AuthorGetDTO
-                    {
-                        Id = a.Id,
-                        FullName = a.FirstName + ' ' + a.LastName
-                    });
+            var author = Context.Authors
+                .Where(a => a.DeletedAt == null && a.Id == id)
+                .Select(a => new AuthorGetDTO
+                {
+                    Id = a.Id,
+                    FullName = a.FirstName + ' ' + a.LastName
+                }).SingleOrDefault();
+            if (author == null) return NotFound(new ErrorMessage { Message = $"Author - not valid, Given value: { id } is not found" });
 
-                return Ok(author);
-
-            }
-            catch (EntityNotFoundException e)
-            {
-                return NotFound(new ErrorMessage { Message = e.Message });
-            }
+            return Ok(author);
         }
 
         // POST: api/Authors
@@ -74,7 +68,7 @@ namespace MyComicList.API.Controllers
         public IActionResult Post([FromBody] AuthorAddDTO author)
         {
             addCommand.Execute(author);
-            return Ok();
+            return StatusCode(201);
         }
 
         // PUT: api/Authors/5
@@ -107,6 +101,10 @@ namespace MyComicList.API.Controllers
             catch (EntityNotFoundException e)
             {
                 return NotFound(new ErrorMessage { Message = e.Message });
+            }
+            catch (NotEmptyCollectionException e)
+            {
+                return UnprocessableEntity(new ErrorMessage { Message = e.Message });
             }
         }
     }

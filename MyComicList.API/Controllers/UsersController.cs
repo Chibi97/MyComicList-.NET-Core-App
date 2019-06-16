@@ -64,7 +64,7 @@ namespace MyComicList.API.Controllers
             try
             {
                 addCommand.Execute(user);
-                return Ok();
+                return StatusCode(201);
 
             } catch(EntityAlreadyExistsException e)
             {

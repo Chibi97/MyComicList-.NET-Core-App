@@ -26,7 +26,7 @@ namespace MyComicList.EFCommands.Genres
 
             if(genre.Name != request.Name)
             {
-                if (Context.Genres.Where(g => g.DeletedAt == null).Any(g => g.Name == request.Name))
+                if (Context.Genres.Any(g => g.Name == request.Name))
                 {
                     throw new EntityAlreadyExistsException("Genre", request.Name);
                 }

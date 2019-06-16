@@ -44,32 +44,25 @@ namespace MyComicList.API.Controllers
             return Ok(result);
         }
 
-        // GET: api/Authors/5
+        // GET: api/Publishers/5
         [HttpGet("{id}")]
         [LoggedIn]
         public IActionResult Get(int id)
         {
-            try
-            {
-                var publisher = Context.Publishers
-                    .Where(p => p.DeletedAt == null && p.Id == id)
-                    .Select(p => new PublisherDTO
-                    {
-                        Id = p.Id,
-                        Name = p.Name,
-                        Origin = p.Origin
-                    });
+            var publisher = Context.Publishers
+                .Where(p => p.DeletedAt == null && p.Id == id)
+                .Select(p => new PublisherDTO
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Origin = p.Origin
+                }).SingleOrDefault();
+            if (publisher == null) return NotFound(new ErrorMessage { Message = $"Publisher - not valid, Given value: { id } is not found" });
 
-                return Ok(publisher);
-
-            }
-            catch (EntityNotFoundException e)
-            {
-                return NotFound(new ErrorMessage { Message = e.Message });
-            }
+            return Ok(publisher);
         }
 
-        // POST: api/Authors
+        // POST: api/Publishers
         [HttpPost]
         [LoggedIn("Admin")]
         public IActionResult Post([FromBody] PublisherAddDTO author)
@@ -77,14 +70,14 @@ namespace MyComicList.API.Controllers
             try
             {
                 addCommand.Execute(author);
-                return Ok();
+                return StatusCode(201);
             } catch(EntityAlreadyExistsException e)
             {
                 return NotFound(new ErrorMessage { Message = e.Message });
             }
         }
 
-        // PUT: api/Authors/5
+        // PUT: api/Publishers/5
         [HttpPut("{id}")]
         [LoggedIn("Admin")]
         public IActionResult Put(int id, [FromBody] PublisherDTO publisher)
@@ -109,7 +102,7 @@ namespace MyComicList.API.Controllers
             }
         }
 
-        // DELETE: api/Authors/5
+        // DELETE: api/Publishers/5
         [HttpDelete("{id}")]
         [LoggedIn("Admin")]
         public IActionResult Delete(int id)

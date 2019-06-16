@@ -74,7 +74,7 @@ namespace MyComicList.API.Controllers
                 dto.User = loginService.PossibleUser();
                 dto.Comics = request.Comics;
                  addCommand.Execute(dto);
-                return Ok();
+                return StatusCode(201);
             }
             catch (EntityAlreadyExistsException e)
             {

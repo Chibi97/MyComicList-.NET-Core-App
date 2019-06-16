@@ -25,10 +25,14 @@ namespace MyComicList.EFCommands.Genres
 
             if (genre == null) throw new EntityNotFoundException("Genre", id);
 
-            genre.DeletedAt = DateTime.Now;
-            genre.Name += "_Deleted_" + CurrentTimeStamp;
-            genre.ComicGenres.Clear();
-            Context.SaveChanges();
+            if (!genre.ComicGenres.Any())
+            {
+                genre.DeletedAt = DateTime.Now;
+                genre.Name += "_Deleted_" + CurrentTimeStamp;
+                genre.ComicGenres.Clear();
+                Context.SaveChanges();
+            }
+            else throw new NotEmptyCollectionException("Genre", "comics");
         }
     }
 }

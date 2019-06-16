@@ -27,6 +27,7 @@ namespace MyComicList.EFCommands.Publishers
 
             return publisher
                    .Where(p => p.DeletedAt == null)
+                   .OrderBy(p => p.Id)
                    .Select(p => new PublisherDTO
                    {
                        Id = p.Id,

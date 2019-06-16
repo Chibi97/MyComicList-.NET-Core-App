@@ -27,6 +27,7 @@ namespace MyComicList.EFCommands.Users
             return users
                 .Include(u => u.Comics).ThenInclude(uc => uc.Comic)
                 .Where(u => u.DeletedAt == null)
+                .OrderBy(u => u.Id)
                 .Select(u => new UserGetDTO
                 {
                     Id = u.Id,

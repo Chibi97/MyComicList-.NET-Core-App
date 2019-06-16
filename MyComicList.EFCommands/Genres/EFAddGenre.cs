@@ -19,7 +19,7 @@ namespace MyComicList.EFCommands.Genres
 
         public void Execute(GenreAddDTO request)
         {
-            if(Context.Genres.Where(g => g.DeletedAt == null).Any(c => c.Name == request.Name))
+            if(Context.Genres.Any(c => c.Name == request.Name))
             {
                 throw new EntityAlreadyExistsException("Name", request.Name);
             }
