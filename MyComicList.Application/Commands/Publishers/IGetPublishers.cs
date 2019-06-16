@@ -1,12 +1,11 @@
-﻿using System;
+﻿
+using MyComicList.Application.DataTransfer.Publishers;
+using MyComicList.Application.Requests;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyComicList.Application.Commands.Publishers
 {
-    public interface IGetPublishers
+    public interface IGetPublishers : ICommand<PublisherRequest, IEnumerable<PublisherDTO>>
     {
         
     }

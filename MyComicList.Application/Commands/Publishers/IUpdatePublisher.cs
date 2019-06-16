@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MyComicList.Application.DataTransfer.Publishers;
 
 namespace MyComicList.Application.Commands.Publishers
 {
-    public interface IUpdatePublisher
+    public interface IUpdatePublisher : ICommand<PublisherDTO>
     {
         
     }

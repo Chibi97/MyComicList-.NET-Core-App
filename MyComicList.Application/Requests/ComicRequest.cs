@@ -1,7 +1,6 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using static MyComicList.Application.CustomValidators.ListValidator;
 
 namespace MyComicList.Application.Requests

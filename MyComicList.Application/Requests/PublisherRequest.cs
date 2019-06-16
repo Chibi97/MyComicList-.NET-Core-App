@@ -2,10 +2,10 @@
 
 namespace MyComicList.Application.Requests
 {
-    public class UserRequest : PagedRequest
+    public class PublisherRequest
     {
         [MinLength(3, ErrorMessage = "Minimum number of characters is 3.")]
-        [MaxLength(20, ErrorMessage = "Maximum number of characters is 20.")]
-        public string Username { get; set; }
+        [MaxLength(50, ErrorMessage = "Maximum number of characters is 50.")]
+        public string Origin { get; set; }
     }
 }
