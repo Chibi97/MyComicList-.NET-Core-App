@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyComicList.Application", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyComicList.EFCommands", "MyComicList.EFCommands\MyComicList.EFCommands.csproj", "{43745521-5298-4383-A338-7EBB2939BF12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyComicList.API", "MyComicList.API\MyComicList.API.csproj", "{78B76AE2-6580-4D47-A3AC-65A711FAD48E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyComicList.API", "MyComicList.API\MyComicList.API.csproj", "{78B76AE2-6580-4D47-A3AC-65A711FAD48E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

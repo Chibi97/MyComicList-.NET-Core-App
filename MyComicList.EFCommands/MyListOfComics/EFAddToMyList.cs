@@ -32,13 +32,13 @@ namespace MyComicList.EFCommands.MyListOfComics
                 var alreadyExists = user.Any(u => u.Comics.Any(uc => uc.ComicId == comicId));
                 if (alreadyExists) throw new EntityAlreadyExistsException("Comic for your user", comicId);
 
-                var oneSet = new MyList()
+                var myList = new MyList()
                 {
                     Comic = comic,
                     User = request.User
                 };
 
-                request.User.Comics.Add(oneSet);
+                request.User.Comics.Add(myList);
             }
 
             Context.SaveChanges();

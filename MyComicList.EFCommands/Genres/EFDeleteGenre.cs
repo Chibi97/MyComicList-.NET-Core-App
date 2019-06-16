@@ -18,7 +18,11 @@ namespace MyComicList.EFCommands.Genres
 
         public void Execute(int id)
         {
-            var genre = Context.Genres.Include(g => g.ComicGenres).Where(g => g.DeletedAt == null && g.Id == id).FirstOrDefault();
+            var genre = Context.Genres
+                .Include(g => g.ComicGenres)
+                .Where(g => g.DeletedAt == null && g.Id == id)
+                .FirstOrDefault();
+
             if (genre == null) throw new EntityNotFoundException("Genre", id);
 
             genre.DeletedAt = DateTime.Now;

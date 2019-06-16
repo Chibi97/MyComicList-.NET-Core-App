@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer.Users;
 using MyComicList.Application.Exceptions;

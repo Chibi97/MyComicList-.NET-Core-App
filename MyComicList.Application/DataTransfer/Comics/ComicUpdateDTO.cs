@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using static MyComicList.Application.CustomValidators.ListValidator;
 using static MyComicList.Application.Helpers.Mapper;
 
@@ -14,6 +13,8 @@ namespace MyComicList.Application.DataTransfer.Comics
 
         [MinLength(3, ErrorMessage = "Minimum number of characters is 3.")]
         [MaxLength(50, ErrorMessage = "Maximum number of characters is 50.")]
+
+        [Skip]
         public string Name { get; set; }
 
         [MinLength(10, ErrorMessage = "Minimum number of characters is 10.")]

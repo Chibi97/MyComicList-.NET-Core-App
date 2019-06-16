@@ -24,6 +24,17 @@ namespace MyComicList.EFCommands.MyListOfComics
                 .FirstOrDefault();
 
             if (comic == null) throw new EntityNotFoundException("Comic", request.ComicId);
+
+            if(comic.Name != request.Name)
+            {
+                if (Context.Comics.Any(c => c.Name == request.Name))
+                {
+                    throw new EntityAlreadyExistsException("Comic", request.Name);
+                }
+
+                comic.Name = request.Name;
+            }
+
             Mapper.Automap(request, comic);
             comic.UpdatedAt = DateTime.Now;
 

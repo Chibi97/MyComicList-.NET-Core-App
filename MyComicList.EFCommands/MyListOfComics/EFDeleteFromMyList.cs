@@ -24,18 +24,14 @@ namespace MyComicList.EFCommands.MyListOfComics
                 throw new EntityNotFoundException("User", request.User.Id);
             }
 
-            var comic = Context.Comics.Where(c => c.DeletedAt == null && c.Id == request.ComicId).FirstOrDefault();
-            if (comic == null) throw new EntityNotFoundException("Comic", request.ComicId);
+            Context.Entry(request.User)
+                .Collection(u => u.Comics)
+                .Load();
 
-            var oneSet = new MyList()
-            {
-                Comic = comic,
-                User = request.User
-            };
-            var user = Context.Users.Include(u => u.Comics).Where(u => u.Id == request.User.Id).ToList();
-            
-            // TODO: obrisati zapravo
+            var comic = request.User.Comics.FirstOrDefault(c => c.ComicId == request.ComicId);
+             if (comic == null) throw new EntityNotFoundException("Comic", request.ComicId);
 
+            request.User.Comics.Remove(comic);
             Context.SaveChanges();
         }
     }

@@ -1,11 +1,10 @@
 ﻿using MyComicList.Application.Commands.Genres;
 using MyComicList.Application.DataTransfer.Genres;
 using MyComicList.Application.Exceptions;
-using MyComicList.Application.Helpers;
 using MyComicList.DataAccess;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,10 +24,19 @@ namespace MyComicList.EFCommands.Genres
 
             if (genre == null) throw new EntityNotFoundException("Genre", request.Id);
 
-            genre.Name = request.Name;
-            genre.UpdatedAt = DateTime.Now;
+            if(genre.Name != request.Name)
+            {
+                if (Context.Genres.Any(c => c.Name == request.Name))
+                {
+                    throw new EntityAlreadyExistsException("Genre", request.Name);
+                }
 
-            Context.SaveChanges();
+                genre.Name = request.Name;
+                genre.UpdatedAt = DateTime.Now;
+
+                Context.SaveChanges();
+            }
+            
         }
     }
 }
