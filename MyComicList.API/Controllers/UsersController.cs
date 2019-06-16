@@ -59,7 +59,7 @@ namespace MyComicList.API.Controllers
         }
         //POST: api/Users
         [HttpPost]
-        public IActionResult Post([FromBody] UserCreateDTO user)
+        public IActionResult Post([FromBody] UserAddDTO user)
         {
             try
             {

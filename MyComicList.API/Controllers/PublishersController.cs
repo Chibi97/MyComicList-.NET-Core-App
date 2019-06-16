@@ -100,7 +100,7 @@ namespace MyComicList.API.Controllers
         {
             try
             {
-                deleteCommand.Execute(id);
+                //deleteCommand.Execute(id);
                 return NoContent();
             }
             catch (EntityNotFoundException e)
