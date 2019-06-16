@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyComicList.Application.Commands.Comics
+namespace MyComicList.Application.Commands
 {
     public interface ICommand<TRequest>
     {

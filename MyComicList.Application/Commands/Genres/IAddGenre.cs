@@ -1,10 +1,4 @@
-﻿using MyComicList.Application.Commands.Comics;
-using MyComicList.Application.DataTransfer.Genres;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MyComicList.Application.DataTransfer.Genres;
 
 namespace MyComicList.Application.Commands.Genres
 {

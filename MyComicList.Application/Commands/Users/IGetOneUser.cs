@@ -1,6 +1,4 @@
-﻿using MyComicList.Application.Commands.Comics;
-using MyComicList.Application.DataTransfer.Users;
-using MyComicList.Application.Requests;
+﻿using MyComicList.Application.DataTransfer.Users;
 
 namespace MyComicList.Application.Commands.Users
 {
