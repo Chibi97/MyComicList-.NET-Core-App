@@ -20,7 +20,7 @@ namespace MyComicList.EFCommands.Publishers
 
         public void Execute(PublisherAddDTO request)
         {       
-            if (Context.Publishers.Where(p => p.DeletedAt == null).Any(p => p.Name == request.Name))
+            if (Context.Publishers.Any(p => p.Name == request.Name))
             {
                 throw new EntityAlreadyExistsException("Publisher", request.Name);
             }

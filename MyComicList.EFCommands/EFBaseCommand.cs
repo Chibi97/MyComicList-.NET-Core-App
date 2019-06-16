@@ -8,7 +8,13 @@ namespace MyComicList.EFCommands
     public abstract class EFBaseCommand
     {
         protected MyComicListContext Context { get; }
-
+        protected int CurrentTimeStamp
+        {
+            get
+            {
+                return (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            }
+        }
         protected EFBaseCommand(MyComicListContext context) => Context = context;
 
         protected string MakeHashPassword(string password)

@@ -26,6 +26,7 @@ namespace MyComicList.EFCommands.Publishers
             {
                 publisher.Comics.Clear();
                 publisher.DeletedAt = DateTime.Now;
+                publisher.Name += "_Deleted_" + CurrentTimeStamp;
                 Context.SaveChanges();
 
             }
