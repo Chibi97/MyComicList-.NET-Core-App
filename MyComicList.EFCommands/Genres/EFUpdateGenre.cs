@@ -19,14 +19,14 @@ namespace MyComicList.EFCommands.Genres
         public void Execute(GenreDTO request)
         {
             var genre = Context.Genres
-                .Where(c => c.Id == request.Id && c.DeletedAt == null)
+                .Where(g => g.Id == request.Id && g.DeletedAt == null)
                 .FirstOrDefault();
 
             if (genre == null) throw new EntityNotFoundException("Genre", request.Id);
 
             if(genre.Name != request.Name)
             {
-                if (Context.Genres.Any(c => c.Name == request.Name))
+                if (Context.Genres.Any(g => g.Name == request.Name))
                 {
                     throw new EntityAlreadyExistsException("Genre", request.Name);
                 }

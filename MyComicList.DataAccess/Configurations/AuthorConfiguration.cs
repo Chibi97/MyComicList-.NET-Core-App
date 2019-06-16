@@ -10,10 +10,6 @@ namespace MyComicList.DataAccess.Configurations
         {
             builder.Property(a => a.FirstName).HasMaxLength(30).IsRequired();
             builder.Property(a => a.LastName).HasMaxLength(30).IsRequired();
-            builder.Property(a => a.FullName).HasMaxLength(70).IsRequired();
-
-            builder.Property(a => a.FullName)
-                   .HasComputedColumnSql("[FirstName] + ' ' + [LastName]");
 
             builder.HasMany(a => a.ComicAuthors)
                     .WithOne(ca => ca.Author)

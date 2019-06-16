@@ -32,7 +32,7 @@ namespace MyComicList.EFCommands.MyListOfComics
                 PublishedAt = comic.PublishedAt.Date,
                 Publisher = comic.Publisher.Name,
                 Genres = comic.ComicGenres.Select(cg => cg.Genre.Name),
-                Authors = comic.ComicAuthors.Select(ca => ca.Author.FullName)
+                Authors = comic.ComicAuthors.Select(ca => ca.Author.FirstName + ' ' + ca.Author.LastName)
             };
         }
     }

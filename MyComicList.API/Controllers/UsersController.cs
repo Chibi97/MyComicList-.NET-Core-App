@@ -70,10 +70,6 @@ namespace MyComicList.API.Controllers
             {
                 return Conflict(new ErrorMessage { Message = e.Message });
             }
-            catch (EntityNotFoundException e)
-            {
-                return NotFound(new ErrorMessage { Message = e.Message });
-            }
         }
 
 

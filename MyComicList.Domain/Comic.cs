@@ -13,7 +13,6 @@ namespace MyComicList.Domain
         public Publisher Publisher { get; set; }
         public ICollection<MyList> Users { get; set; }
         public ICollection<ComicGenres> ComicGenres { get; set; }
-        public ICollection<Review> Reviews { get; set; }
         public ICollection<ComicAuthors> ComicAuthors { get; set; }
 
     }

@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MyComicList.API.Middlewares;
 using MyComicList.API.Services;
+using MyComicList.Application.Commands.Authors;
 using MyComicList.Application.Commands.Comics;
 using MyComicList.Application.Commands.Genres;
 using MyComicList.Application.Commands.MyList;
@@ -22,6 +23,7 @@ using MyComicList.Application.DataTransfer;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Responses;
 using MyComicList.DataAccess;
+using MyComicList.EFCommands.Authors;
 using MyComicList.EFCommands.Genres;
 using MyComicList.EFCommands.MyListOfComics;
 using MyComicList.EFCommands.Users;
@@ -63,6 +65,10 @@ namespace MyComicList.API
             services.AddTransient<IAddGenre, EFAddGenre>();
             services.AddTransient<IUpdateGenre, EFUpdateGenre>();
             services.AddTransient<IDeleteGenre, EFDeleteGenre>();
+
+            services.AddTransient<IAddAuthor, EFAddAuthor>();
+            services.AddTransient<IUpdateAuthor, EFUpdateAuthor>();
+            services.AddTransient<IDeleteAuthor, EFDeleteAuthor>();
 
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();

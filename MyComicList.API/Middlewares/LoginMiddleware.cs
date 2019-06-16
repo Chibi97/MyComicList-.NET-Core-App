@@ -10,7 +10,6 @@ namespace MyComicList.API.Middlewares
     public class LoginMiddleware
     {
         private readonly RequestDelegate next;
-        private UserLoginDTO userDTO;
         public LoginMiddleware(RequestDelegate next)
         {
             this.next = next;

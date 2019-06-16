@@ -18,14 +18,12 @@ namespace MyComicList.EFCommands.Users
         {
             var user = Context.Users
                 .Include(u => u.Comics)
-                .Include(u => u.Reviews)
                 .Where(u => u.Id == id && u.DeletedAt == null)
                 .FirstOrDefault();
 
             if (user == null) throw new EntityNotFoundException("User", id);
             user.DeletedAt = DateTime.Now;
             user.Comics.Clear();
-            user.Reviews.Clear();
 
             Context.SaveChanges();
 

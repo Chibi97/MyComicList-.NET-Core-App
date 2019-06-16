@@ -25,11 +25,6 @@ namespace MyComicList.DataAccess.Configurations
             builder.HasMany(u => u.Comics)
                     .WithOne(cu => cu.User)
                     .HasForeignKey(cu => cu.UserId);
-
-            builder.HasMany(u => u.Reviews)
-                .WithOne(r => r.User)
-                .HasForeignKey(r => r.UserId);
-
         }
     }
 }

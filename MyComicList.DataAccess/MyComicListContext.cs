@@ -38,7 +38,6 @@ namespace MyComicList.DataAccess
             DefaultDateValue<Publisher>(modelBuilder);
             DefaultDateValue<Author>(modelBuilder);
             DefaultDateValue<MyList>(modelBuilder);
-            DefaultDateValue<Review>(modelBuilder);
             DefaultDateValue<ComicGenres>(modelBuilder);
             DefaultDateValue<ComicAuthors>(modelBuilder);
 
@@ -49,7 +48,6 @@ namespace MyComicList.DataAccess
             modelBuilder.ApplyConfiguration(new PublisherConfiguration());
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             modelBuilder.ApplyConfiguration(new MyListConfiguration());
-            modelBuilder.ApplyConfiguration(new ReviewConfiguration());
             modelBuilder.ApplyConfiguration(new ComicGenreConfiguration());
             modelBuilder.ApplyConfiguration(new ComicAuthorConfiguration());
         }

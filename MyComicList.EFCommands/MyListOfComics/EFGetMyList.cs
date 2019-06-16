@@ -43,7 +43,7 @@ namespace MyComicList.EFCommands.MyListOfComics
                     PublishedAt = c.PublishedAt,
                     Publisher = c.Publisher.Name,
                     Genres = c.ComicGenres.Select(cg => cg.Genre.Name),
-                    Authors = c.ComicAuthors.Select(ca => ca.Author.FullName)
+                    Authors = c.ComicAuthors.Select(ca => ca.Author.FirstName + ' ' + ca.Author.LastName)
                 })
                 .Paginate(request.PerPage, request.Page);
         }
