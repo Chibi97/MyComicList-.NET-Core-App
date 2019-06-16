@@ -23,6 +23,7 @@ namespace MyComicList.EFCommands.MyListOfComics
             if (comic == null) throw new EntityNotFoundException("Comic", id);
 
             comic.DeletedAt = DateTime.Now;
+            comic.Name += "_Deleted_" + CurrentTimeStamp;
 
             comic.ComicGenres.Clear();
             comic.ComicAuthors.Clear();

@@ -23,6 +23,8 @@ namespace MyComicList.EFCommands.Users
 
             if (user == null) throw new EntityNotFoundException("User", id);
             user.DeletedAt = DateTime.Now;
+            user.Email += "_Deleted_" + CurrentTimeStamp;
+            user.Username += "_Deleted_" + CurrentTimeStamp;
             user.Comics.Clear();
 
             Context.SaveChanges();
