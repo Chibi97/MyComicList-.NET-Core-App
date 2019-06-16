@@ -2,7 +2,7 @@
 
 namespace MyComicList.Application.Commands.Comics
 {
-    public interface IAddComic : ICommand<ComicCreateDTO>
+    public interface IAddComic : ICommand<ComicAddDTO>
     {
         
     }

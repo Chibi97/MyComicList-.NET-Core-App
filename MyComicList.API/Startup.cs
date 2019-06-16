@@ -19,6 +19,7 @@ using MyComicList.Application.Commands.Comics;
 using MyComicList.Application.Commands.Genres;
 using MyComicList.Application.Commands.MyList;
 using MyComicList.Application.Commands.Publishers;
+using MyComicList.Application.Commands.Roles;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer;
 using MyComicList.Application.Exceptions;
@@ -28,6 +29,7 @@ using MyComicList.EFCommands.Authors;
 using MyComicList.EFCommands.Genres;
 using MyComicList.EFCommands.MyListOfComics;
 using MyComicList.EFCommands.Publishers;
+using MyComicList.EFCommands.Roles;
 using MyComicList.EFCommands.Users;
 using Newtonsoft.Json;
 
@@ -76,6 +78,10 @@ namespace MyComicList.API
             services.AddTransient<IDeletePublisher, EFDeletePublisher>();
             services.AddTransient<IGetPublishers, EFGetPublishers>();
             services.AddTransient<IUpdatePublisher, EFUpdatePublisher>();
+
+            services.AddTransient<IAddRole, EFAddRole>();
+            //services.AddTransient<IDeleteRole, EFDeleteRole>();
+            //services.AddTransient<IUpdateRole, EFUpdateRole>();
 
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();

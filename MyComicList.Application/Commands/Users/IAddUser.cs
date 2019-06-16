@@ -2,7 +2,7 @@
 
 namespace MyComicList.Application.Commands.Users
 {
-    public interface IAddUser : ICommand<UserCreateDTO>
+    public interface IAddUser : ICommand<UserAddDTO>
     {
         
     }

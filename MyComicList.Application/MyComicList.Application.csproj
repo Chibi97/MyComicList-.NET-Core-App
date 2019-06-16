@@ -8,8 +8,4 @@
     <ProjectReference Include="..\MyComicList.Domain\MyComicList.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\Roles\" />
-  </ItemGroup>
-
 </Project>

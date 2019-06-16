@@ -20,7 +20,7 @@ namespace MyComicList.EFCommands.MyListOfComics
             authors = new List<ComicAuthors>();
         }
 
-        public void Execute(ComicCreateDTO request)
+        public void Execute(ComicAddDTO request)
         {
             if (Context.Comics.Any(c => c.Name == request.Name))
             {
