@@ -1,6 +1,8 @@
 ﻿using MyComicList.Domain.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyComicList.Domain
 {
@@ -10,6 +12,7 @@ namespace MyComicList.Domain
         public string Description { get; set; }
         public int Issues { get; set; }
         public DateTime PublishedAt { get; set; }
+        [Required]
         public Publisher Publisher { get; set; }
         public ICollection<MyList> Users { get; set; }
         public ICollection<ComicGenres> ComicGenres { get; set; }

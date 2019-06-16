@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyComicList.DataAccess;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -9,9 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyComicList.DataAccess.Migrations
 {
     [DbContext(typeof(MyComicListContext))]
-    partial class MyComicListContextModelSnapshot : ModelSnapshot
+    [Migration("20190616142136_RemoveReviewAndFixKeys")]
+    partial class RemoveReviewAndFixKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +74,7 @@ namespace MyComicList.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<int>("PublisherId");
+                    b.Property<int?>("PublisherId");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -259,7 +261,7 @@ namespace MyComicList.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<int>("RoleId");
+                    b.Property<int?>("RoleId");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -286,8 +288,7 @@ namespace MyComicList.DataAccess.Migrations
                 {
                     b.HasOne("MyComicList.Domain.Publisher", "Publisher")
                         .WithMany("Comics")
-                        .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PublisherId");
                 });
 
             modelBuilder.Entity("MyComicList.Domain.ComicAuthors", b =>
@@ -333,8 +334,7 @@ namespace MyComicList.DataAccess.Migrations
                 {
                     b.HasOne("MyComicList.Domain.Role", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RoleId");
                 });
 #pragma warning restore 612, 618
         }

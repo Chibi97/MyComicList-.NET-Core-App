@@ -27,6 +27,7 @@ namespace MyComicList.DataAccess.Configurations
                 .HasForeignKey(ca => ca.ComicId);
 
             builder.HasOne(c => c.Publisher).WithMany(p => p.Comics);
+
         }
     }
 }
