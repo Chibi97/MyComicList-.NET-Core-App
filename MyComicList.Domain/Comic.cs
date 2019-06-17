@@ -12,8 +12,9 @@ namespace MyComicList.Domain
         public string Description { get; set; }
         public int Issues { get; set; }
         public DateTime PublishedAt { get; set; }
-        [Required]
+        public int PublisherId { get; set; }
         public Publisher Publisher { get; set; }
+        public ICollection<Picture> Pictures { get; set; }
         public ICollection<MyList> Users { get; set; }
         public ICollection<ComicGenres> ComicGenres { get; set; }
         public ICollection<ComicAuthors> ComicAuthors { get; set; }

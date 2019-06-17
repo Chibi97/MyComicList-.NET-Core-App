@@ -17,6 +17,7 @@ namespace MyComicList.DataAccess
         public DbSet<Author> Authors { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
 
         IConfiguration config { get; set; }
         public MyComicListContext(IConfiguration config)
@@ -35,6 +36,7 @@ namespace MyComicList.DataAccess
             DefaultDateValue<Genre>(modelBuilder);
             DefaultDateValue<User>(modelBuilder);
             DefaultDateValue<Role>(modelBuilder);
+            DefaultDateValue<Picture>(modelBuilder);
             DefaultDateValue<Publisher>(modelBuilder);
             DefaultDateValue<Author>(modelBuilder);
             DefaultDateValue<MyList>(modelBuilder);
@@ -45,6 +47,7 @@ namespace MyComicList.DataAccess
             modelBuilder.ApplyConfiguration(new GenreConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new PictureConfiguration());
             modelBuilder.ApplyConfiguration(new PublisherConfiguration());
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             modelBuilder.ApplyConfiguration(new MyListConfiguration());
