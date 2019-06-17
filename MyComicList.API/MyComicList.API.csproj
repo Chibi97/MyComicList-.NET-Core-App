@@ -23,4 +23,8 @@
     <ProjectReference Include="..\MyComicList.EFCommands\MyComicList.EFCommands.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\swagger\ui\" />
+  </ItemGroup>
+
 </Project>

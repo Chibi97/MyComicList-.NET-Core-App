@@ -22,7 +22,7 @@
     "paths": {
         "/roles/2": {
             "delete": {
-                "description": "Soft delete a role. If role has users, won't be deleted.",
+                "description": "",
                 "summary": "Delete",
                 "tags": [
                     "Roles"
@@ -50,14 +50,20 @@
                     "404": {
                         "description": "If role is not found",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": {
+                                "message": "Role - not valid, Given value: 2 is not found"
+                            }
                         },
                         "headers": {}
                     },
                     "422": {
                         "description": "If role has users related to it",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": {
+                                "message": "Role cannot be deleted because it has a collection of comics"
+                            }
                         },
                         "headers": {}
                     }
@@ -79,15 +85,28 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "description": ""
+                    "description": "token"
                 }],
                 "responses": {
                     "200": {
                         "description": "",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": {
+                                "id": 2,
+                                "name": "User"
+                            }
+
                         },
                         "headers": {}
+                    },
+                    "404": {
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Role - not valid, Given value: 2 is not found"
+                            }
+                        }
                     }
                 }
             }
@@ -118,14 +137,14 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     },
                     {
                         "name": "Authorization",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
                     }
                 ],
                 "responses": {
@@ -133,6 +152,26 @@
                         "description": "",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Role not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Role - not valid. Given value: 3 is not found."
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "409": {
+                        "description": "Role name already exists",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Role with value: Moderators already exists."
+                            }
                         },
                         "headers": {}
                     }
@@ -165,24 +204,35 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     },
                     {
                         "name": "Authorization",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "",
                         "schema": {
                             "type": "object"
                         },
                         "headers": {}
+                    },
+                    "409": {
+                        "description": "Role name already exists",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Role with value: Moderators already exists."
+                            }
+                        },
+                        "headers": {}
                     }
+
                 }
             },
             "get": {
@@ -201,13 +251,23 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "description": ""
+                    "description": "token"
                 }],
                 "responses": {
                     "200": {
                         "description": "",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": [
+                                {
+                                    "id": 1,
+                                    "name": "Admin"
+                                },
+                                {
+                                    "id": 2,
+                                    "name": "User"
+                                }
+                            ]
                         },
                         "headers": {}
                     }
@@ -216,7 +276,7 @@
         },
         "/auth": {
             "post": {
-                "description": "",
+                "description": "Authenticate wti JWT. The token returned shall be used as Authorization header in all other routes.",
                 "summary": "Login",
                 "tags": [
                     "Auth"
@@ -240,14 +300,17 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": {
+                                "message": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwibmJmIjoxNTYwNzgzODQ0LCJleHAiOjE1NjEzODg2NDQsImlhdCI6MTU2MDc4Mzg0NH0.m8uDtBGSgogZ9I100DHYcvb0eReYbXfPmjcS5RNU6lQ"
+                            }
                         },
                         "headers": {}
                     }
