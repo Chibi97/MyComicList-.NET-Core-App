@@ -82,7 +82,7 @@ namespace MyComicList.API.Controllers
                 var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
 
                 comic.Image.CopyTo(new FileStream(uploadPath, FileMode.Create));
-
+                comic.ImagePath = "/uploads/" + fileName;
                 addCommand.Execute(comic);
                 return StatusCode(201);
             }
@@ -98,10 +98,28 @@ namespace MyComicList.API.Controllers
 
         [HttpPut("{id}")] // PUT: api/Comics/5
         [LoggedIn("Admin")]
-        public IActionResult Put(int id, [FromBody] ComicUpdateDTO comic)
+        public IActionResult Put(int id, [FromForm] ComicUpdateDTO comic)
         {
+            if(comic.Image != null)
+            {
+                string extenstion = Path.GetExtension(comic.Image.FileName);
+                if (!allowedFileUploadTypes.Contains(extenstion))
+                {
+                    return UnprocessableEntity(new ErrorMessage { Message = "Image extension is not allowed." });
+                }
+            }
+
             try
             {
+                if(comic.Image != null)
+                {
+                    var fileName = Guid.NewGuid().ToString() + "_" + comic.Image.FileName;
+                    var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
+
+                    comic.Image.CopyTo(new FileStream(uploadPath, FileMode.Create));
+                    comic.ImagePath = "/uploads/" + fileName;
+                }
+
                 comic.ComicId = id;
                 updateCommand.Execute(comic);
                 return NoContent();

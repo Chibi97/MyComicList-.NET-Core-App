@@ -17,6 +17,7 @@ namespace MyComicList.EFCommands.MyListOfComics
                .Include(c => c.ComicGenres)
                .Include(c => c.ComicAuthors)
                .Include(c => c.Users)
+               .Include(c => c.Pictures)
                .Where(c => c.Id == id && c.DeletedAt == null)
                .FirstOrDefault();
 
@@ -28,6 +29,7 @@ namespace MyComicList.EFCommands.MyListOfComics
             comic.ComicGenres.Clear();
             comic.ComicAuthors.Clear();
             comic.Users.Clear();
+            comic.Pictures.Clear();
 
             Context.SaveChanges();
         }

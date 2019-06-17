@@ -18,6 +18,7 @@ namespace MyComicList.EFCommands.MyListOfComics
         {
             var comic = Context.Comics
                 .Include(c => c.Publisher)
+                .Include(c => c.Pictures)
                 .Include(c => c.ComicGenres)
                 .Include(c => c.ComicAuthors)
                 .Where(c => c.Id == request.ComicId && c.DeletedAt == null)
@@ -42,6 +43,12 @@ namespace MyComicList.EFCommands.MyListOfComics
             {
                 var foundPublisher = Context.Publishers.FirstOrDefault(p => p.Id == request.Publisher && p.DeletedAt == null);
                 comic.Publisher = foundPublisher ?? throw new EntityNotFoundException("Publisher", (int)request.Publisher);
+            }
+
+            if (request.ImagePath != null)
+            {
+                comic.Pictures.Clear();
+                comic.Pictures.Add(new Picture { Path = request.ImagePath, UpdatedAt = DateTime.Now });
             }
 
             if (request.Genres != null)

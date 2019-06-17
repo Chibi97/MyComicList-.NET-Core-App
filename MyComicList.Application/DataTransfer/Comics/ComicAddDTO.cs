@@ -8,8 +8,10 @@ namespace MyComicList.Application.DataTransfer.Comics
 {
     public class ComicAddDTO
     {
-
+        [Required]
         public IFormFile Image { get; set; }
+
+        public string ImagePath { get; set; }
 
         [Required, MinLength(3, ErrorMessage = "Minimum number of characters is 3.")]
         [MaxLength(50, ErrorMessage = "Maximum number of characters is 50.")]

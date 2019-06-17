@@ -14,10 +14,12 @@ namespace MyComicList.EFCommands.MyListOfComics
     {
         private List<ComicGenres> genres;
         private List<ComicAuthors> authors;
+        private List<Picture> pictures;
         public EFAddComic(MyComicListContext context) : base(context)
         {
             genres = new List<ComicGenres>();
             authors = new List<ComicAuthors>();
+            pictures = new List<Picture>();
         }
 
         public void Execute(ComicAddDTO request)
@@ -30,6 +32,7 @@ namespace MyComicList.EFCommands.MyListOfComics
             var publisher = Context.Publishers.FirstOrDefault(p => p.Id == request.Publisher && p.DeletedAt == null);
             if (publisher == null) throw new EntityNotFoundException("Publisher", request.Publisher);
 
+
             Comic newComic = new Comic
             {
                 Name = request.Name.Trim(),
@@ -38,7 +41,10 @@ namespace MyComicList.EFCommands.MyListOfComics
                 PublishedAt = request.PublishedAt,
                 Publisher = publisher
             };
+            pictures.Add(new Picture { Path = request.ImagePath });
+
             Context.Comics.Add(newComic);
+
 
             foreach (var genre in request.Genres)
             {
@@ -69,6 +75,7 @@ namespace MyComicList.EFCommands.MyListOfComics
 
             newComic.ComicGenres = genres;
             newComic.ComicAuthors = authors;
+            newComic.Pictures = pictures;
 
             Context.SaveChanges();
         }
