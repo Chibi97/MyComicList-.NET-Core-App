@@ -62,6 +62,7 @@ namespace MyComicList.API.Controllers
         }
         //POST: api/Users
         [HttpPost]
+        [LoggedIn("Admin")]
         public IActionResult Post([FromBody] UserAddDTO user)
         {
             try
