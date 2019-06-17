@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyComicList.API.Filters;
+using MyComicList.API.Services;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer.Users;
 using MyComicList.Application.Exceptions;
@@ -17,15 +18,17 @@ namespace MyComicList.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly ILoginService loginService;
         private readonly IGetUsers getCommand;
         private readonly IGetOneUser getOneCommand;
         private readonly IAddUser addCommand;
         private readonly IUpdateUser updateCommand;
         private readonly IDeleteUser deleteCommand;
 
-        public UsersController(IGetUsers getCommand, IGetOneUser getOneCommand, IAddUser addCommand,
+        public UsersController(ILoginService loginService, IGetUsers getCommand, IGetOneUser getOneCommand, IAddUser addCommand,
             IUpdateUser updateCommand, IDeleteUser deleteCommand)
         {
+            this.loginService = loginService;
             this.getCommand = getCommand;
             this.getOneCommand = getOneCommand;
             this.addCommand = addCommand;
@@ -84,6 +87,14 @@ namespace MyComicList.API.Controllers
         {
             try
             {
+                if(user.Role != null)
+                {
+                    var userFromTokenId = loginService.PossibleUser().Id;
+                    if (userFromTokenId == id)
+                    {
+                        return BadRequest(new ErrorMessage { Message = "You cannot change your own role!" });
+                    }
+                }
                 user.UserId = id;
                 updateCommand.Execute(user);
                 return NoContent();
@@ -106,6 +117,11 @@ namespace MyComicList.API.Controllers
         {
             try
             {
+                var userFromTokenId = loginService.PossibleUser().Id;
+                if (userFromTokenId == id )
+                {
+                    return BadRequest(new ErrorMessage { Message = "You cannot delete your own account!" });
+                }
                 deleteCommand.Execute(id);
                 return NoContent();
 
