@@ -1,4 +1,5 @@
 ﻿using MyComicList.Application.DataTransfer.Users;
+using MyComicList.Application.Interfaces;
 using MyComicList.Application.Requests;
 using MyComicList.Application.Responses;
 

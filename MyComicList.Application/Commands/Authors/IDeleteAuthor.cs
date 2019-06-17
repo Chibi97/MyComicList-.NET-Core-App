@@ -1,4 +1,5 @@
 ﻿
+using MyComicList.Application.Interfaces;
 
 namespace MyComicList.Application.Commands.Authors
 {

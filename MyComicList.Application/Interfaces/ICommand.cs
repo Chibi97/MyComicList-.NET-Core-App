@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace MyComicList.Application.Commands
+namespace MyComicList.Application.Interfaces
 {
     public interface ICommand<TRequest>
     {
