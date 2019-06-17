@@ -1,0 +1,1627 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0",
+        "title": "MyComicList C# project",
+        "description": "",
+        "contact": {
+            "email" : "olja.ivkovic.34.16@ict.edu.rs"
+        }
+    },
+    "host": "localhost:44333",
+    "basePath": "/api",
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/roles/2": {
+            "delete": {
+                "description": "Soft delete a role. If role has users, won't be deleted.",
+                "summary": "Delete",
+                "tags": [
+                    "Roles"
+                ],
+                "operationId": "Roles2Delete",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": "token"
+                }],
+                "responses": {
+                    "204": {
+                        "description": "If succeded delete",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "If role is not found",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "422": {
+                        "description": "If role has users related to it",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            },
+            "get": {
+                "description": "",
+                "summary": "Get one",
+                "tags": [
+                    "Roles"
+                ],
+                "operationId": "Roles2Get",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/roles/3": {
+            "put": {
+                "description": "",
+                "summary": "Update",
+                "tags": [
+                    "Roles"
+                ],
+                "operationId": "Roles3Put",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/UpdateRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/roles/": {
+            "post": {
+                "description": "",
+                "summary": "Create",
+                "tags": [
+                    "Roles"
+                ],
+                "operationId": "RolesPost",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/CreateRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            },
+            "get": {
+                "description": "",
+                "summary": "Get all",
+                "tags": [
+                    "Roles"
+                ],
+                "operationId": "RolesGet",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/auth": {
+            "post": {
+                "description": "",
+                "summary": "Login",
+                "tags": [
+                    "Auth"
+                ],
+                "operationId": "AuthPost",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/LoginRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/publishers/": {
+            "get": {
+                "description": "",
+                "summary": "Get all",
+                "tags": [
+                    "Publishers"
+                ],
+                "operationId": "PublishersGet",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/publishers/7": {
+            "get": {
+                "description": "",
+                "summary": "Get one",
+                "tags": [
+                    "Publishers"
+                ],
+                "operationId": "Publishers7Get",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/publishers/8": {
+            "delete": {
+                "description": "",
+                "summary": "Delete",
+                "tags": [
+                    "Publishers"
+                ],
+                "operationId": "Publishers8Delete",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/publishers/3": {
+            "put": {
+                "description": "",
+                "summary": "Update",
+                "tags": [
+                    "Publishers"
+                ],
+                "operationId": "Publishers3Put",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/UpdateRequest1"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/publishers": {
+            "post": {
+                "description": "",
+                "summary": "Create",
+                "tags": [
+                    "Publishers"
+                ],
+                "operationId": "PublishersPost",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/CreateRequest1"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/authors/7": {
+            "put": {
+                "description": "",
+                "summary": "Update",
+                "tags": [
+                    "Authors"
+                ],
+                "operationId": "Authors7Put",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/UpdateRequest2"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/authors/6": {
+            "delete": {
+                "description": "",
+                "summary": "Delete",
+                "tags": [
+                    "Authors"
+                ],
+                "operationId": "Authors6Delete",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/authors": {
+            "post": {
+                "description": "",
+                "summary": "Create",
+                "tags": [
+                    "Authors"
+                ],
+                "operationId": "AuthorsPost",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/CreateRequest2"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/authors/12": {
+            "get": {
+                "description": "",
+                "summary": "Get one",
+                "tags": [
+                    "Authors"
+                ],
+                "operationId": "Authors12Get",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/authors/": {
+            "get": {
+                "description": "",
+                "summary": "Get all",
+                "tags": [
+                    "Authors"
+                ],
+                "operationId": "AuthorsGet",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/genres/9": {
+            "delete": {
+                "description": "",
+                "summary": "Delete",
+                "tags": [
+                    "Genres"
+                ],
+                "operationId": "Genres9Delete",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            },
+            "put": {
+                "description": "",
+                "summary": "Update",
+                "tags": [
+                    "Genres"
+                ],
+                "operationId": "Genres9Put",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/UpdateRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/genres/": {
+            "post": {
+                "description": "",
+                "summary": "Create",
+                "tags": [
+                    "Genres"
+                ],
+                "operationId": "GenresPost",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/CreateRequest"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            },
+            "get": {
+                "description": "",
+                "summary": "Get all",
+                "tags": [
+                    "Genres"
+                ],
+                "operationId": "GenresGet",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/genres/3": {
+            "get": {
+                "description": "",
+                "summary": "Get one",
+                "tags": [
+                    "Genres"
+                ],
+                "operationId": "Genres3Get",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/mylist/40": {
+            "get": {
+                "description": "",
+                "summary": "Get one",
+                "tags": [
+                    "MyList"
+                ],
+                "operationId": "Mylist40Get",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/mylist": {
+            "get": {
+                "description": "",
+                "summary": "Get all",
+                "tags": [
+                    "MyList"
+                ],
+                "operationId": "MylistGet",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            },
+            "post": {
+                "description": "",
+                "summary": "Insert",
+                "tags": [
+                    "MyList"
+                ],
+                "operationId": "MylistPost",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/InsertRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/mylist/10": {
+            "delete": {
+                "description": "",
+                "summary": "Delete",
+                "tags": [
+                    "MyList"
+                ],
+                "operationId": "Mylist10Delete",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/users/2": {
+            "delete": {
+                "description": "",
+                "summary": "Delete",
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "Users2Delete",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/users/1": {
+            "put": {
+                "description": "",
+                "summary": "Update",
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "Users1Put",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/UpdateRequest4"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            },
+            "get": {
+                "description": "",
+                "summary": "Get one",
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "Users1Get",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/users": {
+            "post": {
+                "description": "",
+                "summary": "Create new",
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "UsersPost",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/CreatenewRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/users/?perPage=20": {
+            "get": {
+                "description": "",
+                "summary": "Get all",
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "UsersPerPage20Get",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/comics/49": {
+            "delete": {
+                "description": "",
+                "summary": "Delete",
+                "tags": [
+                    "Comics"
+                ],
+                "operationId": "Comics49Delete",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "description": ""
+                }],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/comics/48": {
+            "put": {
+                "description": "",
+                "summary": "Update",
+                "tags": [
+                    "Comics"
+                ],
+                "operationId": "Comics48Put",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "parameters": [{
+                        "name": "name",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "issues",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "image",
+                        "in": "formData",
+                        "required": true,
+                        "type": "file",
+                        "format": "file",
+                        "description": ""
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            },
+            "get": {
+                "description": "",
+                "summary": "Get one",
+                "tags": [
+                    "Comics"
+                ],
+                "operationId": "Comics48Get",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Content-type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/comics/": {
+            "post": {
+                "description": "",
+                "summary": "Create new",
+                "tags": [
+                    "Comics"
+                ],
+                "operationId": "ComicsPost",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "parameters": [{
+                        "name": "image",
+                        "in": "formData",
+                        "required": true,
+                        "type": "file",
+                        "format": "file",
+                        "description": ""
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "genres",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "authors",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "issues",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "publisher",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "description",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/comics?perPage=20": {
+            "get": {
+                "description": "",
+                "summary": "Get all",
+                "tags": [
+                    "Comics"
+                ],
+                "operationId": "ComicsPerPage20Get",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object"
+                        },
+                        "headers": {}
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "UpdateRequest": {
+            "title": "UpdateRequest",
+            "example": {
+                "name": "Moderators"
+            },
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
+        "CreateRequest": {
+            "title": "CreateRequest",
+            "example": {
+                "name": "Moderators"
+            },
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
+        "LoginRequest": {
+            "title": "LoginRequest",
+            "example": {
+                "Username": "oki"
+            },
+            "type": "object",
+            "properties": {
+                "Username": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Username"
+            ]
+        },
+        "UpdateRequest1": {
+            "title": "UpdateRequest1",
+            "example": {
+                "origin": "Kyoto, Japan",
+                "name": "Shueisha"
+            },
+            "type": "object",
+            "properties": {
+                "origin": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "origin",
+                "name"
+            ]
+        },
+        "CreateRequest1": {
+            "title": "CreateRequest1",
+            "example": {
+                "name": "Shueisha",
+                "origin": "Japan"
+            },
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "origin": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "origin"
+            ]
+        },
+        "UpdateRequest2": {
+            "title": "UpdateRequest2",
+            "example": {
+                "firstname": "Masashi",
+                "lastname": "Kishimoto"
+            },
+            "type": "object",
+            "properties": {
+                "firstname": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "firstname",
+                "lastname"
+            ]
+        },
+        "CreateRequest2": {
+            "title": "CreateRequest2",
+            "example": {
+                "firstname": "Jack",
+                "lastname": "Kirby"
+            },
+            "type": "object",
+            "properties": {
+                "firstname": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "firstname",
+                "lastname"
+            ]
+        },
+        "InsertRequest": {
+            "title": "InsertRequest",
+            "example": {
+                "Comics": [
+                    10
+                ]
+            },
+            "type": "object",
+            "properties": {
+                "Comics": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "required": [
+                "Comics"
+            ]
+        },
+        "UpdateRequest4": {
+            "title": "UpdateRequest4",
+            "example": {
+                "firstname": "Olja"
+            },
+            "type": "object",
+            "properties": {
+                "firstname": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "firstname"
+            ]
+        },
+        "CreatenewRequest": {
+            "title": "CreatenewRequest",
+            "example": {
+                "email": "m34sdsadimimi@gmail.com",
+                "password": "Olja1234!?",
+                "firstname": "Miku",
+                "lastname": "Hatsune",
+                "username": "breee4",
+                "role": 2
+            },
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "firstname": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "required": [
+                "email",
+                "password",
+                "firstname",
+                "lastname",
+                "username",
+                "role"
+            ]
+        }
+    },
+    "tags": [{
+            "name": "Roles",
+            "description": ""
+        },
+        {
+            "name": "Auth",
+            "description": ""
+        },
+        {
+            "name": "Publishers",
+            "description": ""
+        },
+        {
+            "name": "Authors",
+            "description": ""
+        },
+        {
+            "name": "Genres",
+            "description": ""
+        },
+        {
+            "name": "MyList",
+            "description": ""
+        },
+        {
+            "name": "Users",
+            "description": ""
+        },
+        {
+            "name": "Comics",
+            "description": ""
+        }
+    ]
+}

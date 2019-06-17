@@ -134,8 +134,23 @@ namespace MyComicList.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes a specific Comic. 
+        /// Only for admin authenticated with a token
+        /// </summary>
+        /// /// <remarks>
+        /// Sample request:
+        ///
+        ///     DELETE /comics/1
+        ///
+        /// </remarks>
+        /// <param name="id"></param> 
+        /// <response code="204">If succedes in deletion</response>
+        /// <response code="404">If comic doesn't exit</response>
         [HttpDelete("{id}")] // DELETE: api/Comics/5
         [LoggedIn("Admin")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
         public IActionResult Delete(int id)
         {
             try

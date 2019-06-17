@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -34,6 +36,7 @@ using MyComicList.EFCommands.Publishers;
 using MyComicList.EFCommands.Roles;
 using MyComicList.EFCommands.Users;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace MyComicList.API
 {
@@ -62,44 +65,61 @@ namespace MyComicList.API
                 Int32.Parse(section["port"]), section["fromaddress"], section["password"]);
             services.AddSingleton<IEmailSender>(sender);
 
-            // My services
+            // My Auth services
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
 
-            // Commands
+            // Comics
             services.AddTransient<IGetComics, EFGetComics>();
             services.AddTransient<IGetOneComic, EFGetOneComic>();
             services.AddTransient<IAddComic, EFAddComic>();
             services.AddTransient<IUpdateComic, EFUpdateComic>();
             services.AddTransient<IDeleteComic, EFDeleteComic>();
 
+            // Users
             services.AddTransient<IGetUsers, EFGetUsers>();
             services.AddTransient<IGetOneUser, EFGetOneUser>();
             services.AddTransient<IAddUser, EFAddUser>();
             services.AddTransient<IUpdateUser, EFUpdateUser>();
             services.AddTransient<IDeleteUser, EFDeleteUser>();
 
+            // MyList
             services.AddTransient<IAddToMyList, EFAddToMyList>();
             services.AddTransient<IDeleteFromMyList, EFDeleteFromMyList>();
             services.AddTransient<IGetMyList, EFGetMyList>();
             services.AddTransient<IGetOneFromMyList, EFGetOneFromMyList>();
 
+            // Genres
             services.AddTransient<IAddGenre, EFAddGenre>();
             services.AddTransient<IUpdateGenre, EFUpdateGenre>();
             services.AddTransient<IDeleteGenre, EFDeleteGenre>();
 
+            // Authors
             services.AddTransient<IAddAuthor, EFAddAuthor>();
             services.AddTransient<IUpdateAuthor, EFUpdateAuthor>();
             services.AddTransient<IDeleteAuthor, EFDeleteAuthor>();
 
+            // Publishers
             services.AddTransient<IAddPublisher, EFAddPublisher>();
             services.AddTransient<IDeletePublisher, EFDeletePublisher>();
             services.AddTransient<IGetPublishers, EFGetPublishers>();
             services.AddTransient<IUpdatePublisher, EFUpdatePublisher>();
 
+            // Roles
             services.AddTransient<IAddRole, EFAddRole>();
             services.AddTransient<IDeleteRole, EFDeleteRole>();
             services.AddTransient<IUpdateRole, EFUpdateRole>();
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "MyComicList API", Version = "v1" });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -117,6 +137,16 @@ namespace MyComicList.API
 
             app.UseMiddleware<LoginMiddleware>();
             app.UseStaticFiles();
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyComicList API V1");
+            });
 
             app.UseHttpsRedirection();
             app.UseMvc();
