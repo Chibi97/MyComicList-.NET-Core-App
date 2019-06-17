@@ -37,8 +37,14 @@ namespace MyComicList.EFCommands.Users
             {
                 string hashedPassword = MakeHashPassword(request.Password);
                 user.Password = hashedPassword;
-
             }
+
+            if(request.Role != null)
+            {
+                var role = Context.Roles.FirstOrDefault(r => r.Id == request.Role && r.DeletedAt == null);
+                user.Role = role ?? throw new EntityNotFoundException("Role", (int)request.Role);
+            }
+
             Context.SaveChanges();
         }
     }

@@ -8,7 +8,7 @@ namespace MyComicList.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Genre> builder)
         {
-            builder.Property(c => c.Name).HasMaxLength(50).IsRequired();
+            builder.Property(c => c.Name).HasMaxLength(100).IsRequired();
             builder.HasIndex(c => c.Name).IsUnique();
 
             builder.HasMany(c => c.ComicGenres)

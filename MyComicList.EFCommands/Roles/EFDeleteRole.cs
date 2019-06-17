@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using MyComicList.Application.Commands.Roles;
 using MyComicList.Application.Exceptions;
 using MyComicList.DataAccess;
@@ -15,7 +16,8 @@ namespace MyComicList.EFCommands.Roles
         public void Execute(int id)
         {
             var role = Context.Roles
-                .Where(g => g.DeletedAt == null && g.Id == id)
+                .Include(r => r.Users)
+                .Where(r => r.DeletedAt == null && r.Id == id)
                 .FirstOrDefault();
 
             if (role == null) throw new EntityNotFoundException("Role", id);

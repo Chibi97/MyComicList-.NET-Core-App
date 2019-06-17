@@ -35,6 +35,7 @@ namespace MyComicList.EFCommands.Users
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     Email = u.Email,
+                    Role = u.Role.Name,
                     Comics = u.Comics.Select(cu => cu.Comic.Name)
                 })
                 .Paginate(request.PerPage, request.Page);

@@ -44,7 +44,7 @@ namespace MyComicList.API.Services
         // generates JWT token based on a request, returns an encrypted token
         public string Encrypt(UserLoginDTO request)
         {
-            var user = context.Users.SingleOrDefault(u => u.Username == request.Username);
+            var user = context.Users.Where(u => u.Username == request.Username.Trim() && u.DeletedAt == null).SingleOrDefault();
             if (user == null) return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();

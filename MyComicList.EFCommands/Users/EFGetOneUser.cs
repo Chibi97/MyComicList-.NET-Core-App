@@ -18,6 +18,7 @@ namespace MyComicList.EFCommands.Users
         public UserGetDTO Execute(int id)
         {
             var user = Context.Users
+                .Include(u => u.Role)
                 .Include(u => u.Comics).ThenInclude(cu => cu.Comic)
                 .Where(u => u.DeletedAt == null && u.Id == id)
                 .SingleOrDefault();
@@ -31,6 +32,7 @@ namespace MyComicList.EFCommands.Users
                 LastName = user.LastName,
                 Email = user.Email,
                 Username = user.Username,
+                Role = user.Role.Name,
                 Comics = user.Comics.Select(cu => cu.Comic.Name)
             };
         }

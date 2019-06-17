@@ -39,5 +39,8 @@ namespace MyComicList.Application.DataTransfer.Users
         [MinLength(5, ErrorMessage = "Minimum number of characters is 5.")]
         [RegularExpression(@"^.+@.+$", ErrorMessage = "Email must contain @ symbol.")]
         public string Email { get; set; }
+
+        [Skip, Required, Range(1, Int16.MaxValue)]
+        public int Role { get; set; }
     }
 }

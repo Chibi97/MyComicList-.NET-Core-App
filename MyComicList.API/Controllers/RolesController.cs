@@ -18,13 +18,17 @@ namespace MyComicList.API.Controllers
     public class RolesController : ControllerBase
     {
         private readonly IAddRole addCommand;
+        private readonly IUpdateRole updateCommand;
+        private readonly IDeleteRole deleteCommand;
 
         public MyComicListContext Context { get; }
 
-        public RolesController(MyComicListContext context, IAddRole addCommand)
+        public RolesController(MyComicListContext context, IAddRole addCommand, IUpdateRole updateCommand, IDeleteRole deleteCommand)
         {
             Context = context;
             this.addCommand = addCommand;
+            this.updateCommand = updateCommand;
+            this.deleteCommand = deleteCommand;
         }
 
         // GET: api/Roles
@@ -32,7 +36,16 @@ namespace MyComicList.API.Controllers
         [LoggedIn("Admin")]
         public IActionResult Get()
         {
-            return Ok();
+            var roles = Context.Roles
+               .Where(r => r.DeletedAt == null)
+               .OrderBy(r => r.Id)
+               .Select(r => new RoleDTO
+               {
+                   Id = r.Id,
+                   Name = r.Name,
+               });
+
+            return Ok(roles);
         }
 
         // GET: api/Roles/5
@@ -40,7 +53,16 @@ namespace MyComicList.API.Controllers
         [LoggedIn("Admin")]
         public IActionResult Get(int id)
         {
-            return Ok();
+            var role = Context.Roles
+                .Where(r => r.DeletedAt == null && r.Id == id)
+                .Select(r => new RoleDTO
+                {
+                    Id = r.Id,
+                    Name = r.Name
+                }).SingleOrDefault();
+            if (role == null) return NotFound(new ErrorMessage { Message = $"Role - not valid, Given value: { id } is not found" });
+
+            return Ok(role);
         }
 
         // POST: api/Roles
@@ -63,9 +85,22 @@ namespace MyComicList.API.Controllers
         [HttpPut("{id}")]
         [LoggedIn("Admin")]
 
-        public IActionResult Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] RoleDTO role)
         {
-            return NoContent();
+            try
+            {
+                role.Id = id;
+                updateCommand.Execute(role);
+                return NoContent();
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new ErrorMessage { Message = e.Message });
+            }
+            catch (EntityAlreadyExistsException e)
+            {
+                return Conflict(new ErrorMessage { Message = e.Message });
+            }
         }
 
         // DELETE: api/Roles/5
@@ -73,7 +108,19 @@ namespace MyComicList.API.Controllers
         [LoggedIn("Admin")]
         public IActionResult Delete(int id)
         {
-            return NoContent();
+            try
+            {
+                deleteCommand.Execute(id);
+                return NoContent();
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new ErrorMessage { Message = e.Message });
+            }
+            catch (NotEmptyCollectionException e)
+            {
+                return UnprocessableEntity(new ErrorMessage { Message = e.Message });
+            }
         }
     }
 }

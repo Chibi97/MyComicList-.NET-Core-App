@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using static MyComicList.Application.Helpers.Mapper;
 
 namespace MyComicList.Application.DataTransfer.Users
@@ -44,5 +38,8 @@ namespace MyComicList.Application.DataTransfer.Users
         [MinLength(5, ErrorMessage = "Minimum number of characters is 5.")]
         [RegularExpression(@"^.+@.+$", ErrorMessage = "Email must contain @ symbol.")]
         public string Email { get; set; }
+
+        [Skip, Range(1, Int16.MaxValue)]
+        public int? Role { get; set; }
     }
 }

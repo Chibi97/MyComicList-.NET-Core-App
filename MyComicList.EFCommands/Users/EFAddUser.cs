@@ -30,10 +30,14 @@ namespace MyComicList.EFCommands.Users
                 throw new EntityAlreadyExistsException("Email", request.Email);
             };
 
+            var role = Context.Roles.FirstOrDefault(r => r.Id == request.Role && r.DeletedAt == null);
+            if (role == null) throw new EntityNotFoundException("Role", request.Role);
+
             string hashedPassword = MakeHashPassword(request.Password);
             User user = new User
             {
-                Password = hashedPassword
+                Password = hashedPassword,
+                Role = role
             };
 
             Mapper.Automap(request, user);
