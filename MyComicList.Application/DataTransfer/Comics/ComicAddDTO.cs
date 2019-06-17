@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using static MyComicList.Application.CustomValidators.ListValidator;
@@ -7,6 +8,9 @@ namespace MyComicList.Application.DataTransfer.Comics
 {
     public class ComicAddDTO
     {
+
+        public IFormFile Image { get; set; }
+
         [Required, MinLength(3, ErrorMessage = "Minimum number of characters is 3.")]
         [MaxLength(50, ErrorMessage = "Maximum number of characters is 50.")]
         public string Name { get; set; }
@@ -34,5 +38,6 @@ namespace MyComicList.Application.DataTransfer.Comics
         [Required, ListNotEmpty(ErrorMessage = "Collection of authors must contain at least one element.")]
         [UniqueIntegers(ErrorMessage = "Values for authors must be unique.")]
         public IEnumerable<int> Authors { get; set; }
+
     }
 }

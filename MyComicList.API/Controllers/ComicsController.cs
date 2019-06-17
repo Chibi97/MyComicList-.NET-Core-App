@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MyComicList.API.Filters;
 using MyComicList.Application.Commands.Comics;
 using MyComicList.Application.DataTransfer.Comics;
@@ -13,14 +17,20 @@ namespace MyComicList.API.Controllers
     [ApiController]
     public class ComicsController : ControllerBase
     {
+        private readonly List<string> allowedFileUploadTypes;
         private readonly IGetComics getCommand;
         private readonly IGetOneComic getOneCommand;
         private readonly IAddComic addCommand;
         private readonly IUpdateComic updateCommand;
         private readonly IDeleteComic deleteCommand;
-
-        public ComicsController(IGetComics getCommand, IGetOneComic getOneCommand, IAddComic addCommand, IUpdateComic updateCommand, IDeleteComic deleteCommand)
+        
+        public ComicsController(IConfiguration config ,IGetComics getCommand, IGetOneComic getOneCommand,
+            IAddComic addCommand, IUpdateComic updateCommand, IDeleteComic deleteCommand)
         {
+            this.allowedFileUploadTypes = config.GetSection("AllowedFileUploadTypes")
+                                                .AsEnumerable().Where(c => c.Value != null)
+                                                .Select(c => c.Value)
+                                                .ToList();
             this.getCommand = getCommand;
             this.getOneCommand = getOneCommand;
             this.addCommand = addCommand;
@@ -58,10 +68,21 @@ namespace MyComicList.API.Controllers
 
         [HttpPost] // POST: api/Comics
         [LoggedIn("Admin")]
-        public IActionResult Post([FromBody] ComicAddDTO comic)
+        public IActionResult Post([FromForm] ComicAddDTO comic)
         {
+            string extenstion = Path.GetExtension(comic.Image.FileName);
+            if(!allowedFileUploadTypes.Contains(extenstion))
+            {
+                return UnprocessableEntity(new ErrorMessage { Message = "Image extension is not allowed." });
+            }
+
             try
             {
+                var fileName = Guid.NewGuid().ToString() + "_" + comic.Image.FileName;
+                var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
+
+                comic.Image.CopyTo(new FileStream(uploadPath, FileMode.Create));
+
                 addCommand.Execute(comic);
                 return StatusCode(201);
             }
