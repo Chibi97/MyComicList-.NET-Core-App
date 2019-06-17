@@ -20,6 +20,62 @@
         "application/json"
     ],
     "paths": {
+        "/auth": {
+            "post": {
+                "description": "Authenticate with JWT. The token returned shall be used as Authorization header in all other routes.",
+                "summary": "Login",
+                "tags": [
+                    "Auth"
+                ],
+                "operationId": "AuthPost",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/LoginRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": "application/json"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwibmJmIjoxNTYwNzgzODQ0LCJleHAiOjE1NjEzODg2NDQsImlhdCI6MTU2MDc4Mzg0NH0.m8uDtBGSgogZ9I100DHYcvb0eReYbXfPmjcS5RNU6lQ"
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/roles/2": {
             "delete": {
                 "description": "",
@@ -89,7 +145,7 @@
                 }],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Success",
                         "schema": {
                             "type": "object",
                             "example": {
@@ -101,6 +157,7 @@
                         "headers": {}
                     },
                     "404": {
+                        "description": "Not found",
                         "schema": {
                             "type": "object",
                             "example": {
@@ -148,15 +205,15 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "204": {
+                        "description": "No Content",
                         "schema": {
                             "type": "object"
                         },
                         "headers": {}
                     },
                     "404": {
-                        "description": "Role not found",
+                        "description": "Not found",
                         "schema": {
                             "type": "object",
                             "example": {
@@ -216,7 +273,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "",
+                        "description": "Created",
                         "schema": {
                             "type": "object"
                         },
@@ -232,7 +289,6 @@
                         },
                         "headers": {}
                     }
-
                 }
             },
             "get": {
@@ -255,7 +311,7 @@
                 }],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Success",
                         "schema": {
                             "type": "object",
                             "example": [
@@ -268,49 +324,6 @@
                                     "name": "User"
                                 }
                             ]
-                        },
-                        "headers": {}
-                    }
-                }
-            }
-        },
-        "/auth": {
-            "post": {
-                "description": "Authenticate wti JWT. The token returned shall be used as Authorization header in all other routes.",
-                "summary": "Login",
-                "tags": [
-                    "Auth"
-                ],
-                "operationId": "AuthPost",
-                "deprecated": false,
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [{
-                        "name": "Body",
-                        "in": "body",
-                        "required": true,
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/LoginRequest"
-                        }
-                    },
-                    {
-                        "name": "Content-Type",
-                        "in": "header",
-                        "required": true,
-                        "type": "string",
-                        "description": "application/json"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "type": "object",
-                            "example": {
-                                "message": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwibmJmIjoxNTYwNzgzODQ0LCJleHAiOjE1NjEzODg2NDQsImlhdCI6MTU2MDc4Mzg0NH0.m8uDtBGSgogZ9I100DHYcvb0eReYbXfPmjcS5RNU6lQ"
-                            }
                         },
                         "headers": {}
                     }
@@ -334,13 +347,33 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "description": ""
-                }],
+                    "description": "token"
+                },
+                {
+                    "name": "Filter by origin",
+                    "in": "query",
+                    "required": false,
+                    "type" : "string",
+                    "description" : "?origin=Japan"
+                }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Success",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": [
+                                {
+                                    "id": 3,
+                                    "name": "Shounen Jump",
+                                    "origin": "Tokyo, Japan"
+                                },
+                                {
+                                    "id": 17,
+                                    "name": "Shueisha",
+                                    "origin": "Kyoto, Japan"
+                                }
+                            ]
                         },
                         "headers": {}
                     }
@@ -364,16 +397,32 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "description": ""
+                    "description": "token"
                 }],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Success",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": {
+                                "id": 7,
+                                "name": "Marvel",
+                                "origin": "America"
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Publisher - not valid, Given value: 7 is not found"
+                            }
                         },
                         "headers": {}
                     }
+                    
                 }
             }
         },
@@ -394,13 +443,33 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "description": ""
+                    "description": "token"
                 }],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "204": {
+                        "description": "No Content",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Publisher - not valid, Given value: 8 is not found"
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "422": {
+                        "description": "Comic collection not empty",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Publisher cannot be deleted because it has a collection of comics"
+                            }
                         },
                         "headers": {}
                     }
@@ -422,7 +491,7 @@
                 "parameters": [{
                         "name": "Body",
                         "in": "body",
-                        "required": true,
+                        "required": false,
                         "description": "",
                         "schema": {
                             "$ref": "#/definitions/UpdateRequest1"
@@ -433,21 +502,41 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     },
                     {
                         "name": "Authorization",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "204": {
+                        "description": "No Content",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Publisher - not valid, Given value: 3 is not found"
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "409": {
+                        "description": "Name already exists",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Publisher with value: Shueisha already exists."
+                            }
                         },
                         "headers": {}
                     }
@@ -480,21 +569,31 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
                     },
                     {
                         "name": "Content-Type",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "201": {
+                        "description": "Sucess",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "409": {
+                        "description": "Name already exists",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Publisher with value: Shueisha already exists."
+                            }
                         },
                         "headers": {}
                     }
@@ -516,7 +615,7 @@
                 "parameters": [{
                         "name": "Body",
                         "in": "body",
-                        "required": true,
+                        "required": false,
                         "description": "",
                         "schema": {
                             "$ref": "#/definitions/UpdateRequest2"
@@ -527,21 +626,31 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
                     },
                     {
                         "name": "Content-Type",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "204": {
+                        "description": "No Content",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Author - not valid. Given value: 7 is not found."
+                            }
                         },
                         "headers": {}
                     }
@@ -565,13 +674,33 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "description": ""
+                    "description": "token"
                 }],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "204": {
+                        "description": "No Content",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Author - not valid. Given value: 6 is not found."
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "422": {
+                        "schema": {
+                            "description": "Comic collection not empty",
+                            "type": "object",
+                            "example": {
+                                "message": "Author cannot be deleted because it has a collection of comics"
+                            }
                         },
                         "headers": {}
                     }
@@ -604,18 +733,18 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     },
                     {
                         "name": "Content-Type",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "",
                         "schema": {
                             "type": "object"
@@ -642,13 +771,27 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "description": ""
+                    "description": "token"
                 }],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Success",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example" : {
+                                "id": 3,
+                                "fullName": "Stan Lee"
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Author - not valid. Given value: 12 is not found."
+                            }
                         },
                         "headers": {}
                     }
@@ -676,9 +819,23 @@
                 }],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Success",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": [
+                                {
+                                    "id": 1,
+                                    "fullName": "Masashi Kishimoto"
+                                },
+                                {
+                                    "id": 2,
+                                    "fullName": "Neil Gaiman"
+                                },
+                                {
+                                    "id": 3,
+                                    "fullName": "Stan Lee"
+                                }
+                            ]
                         },
                         "headers": {}
                     }

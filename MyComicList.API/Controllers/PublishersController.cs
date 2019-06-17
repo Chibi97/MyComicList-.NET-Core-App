@@ -84,10 +84,6 @@ namespace MyComicList.API.Controllers
         {
             try
             {
-                //var path = Directory.GetParent(Directory.GetCurrentDirectory()).ToString();
-                //var testPath = Path.Combine(path, "imeprojekta.api", "wwws");
-                //Console.WriteLine("test");
-
                 publisher.Id = id;
                 updateCommand.Execute(publisher);
                 return NoContent();
