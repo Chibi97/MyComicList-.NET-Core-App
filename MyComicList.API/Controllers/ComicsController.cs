@@ -82,7 +82,7 @@ namespace MyComicList.API.Controllers
                 var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
 
                 comic.Image.CopyTo(new FileStream(uploadPath, FileMode.Create));
-                comic.ImagePath = "/uploads/" + fileName;
+                comic.ImagePath = $"https://{HttpContext.Request.Host}/uploads/{fileName}";
                 addCommand.Execute(comic);
                 return StatusCode(201);
             }
@@ -117,7 +117,7 @@ namespace MyComicList.API.Controllers
                     var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
 
                     comic.Image.CopyTo(new FileStream(uploadPath, FileMode.Create));
-                    comic.ImagePath = "/uploads/" + fileName;
+                    comic.ImagePath = $"https://{HttpContext.Request.Host}/uploads/{fileName}";
                 }
 
                 comic.ComicId = id;

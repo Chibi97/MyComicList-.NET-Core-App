@@ -101,6 +101,7 @@ namespace MyComicList.API
             }
 
             app.UseMiddleware<LoginMiddleware>();
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
             app.UseMvc();

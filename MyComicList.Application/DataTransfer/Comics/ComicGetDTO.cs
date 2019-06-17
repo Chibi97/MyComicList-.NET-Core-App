@@ -19,5 +19,6 @@ namespace MyComicList.Application.DataTransfer.Comics
         public string Publisher { get; set; }
         public IEnumerable<string> Genres { get; set; }
         public IEnumerable<string> Authors { get; set; }
+        public IEnumerable<string> Pictures { get; set; }
     }
 }

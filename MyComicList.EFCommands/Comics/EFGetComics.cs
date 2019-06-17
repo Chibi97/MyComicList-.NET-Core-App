@@ -35,6 +35,7 @@ namespace MyComicList.EFCommands.MyListOfComics
             }
 
             return comics
+                .Include(c => c.Pictures)
                 .Include(c => c.ComicGenres)
                 .ThenInclude(cg => cg.Genre)
                 .OrderBy(c => c.Id)
@@ -47,6 +48,7 @@ namespace MyComicList.EFCommands.MyListOfComics
                     Issues = c.Issues,
                     PublishedAt = c.PublishedAt,
                     Publisher = c.Publisher.Name,
+                    Pictures = c.Pictures.Select(p => p.Path),
                     Genres = c.ComicGenres.Select(cg => cg.Genre.Name),
                     Authors = c.ComicAuthors.Select(ca => ca.Author.FirstName + ' ' + ca.Author.LastName)
                 })

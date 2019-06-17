@@ -16,6 +16,7 @@ namespace MyComicList.EFCommands.MyListOfComics
         public ComicGetDTO Execute(int id)
         {
             var comic = Context.Comics
+                        .Include(c => c.Pictures)
                         .Include(c => c.Publisher)
                         .Include(c => c.ComicGenres).ThenInclude(cg => cg.Genre)
                         .Include(c => c.ComicAuthors).ThenInclude(ca => ca.Author)
@@ -31,6 +32,7 @@ namespace MyComicList.EFCommands.MyListOfComics
                 Issues = comic.Issues,
                 PublishedAt = comic.PublishedAt.Date,
                 Publisher = comic.Publisher.Name,
+                Pictures = comic.Pictures.Select(p => p.Path),
                 Genres = comic.ComicGenres.Select(cg => cg.Genre.Name),
                 Authors = comic.ComicAuthors.Select(ca => ca.Author.FirstName + ' ' + ca.Author.LastName)
             };
