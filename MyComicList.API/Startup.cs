@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MyComicList.API.Email;
 using MyComicList.API.Middlewares;
 using MyComicList.API.Services;
 using MyComicList.Application.Commands.Authors;
@@ -23,6 +24,7 @@ using MyComicList.Application.Commands.Roles;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer;
 using MyComicList.Application.Exceptions;
+using MyComicList.Application.Interfaces;
 using MyComicList.Application.Responses;
 using MyComicList.DataAccess;
 using MyComicList.EFCommands.Authors;
@@ -48,7 +50,23 @@ namespace MyComicList.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // MyComicListContext
             services.AddDbContext<MyComicListContext>();
+
+            // My Email sender
+            var section = Configuration.GetSection("Email");
+
+            var sender =
+                new SmtpEmailSender(section["host"], 
+                Int32.Parse(section["port"]), section["fromaddress"], section["password"]);
+            services.AddSingleton<IEmailSender>(sender);
+
+            // My services
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
+
+            // Commands
             services.AddTransient<IGetComics, EFGetComics>();
             services.AddTransient<IGetOneComic, EFGetOneComic>();
             services.AddTransient<IAddComic, EFAddComic>();
@@ -82,9 +100,6 @@ namespace MyComicList.API
             services.AddTransient<IAddRole, EFAddRole>();
             services.AddTransient<IDeleteRole, EFDeleteRole>();
             services.AddTransient<IUpdateRole, EFUpdateRole>();
-
-            services.AddScoped<ILoginService, LoginService>();
-            services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

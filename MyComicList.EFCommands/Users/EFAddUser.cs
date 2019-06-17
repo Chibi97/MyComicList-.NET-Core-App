@@ -3,6 +3,7 @@ using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer.Users;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Helpers;
+using MyComicList.Application.Interfaces;
 using MyComicList.DataAccess;
 using MyComicList.Domain;
 using System;
@@ -16,7 +17,11 @@ namespace MyComicList.EFCommands.Users
 {
     public class EFAddUser : EFBaseCommand, IAddUser
     {
-        public EFAddUser(MyComicListContext context) : base(context) { }
+        private readonly IEmailSender emailSender;
+
+        public EFAddUser(MyComicListContext context, IEmailSender emailSender) : base(context) {
+            this.emailSender = emailSender;
+        }
 
         public void Execute(UserAddDTO request)
         {
@@ -44,6 +49,11 @@ namespace MyComicList.EFCommands.Users
 
             Context.Users.Add(user);
             Context.SaveChanges();
+
+            emailSender.Subject = "Successfull registration!";
+            emailSender.Body = "You are succesfully registered!";
+            emailSender.ToEmail = user.Email;
+            emailSender.Send();
         }
 
     }
