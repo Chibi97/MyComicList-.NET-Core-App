@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using MyComicList.API.Email;
 using MyComicList.API.Middlewares;
 using MyComicList.API.Services;
@@ -25,9 +17,7 @@ using MyComicList.Application.Commands.Publishers;
 using MyComicList.Application.Commands.Roles;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer;
-using MyComicList.Application.Exceptions;
 using MyComicList.Application.Interfaces;
-using MyComicList.Application.Responses;
 using MyComicList.DataAccess;
 using MyComicList.EFCommands.Authors;
 using MyComicList.EFCommands.Genres;
@@ -35,7 +25,6 @@ using MyComicList.EFCommands.MyListOfComics;
 using MyComicList.EFCommands.Publishers;
 using MyComicList.EFCommands.Roles;
 using MyComicList.EFCommands.Users;
-using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace MyComicList.API

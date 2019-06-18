@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MyComicList.Web_MVC.Models;
+using MyComicList.MVC.Models;
 
-namespace MyComicList.Web_MVC.Controllers
+namespace MyComicList.MVC.Controllers
 {
     public class HomeController : Controller
     {

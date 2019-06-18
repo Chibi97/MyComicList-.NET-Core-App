@@ -53,7 +53,7 @@ namespace MyComicList.EFCommands.Users
             emailSender.Subject = "Successfull registration!";
             emailSender.Body = "You have been sucessfully registered";
             emailSender.ToEmail = user.Email;
-           // emailSender.Send();
+            //emailSender.Send();
         }
 
     }

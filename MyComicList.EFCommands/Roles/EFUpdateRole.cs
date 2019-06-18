@@ -22,18 +22,22 @@ namespace MyComicList.EFCommands.Roles
 
             if (role == null) throw new EntityNotFoundException("Role", request.Id);
 
-            if (role.Name != request.Name)
+            if(role.Name != null)
             {
-                if (Context.Roles.Any(r => r.Name == request.Name))
+                if (role.Name != request.Name)
                 {
-                    throw new EntityAlreadyExistsException("Role", request.Name);
+                    if (Context.Roles.Any(r => r.Name == request.Name))
+                    {
+                        throw new EntityAlreadyExistsException("Role", request.Name);
+                    }
+
+                    role.Name = request.Name;
+                    role.UpdatedAt = DateTime.Now;
+
+                    Context.SaveChanges();
                 }
-
-                role.Name = request.Name;
-                role.UpdatedAt = DateTime.Now;
-
-                Context.SaveChanges();
             }
+            
         }
     }
 }

@@ -26,14 +26,17 @@ namespace MyComicList.EFCommands.MyListOfComics
 
             if (comic == null) throw new EntityNotFoundException("Comic", request.ComicId);
 
-            if(comic.Name != request.Name)
+            if(request.Name != null)
             {
-                if (Context.Comics.Any(c => c.Name == request.Name))
+                if (comic.Name != request.Name)
                 {
-                    throw new EntityAlreadyExistsException("Comic", request.Name);
-                }
+                    if (Context.Comics.Any(c => c.Name == request.Name))
+                    {
+                        throw new EntityAlreadyExistsException("Comic", request.Name);
+                    }
 
-                comic.Name = request.Name;
+                    comic.Name = request.Name;
+                }
             }
 
             Mapper.Automap(request, comic);

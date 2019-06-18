@@ -27,7 +27,7 @@ namespace MyComicList.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(config.GetSection("Database")["ConnectionString"]);
+            optionsBuilder.UseNpgsql("Host=127.0.0.1;Database=my_comic_list;Username=postgres;Password=postgres");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

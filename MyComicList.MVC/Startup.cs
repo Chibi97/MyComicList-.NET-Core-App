@@ -9,8 +9,11 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyComicList.Application.Commands.Comics;
+using MyComicList.DataAccess;
+using MyComicList.EFCommands.MyListOfComics;
 
-namespace MyComicList.Web_MVC
+namespace MyComicList.MVC
 {
     public class Startup
     {
@@ -33,6 +36,12 @@ namespace MyComicList.Web_MVC
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDbContext<MyComicListContext>();
+            services.AddTransient<IGetComics, EFGetComics>();
+            services.AddTransient<IGetOneComic, EFGetOneComic>();
+            services.AddTransient<IAddComic, EFAddComic>();
+            services.AddTransient<IUpdateComic, EFUpdateComic>();
+            services.AddTransient<IDeleteComic, EFDeleteComic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

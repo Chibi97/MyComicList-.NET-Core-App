@@ -24,17 +24,20 @@ namespace MyComicList.EFCommands.Genres
 
             if (genre == null) throw new EntityNotFoundException("Genre", request.Id);
 
-            if(genre.Name != request.Name)
+            if(genre.Name != null)
             {
-                if (Context.Genres.Any(g => g.Name == request.Name))
+                if (genre.Name != request.Name)
                 {
-                    throw new EntityAlreadyExistsException("Genre", request.Name);
+                    if (Context.Genres.Any(g => g.Name == request.Name))
+                    {
+                        throw new EntityAlreadyExistsException("Genre", request.Name);
+                    }
+
+                    genre.Name = request.Name;
+                    genre.UpdatedAt = DateTime.Now;
+
+                    Context.SaveChanges();
                 }
-
-                genre.Name = request.Name;
-                genre.UpdatedAt = DateTime.Now;
-
-                Context.SaveChanges();
             }
             
         }

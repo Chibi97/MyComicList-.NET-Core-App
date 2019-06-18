@@ -1,6 +1,6 @@
 using System;
 
-namespace MyComicList.Web_MVC.Models
+namespace MyComicList.MVC.Models
 {
     public class ErrorViewModel
     {

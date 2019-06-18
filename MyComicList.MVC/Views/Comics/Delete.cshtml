@@ -1,0 +1,81 @@
+﻿@model MyComicList.Application.DataTransfer.Comics.ComicGetDTO
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ComicGetDTO</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="thumbnail">
+                @if (Model.Pictures.Any())
+                {
+                    <img src="@Url.Content(Model.Pictures.First())" style="width:300px;height:auto" alt="Image" />
+                    <hr />
+
+                }
+
+                <div class="caption">
+                    <h3>Name: @Html.DisplayFor(modelItem => Model.Name)</h3>
+                    <p>
+                        @Html.DisplayFor(modelItem => Model.Id)
+                    </p>
+                    <hr />
+                    <p>Issues: @Html.DisplayFor(modelItem => Model.Issues)</p>
+                    <hr />
+                    <p>
+                        @Html.DisplayFor(modelItem => Model.Description)
+                    </p>
+                    <p>
+                        @Html.DisplayFor(modelItem => Model.Publisher)
+                    </p>
+
+                    <p>
+                        @Html.DisplayFor(modelItem => Model.PublishedAt)
+                    </p>
+                    <hr />
+                    <p>
+                        Genres:
+                        @if (Model.Genres.Any())
+                        {
+                            <ul>
+                                @foreach (var genre in Model.Genres)
+                                {
+                                    <li>@genre</li>
+                                }
+                            </ul>
+                        }
+
+
+                    </p>
+
+                    <p>
+                        Authors:
+                        @if (Model.Genres.Any())
+                        {
+                            <ul>
+                                @foreach (var author in Model.Authors)
+                                {
+                                    <li>@author</li>
+                                }
+                            </ul>
+                        }
+                    </p>
+                    <hr />
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

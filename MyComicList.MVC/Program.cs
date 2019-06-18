@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace MyComicList.Web_MVC
+namespace MyComicList.MVC
 {
     public class Program
     {
