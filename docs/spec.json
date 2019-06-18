@@ -60,18 +60,6 @@
                             }
                         },
                         "headers": {}
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "type": "object",
-                            "example": {
-                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
-                                "title": "Unauthorized",
-                                "status": 401,
-                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
-                            }
-                        }
                     }
                 }
             }
@@ -122,6 +110,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             },
@@ -162,6 +162,18 @@
                             "type": "object",
                             "example": {
                                 "message": "Role - not valid, Given value: 2 is not found"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
                             }
                         }
                     }
@@ -231,6 +243,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -288,6 +312,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             },
@@ -326,6 +362,18 @@
                             ]
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -376,6 +424,18 @@
                             ]
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -421,6 +481,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                     
                 }
@@ -472,6 +544,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -539,6 +623,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -596,6 +692,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -653,6 +761,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -703,6 +823,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -733,23 +865,35 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": "application/json"
+                        "description": "token"
                     },
                     {
                         "name": "Content-Type",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": "token"
+                        "description": "application/json"
                     }
                 ],
                 "responses": {
                     "201": {
-                        "description": "",
+                        "description": "Created",
                         "schema": {
                             "type": "object"
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -794,6 +938,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -838,6 +994,18 @@
                             ]
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -888,6 +1056,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             },
@@ -953,6 +1133,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -1010,6 +1202,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             },
@@ -1056,6 +1260,18 @@
                             ]
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -1100,6 +1316,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -1153,6 +1381,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -1234,6 +1474,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             },
@@ -1299,6 +1551,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -1347,6 +1611,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -1397,6 +1673,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -1474,6 +1762,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             },
@@ -1520,6 +1820,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -1578,6 +1890,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -1647,6 +1971,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -1687,6 +2023,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -1779,6 +2127,18 @@
                                 "message": "Image extension is not allowed."
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             },
@@ -1843,6 +2203,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -1962,6 +2334,18 @@
                                 "message": "Image extension is not allowed."
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
 
                 }
@@ -2050,6 +2434,18 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -2220,11 +2616,11 @@
         "CreatenewRequest": {
             "title": "CreatenewRequest",
             "example": {
-                "email": "m34sdsadimimi@gmail.com",
+                "email": "primer@gmail.com",
                 "password": "Olja1234!?",
                 "firstname": "Miku",
                 "lastname": "Hatsune",
-                "username": "breee4",
+                "username": "proba",
                 "role": 2
             },
             "type": "object",
