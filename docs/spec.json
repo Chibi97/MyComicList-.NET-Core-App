@@ -531,7 +531,7 @@
                         "headers": {}
                     },
                     "409": {
-                        "description": "Name already exists",
+                        "description": "Publisher name already exists",
                         "schema": {
                             "type": "object",
                             "example": {
@@ -588,7 +588,7 @@
                         "headers": {}
                     },
                     "409": {
-                        "description": "Name already exists",
+                        "description": "Publisher name already exists",
                         "schema": {
                             "type": "object",
                             "example": {
@@ -815,7 +815,7 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "description": ""
+                    "description": "token"
                 }],
                 "responses": {
                     "200": {
@@ -859,13 +859,33 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "description": ""
+                    "description": "token"
                 }],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "204": {
+                        "description": "No Content",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Genre - not valid, Given value: 9 is not found"
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "422": {
+                        "description": "Comic collection not empty",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Genre cannot be deleted because it has a collection of comics"
+                            }
                         },
                         "headers": {}
                     }
@@ -885,7 +905,7 @@
                 "parameters": [{
                         "name": "Body",
                         "in": "body",
-                        "required": true,
+                        "required": false,
                         "description": "",
                         "schema": {
                             "$ref": "#/definitions/UpdateRequest"
@@ -896,21 +916,41 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     },
                     {
                         "name": "Authorization",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "204": {
+                        "description": "No Content",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Genre - not valid, Given value: 9 is not found"
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "409": {
+                        "description": "Genre name already exists",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Genre with value: Comedy already exists."
+                            }
                         },
                         "headers": {}
                     }
@@ -943,21 +983,31 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     },
                     {
                         "name": "Content-Type",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "201": {
+                        "description": "Created",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "409": {
+                        "description": "Genre name already exists",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Genre with value: New genre already exists."
+                            }
                         },
                         "headers": {}
                     }
@@ -979,13 +1029,31 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "description": ""
+                    "description": "token"
                 }],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Success",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": [
+                                {
+                                    "id": 1,
+                                    "name": "Superhero"
+                                },
+                                {
+                                    "id": 2,
+                                    "name": "Adventure"
+                                },
+                                {
+                                    "id": 3,
+                                    "name": "Mystery"
+                                },
+                                {
+                                    "id": 4,
+                                    "name": "Comedy"
+                                }
+                            ]
                         },
                         "headers": {}
                     }
@@ -1015,7 +1083,21 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": {
+                                "id": 1,
+                                "name": "Superhero"
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Genre - not valid, Given value: 3 is not found"
+                            }
                         },
                         "headers": {}
                     }
@@ -1024,7 +1106,7 @@
         },
         "/mylist/40": {
             "get": {
-                "description": "",
+                "description": "Get specified comic from the list of user autheticated with a token",
                 "summary": "Get one",
                 "tags": [
                     "MyList"
@@ -1039,13 +1121,36 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "description": ""
+                    "description": "token"
                 }],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Success",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": {
+                                "id": 40,
+                                "name": "Naruto",
+                                "description": "In another world, ninja are the ultimate power—and in the village of Konohagakure live the stealthiest ninja in the world. But twelve years ago Konohagakure was attacked by a fearsome threat—a nine-tailed fox demon which claimed the life of the Hokage, the village champion. Today, his goal is to become the next Hokage. But unknown to Naruto and his classmates, within him is a terrifying force...",
+                                "issues": 700,
+                                "publishedAt": "2005-04-03T00:00:00",
+                                "publisher": "Shounen Jump",
+                                "genres": [
+                                    "adventure", "ninja"
+                                ],
+                                "authors": ["masashi kishimoto"],
+                                "pictures": null
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "MyList - not valid, Given value: 40 is not found"
+                            }
                         },
                         "headers": {}
                     }
@@ -1054,7 +1159,7 @@
         },
         "/mylist": {
             "get": {
-                "description": "",
+                "description": "Get all comics from the list of user autheticated with a token",
                 "summary": "Get all",
                 "tags": [
                     "MyList"
@@ -1064,33 +1169,76 @@
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [{
+                "parameters": [
+                    {
+                        "name": "Paged request",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "description": "?perPage=2?page=3"
+                    },
+                    {
                         "name": "Authorization",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     },
                     {
                         "name": "Content-Type",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Success",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": {
+                                "currentPage": 1,
+                                "pagesCount": 1,
+                                "perPage": 10,
+                                "totalCount": 3,
+                                "data": [
+                                    {
+                                        "id": 1,
+                                        "name": "Naruto",
+                                        "description": "In another world, ninja are the ultimate power—and in the village of Konohagakure live the stealthiest ninja in the world. But twelve years ago Konohagakure was attacked by a fearsome threat—a nine-tailed fox demon which claimed the life of the Hokage, the village champion. Today, his goal is to become the next Hokage. But unknown to Naruto and his classmates, within him is a terrifying force...",
+                                        "issues": 700,
+                                        "publishedAt": "2005-04-03T12:00:00",
+                                        "publisher": "Shounen Jump",
+                                        "genres": [],
+                                        "authors": [],
+                                        "pictures": null
+                                    },
+                                    {
+                                        "id": 6,
+                                        "name": "Batman The Long Halloween",
+                                        "description": "Taking place during Batman's early days of crime fighting, this new edition of the classic mystery tells the story of a mysterious killer who murders his prey only on holidays. Working with District Attorney Harvey Dent and Lieutenant James Gordon, Batman races against the clock as he tries to discover who Holiday is before he claims his next victim each month. A mystery that has the reader continually guessing the identity of the killer, this story also ties into the events that transform Harvey Dent into Batman's deadly enemy, Two-Face.",
+                                        "issues": 32,
+                                        "publishedAt": "2019-06-04T21:08:17.283586",
+                                        "publisher": "DC Comics",
+                                        "genres": [
+                                            "Superhero",
+                                            "Comedy"
+                                        ],
+                                        "authors": [
+                                            "Jeph Loeb"
+                                        ],
+                                        "pictures": null
+                                    }
+                                ]
+                            }
                         },
                         "headers": {}
                     }
                 }
             },
             "post": {
-                "description": "",
+                "description": "Insert comic insto a list of autheticated user by a token",
                 "summary": "Insert",
                 "tags": [
                     "MyList"
@@ -1114,21 +1262,41 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     },
                     {
                         "name": "Authorization",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "201": {
+                        "description": "Created",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found Comic from array",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Comic - not valid. Given value: 10 is not found."
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "409": {
+                        "description": "Comic already exists in that user's list",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Comic with value: 10 already exists."
+                            }
                         },
                         "headers": {}
                     }
@@ -1137,7 +1305,7 @@
         },
         "/mylist/10": {
             "delete": {
-                "description": "",
+                "description": "Delete a comic from autheticated user's list",
                 "summary": "Delete",
                 "tags": [
                     "MyList"
@@ -1152,21 +1320,31 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     },
                     {
                         "name": "Authorization",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "204": {
+                        "description": "No Content",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found comic in user's list",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Comic - not valid, Given value: 10 is not found"
+                            }
                         },
                         "headers": {}
                     }
@@ -1190,13 +1368,33 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "description": ""
+                    "description": "token"
                 }],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "204": {
+                        "description": "No Content",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "User - not valid, Given value: 2 is not found"
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "400": {
+                        "description": "Delete your account",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "You cannot delete your own account!"
+                            }
                         },
                         "headers": {}
                     }
@@ -1229,21 +1427,51 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     },
                     {
                         "name": "Authorization",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "204": {
+                        "description": "No Content",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "User - not valid. Given value: 1 is not found."
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "409": {
+                        "description": "Email || Username already exists",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "User with value: 'olja' already exists."
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "400": {
+                        "description": "Change your own role",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "You cannot change your own role!"
+                            }
                         },
                         "headers": {}
                     }
@@ -1265,13 +1493,31 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "description": ""
+                    "description": "token"
                 }],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Success",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": {
+                                "email": "darthvader@gmail.com",
+                                "password": "DarkSide111!",
+                                "firstname": "Anakin",
+                                "lastname": "Skywalker",
+                                "username": "darth_invader",
+                                "role": 1
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "User - not valid. Given value: darth_invader is not found."
+                            }
                         },
                         "headers": {}
                     }
@@ -1290,7 +1536,8 @@
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [{
+                "parameters": [
+                    {
                         "name": "Body",
                         "in": "body",
                         "required": true,
@@ -1304,21 +1551,38 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": "token"
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "201": {
+                        "description": "Created",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "409": {
+                        "description": "Username || Email name already exists",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "User with value: darth_vader already exists."
+                            }
                         },
                         "headers": {}
                     }
                 }
             }
         },
-        "/users/?perPage=20": {
+        "/users/": {
             "get": {
                 "description": "",
                 "summary": "Get all",
@@ -1330,7 +1594,15 @@
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [{
+                "parameters": [
+                {
+                    "name": "Paged and filter request",
+                    "in": "query",
+                    "required": false,
+                    "type": "string",
+                    "description": "?perPage=20?username=dark_vader"
+                },
+                {
                     "name": "Authorization",
                     "in": "header",
                     "required": true,
@@ -1339,9 +1611,40 @@
                 }],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Success",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": {
+                                "currentPage": 1,
+                                "pagesCount": 1,
+                                "perPage": 20,
+                                "totalCount": 12,
+                                "data": [
+                                    {
+                                        "id": 1,
+                                        "firstName": "Olja",
+                                        "lastName": "Ivkovic",
+                                        "username": "oki",
+                                        "email": "oki@mail.com",
+                                        "role": "Admin",
+                                        "comics": [
+                                            "Naruto",
+                                            "Sandman"
+                                        ]
+                                    },
+                                    {
+                                        "id": 17,
+                                        "firstName": "Anakin",
+                                        "lastName": "Skywalker",
+                                        "username": "darth_invader",
+                                        "email": "darthvader@gmail.com",
+                                        "role": "Admin",
+                                        "comics": [
+                                            "Star Wars"
+                                        ]
+                                    }
+                                ]
+                            }
                         },
                         "headers": {}
                     }
@@ -1365,13 +1668,23 @@
                     "in": "header",
                     "required": true,
                     "type": "string",
-                    "description": ""
+                    "description": "token"
                 }],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "204": {
+                        "description": "No Content",
                         "schema": {
                             "type": "object"
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Comic - not valid. Given value: 49 is not found."
+                            }
                         },
                         "headers": {}
                     }
@@ -1380,7 +1693,7 @@
         },
         "/comics/48": {
             "put": {
-                "description": "",
+                "description": "Replaces all genres and authors so that only new ones are left",
                 "summary": "Update",
                 "tags": [
                     "Comics"
@@ -1398,7 +1711,7 @@
                         "in": "formData",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description":""
                     },
                     {
                         "name": "issues",
@@ -1420,23 +1733,52 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     },
                     {
                         "name": "Authorization",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "204": {
+                        "description": "No Content",
                         "schema": {
                             "type": "object"
                         },
                         "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Comic - not valid. Given value: 48 is not found."
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "409": {
+                        "description": "Comic name already exists",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Comic with value: UpdateComic already exists."
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "422": {
+                        "description": "Unprocessable file",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Image extension is not allowed."
+                            }
+                        }
                     }
                 }
             },
@@ -1468,9 +1810,37 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Success",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": {
+                                "id": 50,
+                                "name": "Sandman",
+                                "description": "Sandman is all about dreams...",
+                                "issues": 33,
+                                "publishedAt": "2019-06-17T00:00:00",
+                                "publisher": "Vertigo",
+                                "genres": [
+                                    "Supernatural",
+                                    "Mystery"
+                                ],
+                                "authors": [
+                                    "Neil Gaiman"
+                                ],
+                                "pictures": [
+                                    "https://localhost:44333/uploads/20f2d33e-4e4b-4679-88ae-3e61919d3479_1-drink-sleep-code-repeat.jpg"
+                                ]
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Comic - not valid. Given value: 48 is not found."
+                            }
                         },
                         "headers": {}
                     }
@@ -1547,24 +1917,53 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     },
                     {
                         "name": "Authorization",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "201": {
+                        "description": "Created",
                         "schema": {
                             "type": "object"
                         },
                         "headers": {}
+                    },"404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Comic - not valid. Given genre 1 is not found."
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "409": {
+                        "description": "Comic name already exists",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Comic with value: NewComic already exists."
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "422": {
+                        "description": "Unprocessable file",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "Image extension is not allowed."
+                            }
+                        }
                     }
+
                 }
             }
         },
@@ -1585,21 +1984,70 @@
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "application/json"
                     },
                     {
                         "name": "Authorization",
                         "in": "header",
                         "required": true,
                         "type": "string",
-                        "description": ""
+                        "description": "token"
+                    },
+                    {
+                        "name": "Paged and filter request",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "description": "?perPage=30&name=sandman"
+                    },
+                    {
+                        "name": "Filter request",
+                        "in": "body",
+                        "required": false,
+                        "type": "array<int>",
+                        "description": "{ genres: [1,3], authors: [3,5] }"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Success",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "example": {
+                                "currentPage": 1,
+                                "pagesCount": 1,
+                                "perPage": 20,
+                                "totalCount": 19,
+                                "data": [
+                                    {
+                                        "id": 1,
+                                        "name": "Naruto",
+                                        "description": "In another world, ninja are the ultimate power—and in the village of Konohagakure live the stealthiest ninja in the world. But twelve years ago Konohagakure was attacked by a fearsome threat—a nine-tailed fox demon which claimed the life of the Hokage, the village champion. Today, his goal is to become the next Hokage. But unknown to Naruto and his classmates, within him is a terrifying force...",
+                                        "issues": 700,
+                                        "publishedAt": "2005-04-03T12:00:00",
+                                        "publisher": "Shounen Jump",
+                                        "genres": [],
+                                        "authors": [],
+                                        "pictures": []
+                                    },
+                                    {
+                                        "id": 4,
+                                        "name": "Sandman",
+                                        "description": "An occultist attempting to capture Death to bargain for eternal life traps her younger brother Dream instead. After his 70 year imprisonment and eventual escape, Dream, also known as Morpheus, goes on a quest for his lost objects of power. On his arduous journey Morpheus encounters Lucifer, John Constantine, and an all-powerful madman.\r\n",
+                                        "issues": 90,
+                                        "publishedAt": "2019-06-04T21:07:20.489911",
+                                        "publisher": "Vertigo",
+                                        "genres": [
+                                            "Mystery",
+                                            "Supernatural"
+                                        ],
+                                        "authors": [
+                                            "Neil Gaiman"
+                                        ],
+                                        "pictures": []
+                                    }
+                                ]
+                            }
                         },
                         "headers": {}
                     }
