@@ -86,15 +86,15 @@ namespace MyComicList.MVC.Controllers
                 RedirectToAction("Create");
             }
 
-            string extenstion = Path.GetExtension(request.Image.FileName);
-            if (!allowedFileUploadTypes.Contains(extenstion))
-            {
-                TempData["error"] = "Image extension is not right.";
-                RedirectToAction("Create");
-            }
-
             try
             {
+                string extenstion = Path.GetExtension(request.Image.FileName);
+                if (!allowedFileUploadTypes.Contains(extenstion))
+                {
+                    TempData["error"] = "Image extension is not right.";
+                    RedirectToAction("Create");
+                }
+
                 var fileName = Guid.NewGuid().ToString() + "_" + request.Image.FileName;
                 var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
 
@@ -114,6 +114,11 @@ namespace MyComicList.MVC.Controllers
                 TempData["error"] = e.Message;
                 RedirectToAction("Create");
             }
+            catch (Exception)
+            {
+                TempData["error"] = "Please fill up all field in this form.";
+                RedirectToAction("Create");
+            }
 
             return View();
         }
@@ -122,7 +127,16 @@ namespace MyComicList.MVC.Controllers
         public ActionResult Edit(int id)
         {
             LoadData();
-            return View();
+            try
+            {
+                var comic = getOneCommand.Execute(id);
+                return View(comic);
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("index");
+            }
         }
 
         // POST: Comics/Edit/5
