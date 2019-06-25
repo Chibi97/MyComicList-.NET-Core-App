@@ -42,17 +42,14 @@ else
                     <select name="Genres" multiple class="form-control">
                         @foreach (var g in ViewBag.Genres)
                         {
-                            @*@foreach (var v in ViewBag.GenreSelectedIds)
-                             {*@
-                                @if (ViewBag.GenreSelectedIds.Contains(g.Id))
-                                 {
-                                    <option selected value="@g.Id">@g.Name</option>
-                                }
-                                else
-                                {
-                                    <option value="@g.Id"> @g.Name </option>
-                                }
-                             @*}  *@
+                            @if (ViewBag.GenreSelectedIds.Contains(g.Id))
+                             {
+                                <option selected value="@g.Id">@g.Name</option>
+                             }
+                            else
+                            {
+                                <option value="@g.Id"> @g.Name </option>
+                            }
                         }
                     </select>
                 </div>
@@ -68,7 +65,6 @@ else
                             else
                             {
                                 <option value="@a.Id"> @a.FullName </option>
-
                             }
                         }
                     </select>
@@ -85,7 +81,6 @@ else
                             else
                             {
                                 <option value="@p.Id"> @p.Name </option>
-
                             }
                         }
                     </select>
