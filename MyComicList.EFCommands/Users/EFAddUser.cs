@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using MyComicList.Application.Commands.Users;
+﻿using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer.Users;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Helpers;
@@ -7,11 +6,7 @@ using MyComicList.Application.Interfaces;
 using MyComicList.DataAccess;
 using MyComicList.Domain;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyComicList.EFCommands.Users
 {
@@ -53,7 +48,7 @@ namespace MyComicList.EFCommands.Users
             emailSender.Subject = "Successfull registration!";
             emailSender.Body = "You have been sucessfully registered";
             emailSender.ToEmail = user.Email;
-            //emailSender.Send();
+            emailSender.Send();
         }
 
     }

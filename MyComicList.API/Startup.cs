@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MyComicList.API.Email;
 using MyComicList.API.Middlewares;
 using MyComicList.API.Services;
 using MyComicList.Application.Commands.Authors;
@@ -17,6 +16,7 @@ using MyComicList.Application.Commands.Publishers;
 using MyComicList.Application.Commands.Roles;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer;
+using MyComicList.Application.Helpers;
 using MyComicList.Application.Interfaces;
 using MyComicList.DataAccess;
 using MyComicList.EFCommands.Authors;
@@ -50,7 +50,7 @@ namespace MyComicList.API
             var section = Configuration.GetSection("Email");
 
             var sender =
-                new SmtpEmailSender(section["host"], 
+                new SmtpEmailSender(section["host"],
                 Int32.Parse(section["port"]), section["fromaddress"], section["password"]);
             services.AddSingleton<IEmailSender>(sender);
 

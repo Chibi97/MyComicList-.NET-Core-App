@@ -6,79 +6,81 @@
 }
 
 <h1>Details</h1>
-@if (Model == null)
+@if (TempData["error"] != null)
 {
-    <h1>Objekat ne postoji.</h1>
+    <h1>@TempData["error"]</h1>
 }
+else
+{
 
-<div>
-    <h4>ComicGetDTO</h4>
-    <hr />
+    <div>
+        <hr />
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="thumbnail">
-                @if (Model.Pictures.Any())
-                 {
-                    <img src="@Url.Content(Model.Pictures.First())" style="width:300px;height:auto" alt="Image" />
-                    <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="thumbnail">
+                    @if (Model.Pictures.Any())
+                    {
+                        <img src="@Url.Content(Model.Pictures.First())" style="width:300px;height:auto" alt="Image" />
+                        <hr />
 
-                 }
+                    }
 
-                <div class="caption">
-                    <h3>Name: @Html.DisplayFor(modelItem => Model.Name)</h3>
-                    <p>
-                        @Html.DisplayFor(modelItem => Model.Id)
-                    </p>
-                    <hr />
-                    <p>Issues: @Html.DisplayFor(modelItem => Model.Issues)</p>
-                    <hr />
-                    <p>
-                        @Html.DisplayFor(modelItem => Model.Description)
-                    </p>
-                    <p>
-                        @Html.DisplayFor(modelItem => Model.Publisher)
-                    </p>
+                    <div class="caption">
+                        <h3>Name: @Html.DisplayFor(modelItem => Model.Name)</h3>
+                        <p>
+                            @Html.DisplayFor(modelItem => Model.Id)
+                        </p>
+                        <hr />
+                        <p>Issues: @Html.DisplayFor(modelItem => Model.Issues)</p>
+                        <hr />
+                        <p>
+                            @Html.DisplayFor(modelItem => Model.Description)
+                        </p>
+                        <p>
+                            @Html.DisplayFor(modelItem => Model.Publisher)
+                        </p>
 
-                    <p>
-                        @Html.DisplayFor(modelItem => Model.PublishedAt)
-                    </p>
-                    <hr />
-                    <p>
-                        Genres:
-                        @if (Model.Genres.Any())
-                        {
-                            <ul>
-                                @foreach (var genre in Model.Genres)
-                                {
-                                    <li>@genre</li>
-                                }
-                            </ul>
-                        }
+                        <p>
+                            @Html.DisplayFor(modelItem => Model.PublishedAt)
+                        </p>
+                        <hr />
+                        <p>
+                            Genres:
+                            @if (Model.Genres.Any())
+                            {
+                                <ul>
+                                    @foreach (var genre in Model.Genres)
+                                    {
+                                        <li>@genre</li>
+                                    }
+                                </ul>
+                            }
 
 
-                    </p>
+                        </p>
 
-                    <p>
-                        Authors:
-                        @if (Model.Genres.Any())
-                        {
-                            <ul>
-                                @foreach (var author in Model.Authors)
-                                {
-                                    <li>@author</li>
-                                }
-                            </ul>
-                        }
-                    </p>
-                    <hr />
+                        <p>
+                            Authors:
+                            @if (Model.Genres.Any())
+                            {
+                                <ul>
+                                    @foreach (var author in Model.Authors)
+                                    {
+                                        <li>@author</li>
+                                    }
+                                </ul>
+                            }
+                        </p>
+                        <hr />
 
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
     </div>
     <div>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
         <a asp-action="Index">Back to List</a>
     </div>
+}

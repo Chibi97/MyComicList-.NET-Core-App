@@ -19,6 +19,10 @@ namespace MyComicList.MVC
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+            .ConfigureAppConfiguration((_, c) =>
+            {
+                c.AddJsonFile("secrets.json", false, true);
+            })
+            .UseStartup<Startup>();
     }
 }

@@ -15,27 +15,34 @@ namespace MyComicList.EFCommands.Users
 
         public void Execute(UserUpdateDTO request)
         {
-            if (request.Username != null)
-            {
-                if (Context.Users.Any(u => u.Username == request.Username))
-                {
-                    throw new EntityAlreadyExistsException("Username", request.Username);
-                };
-            }
-
-            if(request.Email != null)
-            {
-                if (Context.Users.Any(u => u.Email == request.Email))
-                {
-                    throw new EntityAlreadyExistsException("Email", request.Email);
-                };
-            }
-
             var user = Context.Users
                 .Where(u => u.Id == request.UserId && u.DeletedAt == null)
                 .FirstOrDefault();
 
             if (user == null) throw new EntityNotFoundException("User", request.UserId);
+
+            if (request.Username != null)
+            {
+                if (request.Username != user.Username)
+                {
+                    if (Context.Users.Any(u => u.Username == request.Username))
+                    {
+                        throw new EntityAlreadyExistsException("Username", request.Username);
+                    };
+                }
+            }
+
+            if (request.Email != null)
+            {
+                if (request.Email != request.Email)
+                {
+                    if (Context.Users.Any(u => u.Email == request.Email))
+                    {
+                        throw new EntityAlreadyExistsException("Email", request.Email);
+                    };
+                }
+            }
+
             Mapper.Automap(request, user);
             user.UpdatedAt = DateTime.Now;
             if (request.Password != null)

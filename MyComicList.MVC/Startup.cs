@@ -10,8 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyComicList.Application.Commands.Comics;
+using MyComicList.Application.Commands.Users;
+using MyComicList.Application.Helpers;
+using MyComicList.Application.Interfaces;
 using MyComicList.DataAccess;
 using MyComicList.EFCommands.MyListOfComics;
+using MyComicList.EFCommands.Users;
 
 namespace MyComicList.MVC
 {
@@ -34,14 +38,30 @@ namespace MyComicList.MVC
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<MyComicListContext>();
+
+            // My Email sender
+            var section = Configuration.GetSection("Email");
+
+            var sender =
+                new SmtpEmailSender(section["host"],
+                Int32.Parse(section["port"]), section["fromaddress"], section["password"]);
+            services.AddSingleton<IEmailSender>(sender);
+
+            // Comics
             services.AddTransient<IGetComics, EFGetComics>();
             services.AddTransient<IGetOneComic, EFGetOneComic>();
             services.AddTransient<IAddComic, EFAddComic>();
             services.AddTransient<IUpdateComic, EFUpdateComic>();
             services.AddTransient<IDeleteComic, EFDeleteComic>();
+
+            // Users
+            services.AddTransient<IGetUsers, EFGetUsers>();
+            services.AddTransient<IGetOneUser, EFGetOneUser>();
+            services.AddTransient<IAddUser, EFAddUser>();
+            services.AddTransient<IUpdateUser, EFUpdateUser>();
+            services.AddTransient<IDeleteUser, EFDeleteUser>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

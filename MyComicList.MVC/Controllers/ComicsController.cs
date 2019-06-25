@@ -60,8 +60,9 @@ namespace MyComicList.MVC.Controllers
                 var comic = getOneCommand.Execute(id);
                 return View(comic);
             }
-            catch (Exception)
+            catch (EntityAlreadyExistsException e)
             {
+                TempData["error"] = e.Message;
                 return View();
             }
         }
@@ -106,7 +107,7 @@ namespace MyComicList.MVC.Controllers
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
-                RedirectToAction("CreateForm");
+                RedirectToAction("Create");
 
             }
             catch (EntityNotFoundException e)
