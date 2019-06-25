@@ -10,7 +10,7 @@
 {
     <p class="text-danger">@TempData["error"]</p>
 }
-else
+else 
 {
     <hr />
     <div class="row">
@@ -42,8 +42,17 @@ else
                     <select name="Genres" multiple class="form-control">
                         @foreach (var g in ViewBag.Genres)
                         {
-
-                            <option value="@g.Id">@g.Name</option>
+                            @*@foreach (var v in ViewBag.GenreSelectedIds)
+                             {*@
+                                @if (ViewBag.GenreSelectedIds.Contains(g.Id))
+                                 {
+                                    <option selected value="@g.Id">@g.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@g.Id"> @g.Name </option>
+                                }
+                             @*}  *@
                         }
                     </select>
                 </div>
@@ -52,7 +61,15 @@ else
                     <select name="Authors" multiple class="form-control">
                         @foreach (var a in ViewBag.Authors)
                         {
-                            <option value="@a.Id">@a.FullName</option>
+                            @if (ViewBag.AuthorSelectedIds.Contains(a.Id))
+                            {
+                                <option selected value="@a.Id">@a.FullName</option>
+                            }
+                            else
+                            {
+                                <option value="@a.Id"> @a.FullName </option>
+
+                            }
                         }
                     </select>
                 </div>
@@ -61,7 +78,15 @@ else
                     <select name="Publisher" class="form-control">
                         @foreach (var p in ViewBag.Publishers)
                         {
-                            <option value="@p.Id">@p.Name</option>
+                            @if (ViewBag.PublisherSelectedId == p.Id)
+                             {
+                                <option selected value="@p.Id">@p.Name</option>
+                             }
+                            else
+                            {
+                                <option value="@p.Id"> @p.Name </option>
+
+                            }
                         }
                     </select>
                 </div>

@@ -60,7 +60,7 @@ namespace MyComicList.MVC.Controllers
                 var comic = getOneCommand.Execute(id);
                 return View(comic);
             }
-            catch (EntityAlreadyExistsException e)
+            catch (EntityNotFoundException e)
             {
                 TempData["error"] = e.Message;
                 return View();
@@ -81,26 +81,9 @@ namespace MyComicList.MVC.Controllers
         {
             LoadData();
 
-            if (!ModelState.IsValid)
-            {
-                TempData["error"] = "Please fill up all field in this form.";
-                RedirectToAction("Create");
-            }
-
             try
             {
-                string extenstion = Path.GetExtension(request.Image.FileName);
-                if (!allowedFileUploadTypes.Contains(extenstion))
-                {
-                    TempData["error"] = "Image extension is not right.";
-                    RedirectToAction("Create");
-                }
-
-                var fileName = Guid.NewGuid().ToString() + "_" + request.Image.FileName;
-                var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
-
-                request.Image.CopyTo(new FileStream(uploadPath, FileMode.Create));
-                request.ImagePath = $"https://{HttpContext.Request.Host}/uploads/{fileName}";
+                request.ImagePath = UploadImage(request.Image);
                 addCommand.Execute(request);
                 return RedirectToAction(nameof(Index));
             }
@@ -115,6 +98,11 @@ namespace MyComicList.MVC.Controllers
                 TempData["error"] = e.Message;
                 RedirectToAction("Create");
             }
+            catch (UnsupportedTypeException e)
+            {
+                TempData["error"] = e.Message;
+                return View();
+            }
             catch (Exception)
             {
                 TempData["error"] = "Please fill up all field in this form.";
@@ -128,15 +116,17 @@ namespace MyComicList.MVC.Controllers
         public ActionResult Edit(int id)
         {
             LoadData();
+            LoadById(id);
+
             try
             {
                 var comic = getOneCommand.Execute(id);
                 return View(comic);
             }
-            catch (Exception)
+            catch (EntityNotFoundException e)
             {
-
-                return RedirectToAction("index");
+                TempData["error"] = e.Message;
+                return View();
             }
         }
 
@@ -146,32 +136,13 @@ namespace MyComicList.MVC.Controllers
         public ActionResult Edit(int id, [FromForm] ComicUpdateDTO comic)
         {
             LoadData();
-
-            if (!ModelState.IsValid)
-            {
-                TempData["error"] = "Please fill up all field in this form.";
-                RedirectToAction("Edit");
-            }
-
-            if (comic.Image != null)
-            {
-                string extenstion = Path.GetExtension(comic.Image.FileName);
-                if (!allowedFileUploadTypes.Contains(extenstion))
-                {
-                    TempData["error"] = "Image extension is not right.";
-                    RedirectToAction("Edit");
-                }
-            }
+            LoadById(id);
 
             try
             {
                 if (comic.Image != null)
                 {
-                    var fileName = Guid.NewGuid().ToString() + "_" + comic.Image.FileName;
-                    var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
-
-                    comic.Image.CopyTo(new FileStream(uploadPath, FileMode.Create));
-                    comic.ImagePath = $"https://{HttpContext.Request.Host}/uploads/{fileName}";
+                    comic.ImagePath = UploadImage(comic.Image);
                 }
 
                 comic.ComicId = id;
@@ -181,16 +152,23 @@ namespace MyComicList.MVC.Controllers
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
-                RedirectToAction("Edit");
-
+                return View();
             }
             catch (EntityNotFoundException e)
             {
                 TempData["error"] = e.Message;
-                RedirectToAction("Edit");
+                return View();
             }
-
-            return View();
+            catch(UnsupportedTypeException e)
+            {
+                TempData["error"] = e.Message;
+                return View();
+            }
+            catch (Exception)
+            {
+                TempData["error"] = "Please fill up all field in this form.";
+                return View();
+            }
         }
 
         // GET: Comics/Delete/5
@@ -215,6 +193,21 @@ namespace MyComicList.MVC.Controllers
                 TempData["error"] = e.Message;
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        private string UploadImage(IFormFile file)
+        {
+            string extenstion = Path.GetExtension(file.FileName);
+            if (!allowedFileUploadTypes.Contains(extenstion))
+            {
+                throw new UnsupportedTypeException("Image extension");
+            }
+
+            var fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+            var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
+
+            file.CopyTo(new FileStream(uploadPath, FileMode.Create));
+            return $"https://{HttpContext.Request.Host}/uploads/{fileName}";
         }
 
         private void LoadData()
@@ -242,6 +235,28 @@ namespace MyComicList.MVC.Controllers
                     Id = a.Id,
                     FullName = a.FirstName + ' ' + a.LastName
                 });
+
+        }
+
+        private void LoadById(int id)
+        {
+            ViewBag.GenreSelectedIds = Context.Genres
+               .Where(g => g.DeletedAt == null)
+               .Where(g => g.ComicGenres.Any(cg => cg.ComicId == id))
+               .Select(g => g.Id)
+               .ToList();
+
+            ViewBag.AuthorSelectedIds = Context.Authors
+               .Where(a => a.DeletedAt == null)
+               .Where(a => a.ComicAuthors.Any(ca => ca.ComicId == id))
+               .Select(a => a.Id )
+               .ToList();
+
+            ViewBag.PublisherSelectedId = Context.Publishers
+               .Where(p => p.DeletedAt == null)
+               .Where(p => p.Comics.Any(pc => pc.Id == id))
+               .Select(p => p.Id )
+               .FirstOrDefault();
         }
 
     }

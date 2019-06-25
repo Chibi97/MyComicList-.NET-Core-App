@@ -97,6 +97,7 @@ namespace MyComicList.MVC.Controllers
         public ActionResult Edit(int id)
         {
             LoadData();
+            LoadById(id);
             try
             {
                 var user = getOneCommand.Execute(id);
@@ -115,6 +116,7 @@ namespace MyComicList.MVC.Controllers
         public ActionResult Edit(int id, UserUpdateDTO request)
         {
             LoadData();
+            LoadById(id);
             try
             {
                 request.UserId = id;
@@ -162,6 +164,15 @@ namespace MyComicList.MVC.Controllers
                     Id = r.Id,
                     Name = r.Name
                 });
+        }
+
+        private void LoadById(int id)
+        {
+            ViewBag.RoleSelectedId = Context.Roles
+                .Where(r => r.DeletedAt == null)
+                .Where(r => r.Users.Any(ru => ru.Id == id))
+                .Select(p => p.Id)
+                .FirstOrDefault();
         }
     }
 }
