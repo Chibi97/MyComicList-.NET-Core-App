@@ -44,7 +44,7 @@ namespace MyComicList.EFCommands.Users
             emailSender.Subject = "Successfully added!";
             emailSender.Body = "Administrator has added you, welcome!";
             emailSender.ToEmail = user.Email;
-            //emailSender.Send();
+            emailSender.Send();
         }
     }
 }
