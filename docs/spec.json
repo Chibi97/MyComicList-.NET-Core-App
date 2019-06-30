@@ -20,7 +20,7 @@
         "application/json"
     ],
     "paths": {
-        "/auth": {
+        "/auth/login": {
             "post": {
                 "description": "Authenticate with JWT. The token returned shall be used as Authorization header in all other routes.",
                 "summary": "Login",
@@ -60,6 +60,74 @@
                             }
                         },
                         "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "description": "Authenticate with JWT. The token returned shall be used as Authorization header in all other routes.",
+                "summary": "Register",
+                "tags": [
+                    "Auth"
+                ],
+                "operationId": "AuthPost",
+                "deprecated": false,
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/RegisterRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "type": "string",
+                        "description": "application/json"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "message": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwibmJmIjoxNTYwNzgzODQ0LCJleHAiOjE1NjEzODg2NDQsImlhdCI6MTU2MDc4Mzg0NH0.m8uDtBGSgogZ9I100DHYcvb0eReYbXfPmjcS5RNU6lQ"
+                            }
+                        },
+                        "headers": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "type": "https://tools.ietf.org/html/rfc7235#section-3.1",
+                                "title": "Unauthorized",
+                                "status": 401,
+                                "traceId": "80000015-0003-fe00-b63f-84710c7967bb"
+                            }
+                        }
                     }
                 }
             }
@@ -2485,16 +2553,56 @@
         "LoginRequest": {
             "title": "LoginRequest",
             "example": {
-                "Username": "oki"
+                "Username": "oki",
+                "Password" : "Sifra123!"
             },
             "type": "object",
             "properties": {
                 "Username": {
                     "type": "string"
+                },
+                "Password": {
+                    "type": "string"
                 }
             },
             "required": [
-                "Username"
+                "Username",
+                "Password"
+            ]
+        },
+        "RegisterRequest": {
+            "title": "RegisterRequest",
+            "example": {
+                "Username": "oki",
+                "Password": "Sifra123!",
+                "Email": "olja.ivkovic.34.16@ict.edu.rs",
+                "FirstName": "Olja",
+                "LastName": "Ivkovic"
+            },
+            "type": "object",
+            "properties": {
+                "Username": {
+                    "type": "string"
+                },
+                "Password": {
+                    "type": "string"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "FirstName": {
+                    "type": "string"
+                },
+                "LastName": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Username",
+                "Password",
+                "Email",
+                "FirstName",
+                "LastName"
             ]
         },
         "UpdateRequest1": {
