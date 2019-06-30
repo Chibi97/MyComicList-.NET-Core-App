@@ -21,11 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyComicList.API\MyComicList.API.csproj" />
     <ProjectReference Include="..\MyComicList.Application\MyComicList.Application.csproj" />
     <ProjectReference Include="..\MyComicList.DataAccess\MyComicList.DataAccess.csproj" />
     <ProjectReference Include="..\MyComicList.Domain\MyComicList.Domain.csproj" />
     <ProjectReference Include="..\MyComicList.EFCommands\MyComicList.EFCommands.csproj" />
+    <ProjectReference Include="..\MyComicList.Shared\MyComicList.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MyComicList.API.Services;
+using MyComicList.Shared.Services;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer.Roles;
 using MyComicList.Application.DataTransfer.Users;
