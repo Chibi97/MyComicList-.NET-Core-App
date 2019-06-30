@@ -31,7 +31,6 @@ namespace MyComicList.Application.DataTransfer.Users
         [MinLength(8, ErrorMessage = "Minimum number of characters is 8.")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
             ErrorMessage = "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one of these: @ $ ! % * ? & special characters.")]
-        [Skip]
         public string Password { get; set; }
 
         [Required, DataType(DataType.EmailAddress)]

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MyComicList.API.Services;
-using MyComicList.Application.DataTransfer;
+using MyComicList.Application.DataTransfer.Auth;
 using MyComicList.Application.Exceptions;
 using System;
 using System.Threading.Tasks;
@@ -17,6 +17,7 @@ namespace MyComicList.API.Middlewares
 
         public async Task Invoke(HttpContext httpContext, ILoginService loginService, ITokenService<int, UserLoginDTO> tokenService)
         {
+            httpContext.Response.Headers["Access-Control-Allow-Origin"] = "*";
             var token = httpContext.Request.Headers["Authorization"].ToString();
             if(!string.IsNullOrEmpty(token))
             {
@@ -29,6 +30,9 @@ namespace MyComicList.API.Middlewares
                 } catch(InvalidTokenException e)
                 {
                     await httpContext.Response.WriteAsync(e.Message);
+                } catch(UnauthorizedAccessException)
+                {
+                    await httpContext.Response.WriteAsync("Unauthorized for this action.");
                 }
             } else
             {

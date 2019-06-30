@@ -72,6 +72,7 @@ namespace MyComicList.MVC.Controllers
             LoadData();
             try
             {
+
                 addCommand.Execute(request);
                 return RedirectToAction(nameof(Index));
             }

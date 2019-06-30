@@ -25,11 +25,7 @@ namespace MyComicList.API.Services
         public void Login(int id)
         {
             var foundUser = context.Users.Include(u => u.Role).SingleOrDefault(u => u.Id == id && u.DeletedAt == null);
-
-            if(foundUser != null)
-            {
-                user = foundUser;
-            }
+            user = foundUser ?? throw new UnauthorizedAccessException();
             
         }
     }

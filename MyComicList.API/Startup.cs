@@ -15,10 +15,9 @@ using MyComicList.Application.Commands.MyList;
 using MyComicList.Application.Commands.Publishers;
 using MyComicList.Application.Commands.Roles;
 using MyComicList.Application.Commands.Users;
-using MyComicList.Application.DataTransfer;
+using MyComicList.Application.DataTransfer.Auth;
 using MyComicList.Application.Helpers;
 using MyComicList.Application.Interfaces;
-using MyComicList.DataAccess;
 using MyComicList.EFCommands.Authors;
 using MyComicList.EFCommands.Genres;
 using MyComicList.EFCommands.MyListOfComics;
@@ -26,6 +25,7 @@ using MyComicList.EFCommands.Publishers;
 using MyComicList.EFCommands.Roles;
 using MyComicList.EFCommands.Users;
 using Swashbuckle.AspNetCore.Swagger;
+using MyComicList.DataAccess;
 
 namespace MyComicList.API
 {
@@ -56,6 +56,7 @@ namespace MyComicList.API
 
             // My Auth services
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IPasswordService, BcryptNet>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
 
             // Comics
@@ -71,6 +72,7 @@ namespace MyComicList.API
             services.AddTransient<IAddUser, EFAddUser>();
             services.AddTransient<IUpdateUser, EFUpdateUser>();
             services.AddTransient<IDeleteUser, EFDeleteUser>();
+            services.AddTransient<IRegisterUser, EFRegisterUser>();
 
             // MyList
             services.AddTransient<IAddToMyList, EFAddToMyList>();

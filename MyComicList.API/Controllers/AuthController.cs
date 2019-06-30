@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyComicList.API.Services;
-using MyComicList.Application.DataTransfer;
+using MyComicList.Application.Commands.Users;
+using MyComicList.Application.DataTransfer.Auth;
+using MyComicList.Application.Exceptions;
 using MyComicList.Application.Responses;
 
 namespace MyComicList.API.Controllers
@@ -15,22 +17,60 @@ namespace MyComicList.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly ITokenService<int, UserLoginDTO> tokenService;
+        private readonly IPasswordService passwordService;
+        private readonly IRegisterUser registerCommand;
 
-        public AuthController(ITokenService<int, UserLoginDTO> tokenService)
+        public AuthController(ITokenService<int, UserLoginDTO> tokenService, IPasswordService passwordService, IRegisterUser registerCommand)
         {
             this.tokenService = tokenService;
+            this.passwordService = passwordService;
+            this.registerCommand = registerCommand;
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         public IActionResult Login(UserLoginDTO request)
         {
-            var token = tokenService.Encrypt(request);
-            if (token == null) return Unauthorized();
-
-            return Ok(new MessageResponse()
+            try
             {
-                Message = token
-            });
+                var token = tokenService.Encrypt(request);
+                if (token == null) return Unauthorized();
+                return Ok(new MessageResponse()
+                {
+                    Message = token
+                });
+            }
+            catch(UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
+        }
+
+        [HttpPost("register")]
+        public IActionResult Register(UserRegisterDTO request)
+        {
+            try
+            {
+                string passwordValue = request.Password;
+                request.Password = passwordService.HashPassword(passwordValue);
+                registerCommand.Execute(request);
+
+                request.Password = passwordValue;
+                var token = tokenService.Encrypt(request);
+
+                return Ok(new MessageResponse()
+                {
+                    Message = token
+                });
+
+            } catch(EntityAlreadyExistsException e)
+            {
+                return Conflict(new ErrorMessage { Message = e.Message });
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
+            
         }
 
     }

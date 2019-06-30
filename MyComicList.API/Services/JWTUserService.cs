@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using MyComicList.Application.DataTransfer;
 using MyComicList.DataAccess;
 using System;
 using System.Linq;
@@ -8,8 +7,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using MyComicList.Application.Exceptions;
-using System.Security.Cryptography;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using MyComicList.Application.DataTransfer.Auth;
 
 namespace MyComicList.API.Services
 {
@@ -17,11 +15,13 @@ namespace MyComicList.API.Services
     {
         private MyComicListContext context;
         private IConfiguration config;
+        private readonly IPasswordService passwordService;
 
-        public JWTUserService(MyComicListContext context, IConfiguration config)
+        public JWTUserService(MyComicListContext context, IConfiguration config, IPasswordService passwordService)
         {
             this.context = context;
             this.config = config;
+            this.passwordService = passwordService;
         }
         
         // returns user id retrieved from a decrypted token
@@ -31,7 +31,7 @@ namespace MyComicList.API.Services
             try
             {
                 handler.ValidateToken(token, Policy(), out SecurityToken validToken);
-                var jwt = handler.ReadJwtToken(token) as JwtSecurityToken;
+                var jwt = handler.ReadToken(token) as JwtSecurityToken;
                 var id = jwt.Claims.First(c => c.Type == "userId").Value;
                 return int.Parse(id);
 
@@ -45,7 +45,12 @@ namespace MyComicList.API.Services
         public string Encrypt(UserLoginDTO request)
         {
             var user = context.Users.Where(u => u.Username == request.Username.Trim() && u.DeletedAt == null).SingleOrDefault();
-            if (user == null) return null;
+            if (user == null) throw new UnauthorizedAccessException();
+
+            if (!passwordService.Verify(request.Password, user.Password))
+            {
+               throw new UnauthorizedAccessException();
+            }
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(config.GetSection("Encryption")["key"]);

@@ -1,24 +1,25 @@
-﻿using MyComicList.Application.Commands.Users;
-using MyComicList.Application.DataTransfer.Users;
+﻿using System;
+using System.Linq;
+using MyComicList.Application.Commands.Users;
+using MyComicList.Application.DataTransfer.Auth;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Helpers;
 using MyComicList.Application.Interfaces;
 using MyComicList.DataAccess;
 using MyComicList.Domain;
-using System;
-using System.Linq;
 
 namespace MyComicList.EFCommands.Users
 {
-    public class EFAddUser : EFBaseCommand, IAddUser
+    public class EFRegisterUser : EFBaseCommand, IRegisterUser
     {
         private readonly IEmailSender emailSender;
 
-        public EFAddUser(MyComicListContext context, IEmailSender emailSender) : base(context) {
+        public EFRegisterUser(MyComicListContext context, IEmailSender emailSender) : base(context)
+        {
             this.emailSender = emailSender;
         }
 
-        public void Execute(UserAddDTO request)
+        public void Execute(UserRegisterDTO request)
         {
             if (Context.Users.Any(u => u.Username == request.Username))
             {
@@ -30,12 +31,9 @@ namespace MyComicList.EFCommands.Users
                 throw new EntityAlreadyExistsException("Email", request.Email);
             };
 
-            var role = Context.Roles.FirstOrDefault(r => r.Id == request.Role && r.DeletedAt == null);
-            if (role == null) throw new EntityNotFoundException("Role", request.Role);
-
             User user = new User
             {
-                Role = role
+                Role = Context.Roles.Where(r => r.Name == "User").SingleOrDefault()
             };
 
             Mapper.Automap(request, user);
@@ -43,11 +41,10 @@ namespace MyComicList.EFCommands.Users
             Context.Users.Add(user);
             Context.SaveChanges();
 
-            emailSender.Subject = "Successfull registration!";
-            emailSender.Body = "You have been sucessfully registered, welcome!";
+            emailSender.Subject = "Successfully added!";
+            emailSender.Body = "Administrator has added you, welcome!";
             emailSender.ToEmail = user.Email;
             //emailSender.Send();
         }
-
     }
 }

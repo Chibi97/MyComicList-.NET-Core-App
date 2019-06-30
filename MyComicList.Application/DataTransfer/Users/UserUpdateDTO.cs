@@ -25,7 +25,6 @@ namespace MyComicList.Application.DataTransfer.Users
             ErrorMessage = "Username must contain lowe or upper case letters and digits. Only _ and - allowed, but not one after another, or at the start and at the end.")]
         public string Username { get; set; }
 
-        [Skip]
         [DataType(DataType.Password)]
         [MaxLength(50, ErrorMessage = "The password must be max 50 characters long.")]
         [MinLength(8, ErrorMessage = "Minimum number of characters is 8.")]

@@ -42,14 +42,9 @@ namespace MyComicList.EFCommands.Users
                     };
                 }
             }
-
+            
             Mapper.Automap(request, user);
             user.UpdatedAt = DateTime.Now;
-            if (request.Password != null)
-            {
-                string hashedPassword = MakeHashPassword(request.Password);
-                user.Password = hashedPassword;
-            }
 
             if(request.Role != null)
             {

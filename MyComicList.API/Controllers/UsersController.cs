@@ -19,16 +19,18 @@ namespace MyComicList.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ILoginService loginService;
+        private readonly IPasswordService passwordService;
         private readonly IGetUsers getCommand;
         private readonly IGetOneUser getOneCommand;
         private readonly IAddUser addCommand;
         private readonly IUpdateUser updateCommand;
         private readonly IDeleteUser deleteCommand;
 
-        public UsersController(ILoginService loginService, IGetUsers getCommand, IGetOneUser getOneCommand, IAddUser addCommand,
+        public UsersController(ILoginService loginService, IPasswordService passwordService, IGetUsers getCommand, IGetOneUser getOneCommand, IAddUser addCommand,
             IUpdateUser updateCommand, IDeleteUser deleteCommand)
         {
             this.loginService = loginService;
+            this.passwordService = passwordService;
             this.getCommand = getCommand;
             this.getOneCommand = getOneCommand;
             this.addCommand = addCommand;
@@ -67,6 +69,9 @@ namespace MyComicList.API.Controllers
         {
             try
             {
+                string passwordValue = user.Password;
+                user.Password = passwordService.HashPassword(passwordValue);
+                
                 addCommand.Execute(user);
                 return StatusCode(201);
 
@@ -96,6 +101,13 @@ namespace MyComicList.API.Controllers
                         return BadRequest(new ErrorMessage { Message = "You cannot change your own role!" });
                     }
                 }
+
+                if(user.Password != null)
+                {
+                    string passwordValue = user.Password;
+                    user.Password = passwordService.HashPassword(passwordValue);
+                }
+
                 user.UserId = id;
                 updateCommand.Execute(user);
                 return NoContent();
