@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyComicList.API.Services;
 using MyComicList.Application.Commands.Comics;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.Helpers;
@@ -48,6 +49,7 @@ namespace MyComicList.MVC
                 new SmtpEmailSender(section["host"],
                 Int32.Parse(section["port"]), section["fromaddress"], section["password"]);
             services.AddSingleton<IEmailSender>(sender);
+            services.AddScoped<IPasswordService, BcryptNet>();
 
             // Comics
             services.AddTransient<IGetComics, EFGetComics>();

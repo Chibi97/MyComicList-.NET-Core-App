@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="3.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="3.1.3" />
+    <ProjectReference Include="..\MyComicList.Application\MyComicList.Application.csproj" />
+    <ProjectReference Include="..\MyComicList.DataAccess\MyComicList.DataAccess.csproj" />
+    <ProjectReference Include="..\MyComicList.Domain\MyComicList.Domain.csproj" />
+    <ProjectReference Include="..\MyComicList.EFCommands\MyComicList.EFCommands.csproj" />
+  </ItemGroup>
+
+</Project>

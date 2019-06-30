@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyComicList.API.Services;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer.Roles;
 using MyComicList.Application.DataTransfer.Users;
@@ -21,12 +22,13 @@ namespace MyComicList.MVC.Controllers
         private readonly IAddUser addCommand;
         private readonly IUpdateUser updateCommand;
         private readonly IDeleteUser deleteCommand;
+        private readonly IPasswordService passwordService;
         private readonly IEmailSender emailSender;
 
         public MyComicListContext Context { get; }
 
         public UsersController(MyComicListContext context, IGetUsers getCommand, IGetOneUser getOneCommand, IAddUser addCommand,
-            IUpdateUser updateCommand, IDeleteUser deleteCommand)
+            IUpdateUser updateCommand, IDeleteUser deleteCommand, IPasswordService passwordService)
         {
             Context = context;
             this.getCommand = getCommand;
@@ -34,6 +36,7 @@ namespace MyComicList.MVC.Controllers
             this.addCommand = addCommand;
             this.updateCommand = updateCommand;
             this.deleteCommand = deleteCommand;
+            this.passwordService = passwordService;
         }
 
         // GET: Users
@@ -72,7 +75,8 @@ namespace MyComicList.MVC.Controllers
             LoadData();
             try
             {
-
+                string passwordValue = request.Password;
+                request.Password = passwordService.HashPassword(passwordValue);
                 addCommand.Execute(request);
                 return RedirectToAction(nameof(Index));
             }
@@ -120,6 +124,11 @@ namespace MyComicList.MVC.Controllers
             LoadById(id);
             try
             {
+                if(request.Password != null)
+                {
+                    string passwordValue = request.Password;
+                    request.Password = passwordService.HashPassword(passwordValue);
+                }
                 request.UserId = id;
                 updateCommand.Execute(request);
                 return RedirectToAction(nameof(Index));
