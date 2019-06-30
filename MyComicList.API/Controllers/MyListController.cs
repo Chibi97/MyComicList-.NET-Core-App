@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyComicList.API.Filters;
-using MyComicList.API.Services;
+using MyComicList.Shared.Services;
 using MyComicList.Application.Commands.MyList;
 using MyComicList.Application.DataTransfer.MyList;
 using MyComicList.Application.Exceptions;
