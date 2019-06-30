@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using MyComicList.API.Services;
+using MyComicList.Shared.Services;
 using MyComicList.Application.DataTransfer.Auth;
 using MyComicList.Application.Exceptions;
 using System;

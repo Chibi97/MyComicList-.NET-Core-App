@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MyComicList.API.Services;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer.Auth;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Responses;
+using MyComicList.Shared.Services;
 
 namespace MyComicList.API.Controllers
 {

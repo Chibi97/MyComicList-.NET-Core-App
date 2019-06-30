@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace MyComicList.Shared.Services
-{ 
+{
     public class BcryptNet : IPasswordService
     {
         public string HashPassword(string passwordValue)

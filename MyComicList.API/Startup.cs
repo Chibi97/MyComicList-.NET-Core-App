@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyComicList.API.Middlewares;
-using MyComicList.API.Services;
+using MyComicList.Shared.Services;
 using MyComicList.Application.Commands.Authors;
 using MyComicList.Application.Commands.Comics;
 using MyComicList.Application.Commands.Genres;

@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyComicList.API.Filters;
-using MyComicList.API.Services;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer.Users;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Requests;
 using MyComicList.Application.Responses;
+using MyComicList.Shared.Services;
 
 namespace MyComicList.API.Controllers
 {
