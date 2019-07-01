@@ -406,4 +406,4 @@ ASALocalRun/
 
 # Ignore the secret file
 MyComicList.API/secrets.json
-
+MyComicList.MVC/secrets.json
