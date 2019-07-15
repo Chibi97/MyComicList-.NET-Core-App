@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MyComicList.Shared.Services;
 using MyComicList.Application.DataTransfer.Auth;
-using MyComicList.Application.Exceptions;
 using System;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace MyComicList.API.Middlewares
 {
@@ -27,12 +27,13 @@ namespace MyComicList.API.Middlewares
                     loginService.Login(id);
                     await next(httpContext);
 
-                } catch(InvalidTokenException e)
-                {
-                    await httpContext.Response.WriteAsync(e.Message);
                 } catch(UnauthorizedAccessException)
                 {
-                    await httpContext.Response.WriteAsync("Unauthorized for this action.");
+                    httpContext.Response.StatusCode = 401;
+                    await httpContext.Response.WriteAsync(
+                        JsonConvert.SerializeObject(
+                            new { Message = "The token you provided is invalid." }
+                        ));
                 }
             } else
             {

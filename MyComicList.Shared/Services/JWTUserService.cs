@@ -6,7 +6,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
-using MyComicList.Application.Exceptions;
 using MyComicList.Application.DataTransfer.Auth;
 
 namespace MyComicList.Shared.Services
@@ -37,7 +36,7 @@ namespace MyComicList.Shared.Services
 
             } catch(Exception)
             {
-                throw new InvalidTokenException();
+                throw new UnauthorizedAccessException();
             }
         }
 

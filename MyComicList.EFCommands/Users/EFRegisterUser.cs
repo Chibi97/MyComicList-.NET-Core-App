@@ -5,6 +5,7 @@ using MyComicList.Application.DataTransfer.Auth;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Helpers;
 using MyComicList.Application.Interfaces;
+using MyComicList.Application.Responses;
 using MyComicList.DataAccess;
 using MyComicList.Domain;
 
@@ -19,7 +20,7 @@ namespace MyComicList.EFCommands.Users
             this.emailSender = emailSender;
         }
 
-        public void Execute(UserRegisterDTO request)
+        public AuthorizedUserResponse Execute(UserRegisterDTO request)
         {
             if (Context.Users.Any(u => u.Username == request.Username))
             {
@@ -44,7 +45,9 @@ namespace MyComicList.EFCommands.Users
             emailSender.Subject = "Successfully added!";
             emailSender.Body = "Administrator has added you, welcome!";
             emailSender.ToEmail = user.Email;
-            emailSender.Send();
+            // emailSender.Send();
+
+            return new AuthorizedUserResponse { Role = user.Role.Name };
         }
     }
 }

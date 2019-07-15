@@ -40,13 +40,9 @@ namespace MyComicList.API.Controllers
         
         [HttpGet] // GET: api/Comics
         [LoggedIn]
-        public IActionResult Get([FromBody]ComicRequest body, [FromQuery]PagedRequest queryParams)
+        public IActionResult Get([FromQuery] ComicRequest queryParams)
         {
-            var request = body;
-            request.PerPage = queryParams.PerPage;
-            request.Page = queryParams.Page;
-
-            var result = getCommand.Execute(request);
+            var result = getCommand.Execute(queryParams);
             return Ok(result);
         }
 

@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyComicList.Application.Commands.Users;
 using MyComicList.Application.DataTransfer.Auth;
 using MyComicList.Application.Exceptions;
 using MyComicList.Application.Responses;
+using MyComicList.DataAccess;
 using MyComicList.Shared.Services;
 
 namespace MyComicList.API.Controllers
@@ -20,12 +19,15 @@ namespace MyComicList.API.Controllers
         private readonly IPasswordService passwordService;
         private readonly IRegisterUser registerCommand;
 
-        public AuthController(ITokenService<int, UserLoginDTO> tokenService, IPasswordService passwordService, IRegisterUser registerCommand)
+        public AuthController(ITokenService<int, UserLoginDTO> tokenService, IPasswordService passwordService, IRegisterUser registerCommand, MyComicListContext context)
         {
             this.tokenService = tokenService;
             this.passwordService = passwordService;
             this.registerCommand = registerCommand;
+            Context = context;
         }
+
+        public MyComicListContext Context { get; }
 
         [HttpPost("login")]
         public IActionResult Login(UserLoginDTO request)
@@ -34,14 +36,16 @@ namespace MyComicList.API.Controllers
             {
                 var token = tokenService.Encrypt(request);
                 if (token == null) return Unauthorized();
-                return Ok(new MessageResponse()
+
+                return Ok(new AuthorizedUserResponse()
                 {
-                    Message = token
+                    Message = token,
+                    Role = Context.Users.Include(u => u.Role).Where(u => u.Username.Equals(request.Username)).FirstOrDefault().Role.Name
                 });
             }
-            catch(UnauthorizedAccessException)
+            catch(UnauthorizedAccessException e)
             {
-                return Unauthorized();
+                return Unauthorized(new ErrorMessage { Message = "Wrong credentials" });
             }
         }
 
@@ -52,15 +56,13 @@ namespace MyComicList.API.Controllers
             {
                 string passwordValue = request.Password;
                 request.Password = passwordService.HashPassword(passwordValue);
-                registerCommand.Execute(request);
+                var response = registerCommand.Execute(request);
 
                 request.Password = passwordValue;
                 var token = tokenService.Encrypt(request);
+                response.Message = token;
 
-                return Ok(new MessageResponse()
-                {
-                    Message = token
-                });
+                return Ok(response);
 
             } catch(EntityAlreadyExistsException e)
             {
