@@ -22,7 +22,7 @@ namespace MyComicList.EFCommands.Roles
 
             if (role == null) throw new EntityNotFoundException("Role", request.Id);
 
-            if(role.Name != null)
+            if(request.Name != null)
             {
                 if (role.Name != request.Name)
                 {

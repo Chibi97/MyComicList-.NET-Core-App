@@ -22,11 +22,26 @@ namespace MyComicList.EFCommands.Authors
 
             if (author == null) throw new EntityNotFoundException("Author", request.Id);
 
-            author.FirstName = request.FirstName;
-            author.LastName = request.LastName;
-            author.UpdatedAt = DateTime.Now;
+            if(request.FirstName != null)
+            {
+                if(author.FirstName != request.FirstName)
+                {
+                    author.FirstName = request.FirstName;
+                    author.UpdatedAt = DateTime.Now;
+                }
+            }
+
+            if (request.LastName != null)
+            {
+                if (author.LastName != request.LastName)
+                {
+                    author.LastName = request.LastName;
+                    author.UpdatedAt = DateTime.Now;
+                }
+            }
 
             Context.SaveChanges();
+
         }
     }
 }

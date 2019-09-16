@@ -22,7 +22,7 @@ namespace MyComicList.EFCommands.Publishers
             var publisher = Context.Publishers.Where(p => p.Id == request.Id && p.DeletedAt == null).FirstOrDefault();
             if (publisher == null) throw new EntityNotFoundException("Publisher", request.Id);
 
-            if(publisher.Name != null)
+            if(request.Name != null)
             {
                 if (publisher.Name != request.Name)
                 {

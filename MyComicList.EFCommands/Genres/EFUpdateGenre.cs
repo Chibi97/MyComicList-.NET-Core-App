@@ -24,7 +24,7 @@ namespace MyComicList.EFCommands.Genres
 
             if (genre == null) throw new EntityNotFoundException("Genre", request.Id);
 
-            if(genre.Name != null)
+            if(request.Name != null)
             {
                 if (genre.Name != request.Name)
                 {
