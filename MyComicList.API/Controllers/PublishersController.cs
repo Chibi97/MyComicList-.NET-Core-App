@@ -37,7 +37,7 @@ namespace MyComicList.API.Controllers
 
         // GET: api/Publishers
         [HttpGet]
-        [LoggedIn]
+        //[LoggedIn]
         public IActionResult Get([FromQuery]PublisherRequest request)
         {
             var result = getCommand.Execute(request);
@@ -46,7 +46,7 @@ namespace MyComicList.API.Controllers
 
         // GET: api/Publishers/5
         [HttpGet("{id}")]
-        [LoggedIn]
+        //[LoggedIn]
         public IActionResult Get(int id)
         {
             var publisher = Context.Publishers

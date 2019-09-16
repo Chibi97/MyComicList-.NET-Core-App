@@ -43,7 +43,7 @@ namespace MyComicList.API.Controllers
                     Role = Context.Users.Include(u => u.Role).Where(u => u.Username.Equals(request.Username)).FirstOrDefault().Role.Name
                 });
             }
-            catch(UnauthorizedAccessException e)
+            catch(UnauthorizedAccessException)
             {
                 return Unauthorized(new ErrorMessage { Message = "Wrong credentials" });
             }

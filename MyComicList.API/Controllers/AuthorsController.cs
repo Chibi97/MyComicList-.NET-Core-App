@@ -31,7 +31,7 @@ namespace MyComicList.API.Controllers
 
         // GET: api/Authors
         [HttpGet]
-        [LoggedIn]
+        //[LoggedIn]
         public IActionResult Get()
         {
             var authors = Context.Authors
@@ -47,7 +47,7 @@ namespace MyComicList.API.Controllers
 
         // GET: api/Authors/5
         [HttpGet("{id}")]
-        [LoggedIn]
+        //[LoggedIn]
         public IActionResult Get(int id)
         {
             var author = Context.Authors

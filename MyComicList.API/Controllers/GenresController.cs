@@ -34,7 +34,7 @@ namespace MyComicList.API.Controllers
 
         // GET: api/Genres
         [HttpGet]
-        [LoggedIn]
+        //[LoggedIn]
         public IActionResult Get()
         {
             var genres = Context.Genres
@@ -51,7 +51,7 @@ namespace MyComicList.API.Controllers
 
         // GET: api/Genres/5
         [HttpGet("{id}")]
-        [LoggedIn]
+        //[LoggedIn]
         public IActionResult Get(int id)
         {
             var genre = Context.Genres

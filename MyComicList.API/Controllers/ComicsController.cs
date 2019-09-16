@@ -39,7 +39,7 @@ namespace MyComicList.API.Controllers
         }
         
         [HttpGet] // GET: api/Comics
-        [LoggedIn]
+        //[LoggedIn]
         public IActionResult Get([FromQuery] ComicRequest queryParams)
         {
             var result = getCommand.Execute(queryParams);
@@ -48,7 +48,7 @@ namespace MyComicList.API.Controllers
 
    
         [HttpGet("{id}")] // GET: api/Comics/5
-        [LoggedIn]
+        //[LoggedIn]
         public IActionResult Get(int id)
         {
             try
