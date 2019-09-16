@@ -49,7 +49,7 @@ namespace MyComicList.API.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        [LoggedIn]
+        //[LoggedIn]
         public IActionResult Get(int id)
         {
             try

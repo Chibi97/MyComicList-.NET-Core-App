@@ -130,6 +130,7 @@ namespace MyComicList.API.Controllers
             }
         }
 
+        [HttpDelete("{id}")]
         [LoggedIn("Admin")]
         public IActionResult Delete(int id)
         {
